@@ -1,0 +1,120 @@
+\chapter{Language}
+
+\emph{``In JavaScript, there is a beautiful, elegant, highly expressive language that is buried under a steaming pile of good intentions and blunders''}
+
+\hfill --- Douglas Crockford \cite{Crockford:2008}
+
+Propective JavaScript implementers are in for a few suprises. Having essentially been born directly in the marketplace, JavaScript did not go through early design reviews to eliminate awkward features to improve its usability.  The subsequent need for backward compatibility restricted the evolution of the langage. This chapter presents the history and influences of the langage and goes on to provide an overview of the the current standard, ECMAScript 5 \cite{ECMA:2009}. 
+
+\section{History}
+
+% Origin at netscape
+JavaScript was created in 1995 at Netscape by Brendan Eich as a way to control Java applets in their browser. It was originally intended for the nascent community of web designers and developers with limited knowledge of compiler usage and object-oriented design. It outgrew its original usage scenario by being used more and more to directly manipulate the web page elements to bring interactivity to static web pages.
+
+% External adoption
+Following its early success, Microsoft reversed-engineered the Netscape implementation and came up with its own implementation, \textit{JScript} in 1996. Incompatibility between the different implementations motivated Netscape to submit the language for standardization to the European Computer Manufacturers Association (ECMA) under the ECMAScript banner.~\cite{Champeon:2001}
+
+% Maturation
+As the web became more popular, JavaScript became the \textit{de facto} standard for writing dynamic web applications. However until the last four years, the performance of browser implementations was orders of magnitude slower than that of other mainstream languages. That changed with the introduction of TraceMonkey from Mozilla and V8 from Google. The shrinkage of the performance gap with mainstream languages now establishes JavaScript as a serious contender for implementing end-user applications.
+
+\section{Design Influences}
+
+JavaScript is a hybrid language incomporating features from functional, imperative and object-oriented language paradigms. It could be said that the core of JavaScript is a Scheme with a C coating on top of a Self object model. Those three paradigms are given a concise overview, a representative langage is presented and related JavaScript features are compared to their inspiration.
+
+\subsection{Imperative}
+
+% Rapid overview
+Imperative programming structure programs as a sequence of statements modifying a state. Control flow can either be manipulated explicitly, using a goto statement, or be limited to predefined constructions, such as 'if' and 'for' statements, in which case the programming style can be said to be structured~\cite{Dijkstra:1968}. Exception handling mecanisms can be seen as structured non-local returns.
+
+% Syntax adopted by JavaScript
+The JavaScript syntax borrows heavily from the C syntax for structured programming, providing 'if', 'for', 'switch/case', 'while', 'do while'. The syntax for arithmetic, relational, logical and bitwise operators is also borrowed from C, although in both cases the semantic is not quite the same, as will be explained in section \ref{sec:implconv}. An exception handling mecanism is also provided with a syntax similar to Java.
+
+\subsection{Functional}
+
+% Rapid overview
+Pure functional programming eschews mutable state for function application to provide referential transparency, namely the property that any expression can be replaced by its value without changing the behavior of the program. In general, they provide functions as first-class values that can be stored in variables, passed as arguments and called. When functions can capture variables defined in their lexical environment, they are called lexical closures.
+
+% Functional features adopted by JavaScript
+JavaScript has first-class functions, lexical scoping at the function level and lexical closures. The combination of those with mutable state reminisces Scheme. However, unlike Scheme, the current standard does not mandate support for continuations, macros, lexical scoping independant of a function or tail-call optimization.
+
+\subsection{Object-Oriented}
+
+% Rapid overview
+Object-Oriented programming bundles state and behavior inside a single 'object' entity and decouples the invocation of the behavior of an object from the behavior itself by introducing a 'message' entity. It allows polymorphism, namely having a same message invoke different behaviors on different objects, encapsulation, namely the ability to hide the state of an object and inheritance, namely the ability to define the behavior of an object as an incremental modification of the behavior of another object. 
+
+% Object-oriented features adopted by JavaScript
+JavaScript uses prototypical inheritance~\cite{Lieberman:1986} as popularized by Self. Unlike Self, the standard does not allow runtime modification of the delegation chain, although some implementation support it.
+
+\section{Semantic Overview}
+
+The following overview aims to introduce to the core ideas of the JavaScript semantic without necessarily being comprehensive. For a more exhaustive survey, see~\cite{Flanagan:2006} and~\cite{ECMA:2009}. For a more formal treatment and simplification, see~\cite{Guha2010}.  
+
+\subsection{Basic Types}
+
+JavaScript is an "almost" pure object-oriented language in that most basic types support object operations when invoked from a variable. An object version of a basic data type can be created by an explicit call to the corresponding constructor with the \kw{new} keyword.  The exceptions to this are the \kw{null} and \kw{undefined} values which have no constructor. 
+
+Implicit conversions are performed on operands for all operators such that an exception is never raised as the result of the operation. This can give suprising results (see~\ref{sec:implconv}).
+
+All numeric data types are unified under a single number type. Its behavior is defined by the IEEE 754 standard~\cite{IEEE754} for binary floating point arithmetic. \kw{NaN}, \kw{+Inf}, \kw{-Inf} are all valid number values and can be used as litterals.
+
+Native support for strings is provided. The internal representation is mandated to conform to UTF-16~\cite{rfc2781}.
+
+\kw{null}, \kw{undefined} and the \kw{true} and \kw{false} booleans complete the non-object primitive types supported by JavaScript.
+
+Functions, regular expressions and date value all behave as objects.
+
+\subsection{Control Flow}
+
+Control Flow statements (\kw{if}, \kw{for}, \kw{while}, \kw{do while}, \kw{switch case}) behave like their C counterpart except that the condition part of the statement performs an implicit conversion of the expression to a boolean type for evaluation.
+
+Exception handling in a \kw{catch} clause introduces a lexical binding only visible in its corresponding block.
+
+\subsection{Object Model}
+
+Although the object protocol is ad hoc, it is quite powerful. Runtime modification of object layouts is permitted. Messages sent to objects are reified as strings, allowing runtime synthesis of messages. Introspection support is provided, allowing programmatic inspection of an object properties. Intercession support is provided to by allowing methods to be redefined at runtime.
+
+The object model only support single inheritance.
+
+\subsubsection{Operations}
+
+get
+
+put
+
+delete
+
+new
+
+
+\subsubsection{Reflexion}
+
+for in 
+
+hasOwnProperty
+
+typeof
+
+instanceof
+
+isPrototypeOf
+
+
+\subsection{Functions}
+
+Any function can be used as a method.
+
+
+\subsubsection{Closure}
+
+\section{Tricky parts}
+
+\subsection{Implicit conversion}
+\label{sec:implconv}
+
+\subsection{Variadic functions}
+
+\subsection{Arguments object}
+
+\subsection{Eval}
+
+\subsection{With}

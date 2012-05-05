@@ -1,0 +1,55 @@
+\documentclass[letterpaper,9pt]{report}
+\usepackage{thesis}
+
+\begin{document}
+
+\pagenumbering{roman}
+
+% Fill in the title, author, degree name, department, and month/year.
+% Upon completion, this should look like the following:
+%\thesistitle
+%	{Complicated and Important-Sounding Thesis Title}
+%	{John P. Doe}
+%	{Master of Science}
+%	{Department of Computer Science}
+%	{May 2009}
+% The \thesistitle definition is in thesis.sty.  Other customizations
+% can be made there.
+\thesistitle
+	{An Open, Extensible and Dynamic Virtual Machine}
+	{Erick Lavoie}
+	{Master of Science}
+	{D\'epartement d'Informatique et de Recherche Op\'erationelle}
+	{July 2012}
+
+\include{text/abstract}
+\include{text/ack}
+\include{text/contents}
+\include{text/tables}
+\include{text/figures}
+
+\pagenumbering{arabic}
+%\include{text/preface}
+\include{text/intro}
+\include{text/vm}
+\include{text/lang}
+\include{text/design}
+\include{text/exec}
+\include{text/comp}
+\include{text/runtime}
+\include{text/boot}
+\include{text/opt}
+\include{text/evol}
+%\include{text/impl}
+\include{text/complexity}
+\include{text/perf}
+\include{text/concl}
+
+\include{text/bib}
+
+% If you have no appendices, remove the following two lines.
+% If you have more appdences, add them as necessary.
+% \appendix
+% \include{apdxa}
+
+\end{document}

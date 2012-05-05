@@ -1,0 +1,135 @@
+\chapter{What is a Virtual Machine anyway?}
+\emph{Hardware is really just software crystallized early. It is there to make
+program schemes run as efficiently as possible. But far too often the hardware
+has been presented as a given and it is up to software designers to make it
+appear reasonable. This has caused low-level techniques and excessive
+optimization to hold back progress in program design. As Bob Barton used to
+say: "Systems programmers are high priests of a low cult."}
+
+-- Alan Kay, The Early History Of SmallTalk \cite{Kay:1993}
+
+% What is a virtual machine?
+\section{Simulating computers}
+
+% history
+The ability of a computer to simulate the execution of any other computer has
+originally been proposed by Alan Turing, when he introduced the Turing machine
+to explore the limits of computability~\cite{Turing1936}.~\footnote{To be more
+precise, this holds for a classical computer simulating another classical
+computer, as explained by Feynman~\cite{Feynman1982}, based on Bell's
+theorem~\cite{Bell1964a}. Whether it is true for a quantum computer simulating
+any another quantum computer is still an open question as far as I understand
+it.} This is an extremely powerful idea. It means that various
+\textit{paradigms} for programming computers can be explored without having to
+build a physical computer to experiment with them. 
+
+% definition
+A \textit{virtual machine} is therefore a program that simulates the behavior of a
+machine, that may or may not have a physical implementation. It may be
+identical to the physical machine on which it is executing, as is the case with
+current commercial solutions used to run different operating systems as user
+processes, or it might be completely different, as is the case when executing a
+high-level language such as JavaScript. In this latter case, the simulated
+machine might exhibit characteristics that do not have physical equivalents.
+For example, the illusion of infinite allocatable memory can be provided by a
+virtual machine, by implementing a garbage collector algorithm.~\footnote{Note,
+that the available working memory is still finite and limited by the underlying
+physical memory available.} 
+
+% relationship to an operating system
+Conceptually, there is no significant difference between a virtual machine and
+an operating system.~\footnote{\textit{An operating system is a collection of
+things that don't fit into a language. There shouldn't be one.} -- Dan
+Ingalls~\cite{Ingalls1981}} They both act as a middle layer between the
+underlying machine and applications. They both provide abstractions and
+services common to all applications. In fact, virtual machines for high-level
+languages have been made to run directly on hardware. In practice, the
+management of hardware peripherals, memory, processing units and network
+interfaces has been associated with operating systems and the support for
+higher-level features of programming languages has been associated with
+dedicated virtual machines. This historical distinction has allowed a plethora
+of languages to be available for application programmers by allowing language
+implementers to focus on supporting the semantic of programming languages
+instead of managing the physical machine resources.
+
+% role in designing a computer system
+When taken in the larger context of designing a computer system encompassing
+both application-level programs and hardware implementation, a virtual machine
+has the benefit of making every program executing on it inherit its particular
+properties regardless of the actual properties provided by the underlying
+physical machine. For example, it can make applications fast without having to
+specify low-level optimizations at the application layer. The needs of the
+application-level programs in a computer system ultimately determine what
+properties should be present in a virtual machine.
+
+
+
+% comparison to a physical machine  
+The major drawback of simulating a computer is the important efficiency
+difference between a physical and a virtual implementation, the latter possibly
+being orders of magnitude slower then the former. An important part of virtual
+machine implementation research concerns the discovery and invention of
+techniques to minimize this efficiency gap. Those results have allowed various
+languages to run efficiently on general purpose processors, usually optimized
+to run C code. Self is a prime candidate to illustrate how implementation
+techniques have reduced the gap to a factor of 3 to C code~\cite{hoezle_self_oo}.
+
+For the remaining of this thesis, we will 
+discuss virtual machines constructed for programming language support and
+ignore the virtualization of operating systems.
+
+
+% How do they work?
+\section{Common Architectural Patterns}
+
+\subsection{Interpreter}
+
+\subsection{Byte-code VM + Compiler}
+
+\subsection{Interpreter + Tracing JIT Compiler}
+
+\subsection{2 Compilers}
+
+\subsection{Extensible assembler}
+
+
+% How are they built?
+\section{Development methodologies}
+
+
+% Architecture choice for Photon
+
+\section{Components overview}
+
+\subsection{Compiler}
+
+\subsection{Runtime}
+
+\subsubsection{Garbage Collector}
+
+\subsubsection{Object representation}
+
+\section{Meta-circularity}
+
+\section{Self-Hosting}
+
+% What are representative examples? 
+%\section{Historical examples}
+%\subsection{Smalltalk: Bluebook}
+%\subsection{Squeak}
+%\subsection{PyPy}
+%\subsection{HotSpot}
+
+
+%\section{Desired properties}
+%\begin{itemize}
+%    \item \textit{predictability}
+%    \item \textit{network transparency}
+%    \item \textit{stability}
+%    \item \textit{performance}
+%    \item \textit{security}
+%    \item \textit{openness}
+%    \item \textit{extensibility}
+%    \item \textit{dynamism}
+%\end{itemize}
+
