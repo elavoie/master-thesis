@@ -1,285 +1,341 @@
 \chapter{Introduction}
 
-The lack of \textit{flexibility} of current computer systems, i.e. the
-important delay between the conceptualization of a desired state and its actual
-realization, prevents their timely evolution to suit the needs of their users.
-The limitation to their flexibility originate in the implementation of
-programming environments, especially at the \textit{virtual machine} level.
-
-I postulate that four properties of virtual machines are responsible for
-providing flexibility:
-\begin{itemize}
-    \item \textit{Openness}. Any part of the system should be modifiable with
-    as few constraints as possible on what can be expressed. I favor a
-    meta-circular VM implementation, in which modifications can be expressed
-    using the high-level source language of the VM. 
-
-    \item \textit{Extensibility}. It should be possible to access and modify
-    a part of the system independently of others, including central and low-level
-    aspects of the VM. For example, new object representations should be
-    supported with no modifications to the core of the VM. New compilers
-    should be supported by reusing parts of existing compilers or by
-    completely replacing them without modifications to the object model.
-
-    \item \textit{Dynamism}. Modifications should be supported at run time for
-    a maximum of flexibility and control. For example, many profiling tasks
-    can be greatly simplified by making it possible to redefine some parts of
-    the system at run time and revert to the original behavior if needed.
-
-    \item \textit{Performance}. The system should be fast enough to be used as
-    a meaningful experimentation tool. Since the execution time of the system
-    directly impacts the time required to obtain feedback on an idea,
-    performance cannot be underestimated.
-\end{itemize}
-
-This thesis presents an implemented virtual machine(VM), Photon, for an existing
-mainstream language, JavaScript(JS), that achieves those properties on a set of
-tasks that no other JS VM can do. The main contributions are in the working
-system and the choice and adaptation of known techniques to build the system.
-
-% TODO: Justify the choice of JavaScript
-
-Before delving into the nuts and bolts of the design and implementation of
-Photon, the next section attempts to clarify the \textit{vision} behind the
-system. Then, the justification for the choice of a source, a target and an
-implementation language are given. The last section of the introduction
-formally presents the organisation of the thesis. 
-
-\newpage
-\section{Why should we focus on Virtual Machine flexibility?}
-
 \emph{``Impermanent are all component things,\\
 They arise and cease, that is their nature:\\
 They come into being and pass away,\\
 Release from them is bliss supreme.''} 
 
---- Mahaa-Parinibbaana Sutta \cite{1988last}
+--- Mahaa-Parinibbaana Sutta \cite{1988last} \\
 
-%\section{Change}
-Impermanence is fundamental to living and non-living systems. Computer systems,
-composed of hardware and software components, are also subject to permanent
-changes. More and more computation power is harnessed through the exponential
-growth of the number of transistors available on integrated circuits. An
-increasing focus is made on exploiting parallelism and concurrency to tap into
-that power. That which once was sequential is now concurrent. Networks of
-computers are growing at an exponential rate and federating on the Internet.
-That which once was solitary is now collaborative.  Computer-controlled
-processes are increasingly pervasive. That which once was manual is now
-automated. The level at which we program computers is coming closer to the
-level at which human reasoning occurs. That which once was explicit is now
-abstracted.  The more we tap into computing power to solve human problems, the
-more solutions to other problems come into reach.\footnote{A more pessimistic
-view would argue that the more we tap into computer power, the more we
-\textit{create} problems that never existed before.} That which once was
-impossible is now difficult, then easy. Computer systems are increasingly able
-to adapt themselves to their changing environment. That which once was static
-is becoming dynamic.
+Computer systems are constantly modified to satisfy the evolving needs of their
+users. \textit{Flexible} systems evolve faster than rigid systems by placing less
+constraints on possible modifications, thus reducing the delay between the
+birth of an idea and its actual realization in a working system. Aiming for
+flexibility in the design of computer systems can make other properties, such as
+performance, security and reliability, easier to obtain by facilitating the
+evolution of the system.
 
-% Coevolution
-The evolution of computer systems does not happen by itself but
-through coevolution with human programmers, designers and users. The ability of
-programmers, designers and users to process information is \textit{not} growing
-exponentially. However, their effectiveness in performing tasks \textit{can}
-grow exponentially by taping into computing power. The effectiveness of
-evolving computer systems can also be increased by taping into computer powers,
-which explains the exponential growth of computing power.  
+A \textit{virtual machine} (VM) is a program that simulate the behavior of a
+machine.  The simulated machine might exhibit properties that do not have
+physical equivalents. For example, by using a garbage collection component, it
+can provide infinite allocatable memory. Programs executing on VMs inherit
+their properties and constraints, therefore making them prime research objects
+to provide properties to an important number of programs.
 
-%\section{Methodology}
-Being an exponential process, the evolution of computer systems should be
-tapped into when change is required. A system as close as possible to the
-desired one should serve as the starting point and the system should be evolved
-by first improving its ability to evolve in the desired direction.  Then the
-system should be modified to achieve desired properties. Our focus should be on
-removing hurdles to the evolution of computer systems, at the source of their
-occurence.
+The research behind this work aims to facilitate the evolution of computer
+systems by designing flexible VMs. The need for flexible VMs arose as part of a
+larger research effort to build VMs for JavaScript (JS) that achieve a
+substantial improvement in performance compared to current VMs and developer
+tools to help programmers understand the performance behavior of their program.
+Flexible VMs facilitate the instrumentation of basic operations of the source
+language, helping the gathering of empirical data to devise new optimizations
+and inform the tool user. 
 
-%\section{Source}
-Programming environments, composed of languages and tools, serve as a common
-ground of understanding between the intents of a programmer and the
-capabilities of a computer system. Therefore, the main hurdle to the evolution
-of a computer system is the ability of programming environments to accomodate
-changes. When it is not possible, programming environments themselves must
-evolve. The evolution of programming environments is in turn limited by the
-\textit{flexibility} of their \textit{implementation}. 
+One of the core components in VMs is the \textit{object model}, which is the
+set of supported object kinds and their corresponding operations. It has an
+important influence on their flexibility.  
 
-%\section{Flexibility}
-\textit{Flexibility} is the ease of a computer system to accomodate change.
-As universal simulators, computer systems can accomodate any change. However,
-depending on their current configuration, the evolution of an actual system to
-a desired state might be more or less complicated.  Since changes in computer
-systems originate in and are performed by humans, the evaluation of
-\textit{flexibility} is human-centric. The delay between the conceptualization
-of a desired state and its actual realization is a metric to evaluate the
-\textit{flexibility} of a computer system. An imperceptible delay would mean
-that the system is maximally flexible and inversely.
+This dissertation shows that \textit{a message-sending object model defined in
+terms of itself is a practical basis for building flexible virtual machines}.
+To demonstrate \textit{practicality}, I provide a reference virtual machine
+implementation, Photon, for an existing mainstream programming language,
+JS, and I evaluate its properties with regard to the ease of
+modification, the complexity of the source code and the performance of the
+resulting system. The resulting VM is both flexible, simple and achieves a
+performance within a factor of X of a state of the art implementation.
 
-%Implementation
-Programming environment \textit{implementations} are also developed with a
-programming environment, using one or multiple programming languages and
-various tools. The development environment can be identical or not to the
-developed environment.  When identical, the evolution process can feed back on
-itself. Improving the developed environment accelerates the development of the
-environment itself.  
+% Contributions?
 
-%Optimization focus
-To maximize the rate of evolution of a computer system, we should strive to
-make all non-human bound tasks instantaneous. From a human perspective, it
-means that all interactions with a computer system should provide
-\textit{immediate feedback} at the level of human reasoning for the task at
-hand. When applied to the development of the programming environment,
-an exponential improvement to the capabilities of the system is achievable, as
-long as the limitation to the flexibility are systematically removed in the
-order of their importance.
+\section{Flexibility}
 
-%Virtual Machine
-All programming environments ultimately execute on a physical machine using
-physical processes to perform computations. A physical implementation of a
-computer provides performance and efficiency.  However, modification of this
-physical machine is laborious and energy intensive. Seen as universal
-simulators, computers can simulate \textit{virtual} machines, given a proper
-program describing the expected behavior of the desired machine. By definition,
-this virtual machine will provide less performance and efficiency than an
-equivalent physical implementation. However, modifications to this virtual
-machine is much easier and energy efficient, allowing a faster evolution of its
-behavior. 
+Defining and evaluating flexibility is no easy task. The usage of the term
+above appeal to the intuitive notion of a system easy to tailor to one's
+particular usage by modifying, removing or replacing its components. Easy might
+mean that there is few lines of code to modify to use a preconfigured option,
+that there is few manipulations to perform in a user interface or that unplanned
+extensions could be developed in a limited time.
 
-Therefore, the ultimate place of improvement to the capabilities of computer systems is 
-the virtual machine and the main driver of their evolution is its flexibility.
-As such, it is a \textit{meta}-property since a faster evolution can lead to
-any of the other desired properties faster.
+While intuitive, this definition is not sufficiently objective to compare
+different systems. It is tied to a subjective interpretation of efforts required to
+perform modifications. For the remainder of this dissertation, I'll use a more
+restricted definition of flexibility. A system will be considered flexible if
+it exhibits the four following properties:
 
-%Performance
-\subsection{Performance}
-The performance of a virtual machine can hinder the \textit{flexibility} of a
-programming environment by delaying the feedback obtained on modifications.
-However, focusing first on evolving the system accelerate the development of a
-performant system. The opposite is not true, as focusing first on performance
-can introduce barriers to the evolution of the system, potentially breaking the
-exponential improvement process.
-
-\subsection{Reuse and Collaboration}
-The development of a computer system can immensely profit from reusing
-existing components and parallelizing the implementation effort.
-However, if the components used or developped in parallel introduce limitations
-to the evolution the resulting system this can break the exponential
-improvement process.  When integrating existing components or developped
-components, it is imperative to make sure they are compatible with the
-direction of evolution.  Otherwise, this can compromise both the achievement of
-the desired state and the speed at which it can be reached.
-
-\subsection{Social Impact}
-The development of computer systems has had far reaching consequences on our
-civilization. However, most of the improvements where obtained in technical
-sectors and the evolution of computing has been driven by profit-generating
-interests. Much of the social sector and non-profit sectors have failed to 
-influence the evolution of computer systems.
-
-I postulate that it can be attributed to the technical complexity inherent to
-the modification of current systems. For most technical sectors and
-profit-generating activities, the profits generated by the organisation are
-sufficient to compensate the cost of the technical complexity. However, the
-social sector and non-profit generating activities do not have the resources to
-address the technical complexity problem.  A truly \textit{flexible} system
-would allow those sectors to obtain systems that corresponds to their needs and
-would allow them to tap into the potential of computing systems to radically
-improve the capabilities of their organization.
-
-% TODO: Provide examples?
-% TODO: Provide bibliographical references for all claims
-% TODO: Discuss the inspiration for the different ideas
-
-\section{Source Language}
-
-JS was chosen as a source language for Photon for two main reasons: (i)
-because of the dire need to experiment with new implementation strategies for
-this particular language, and (ii) to ensure that our results are meaningful in
-the context of a mainstream language. 
-
-\section{Target Language}
-
-There is a continuum of functionalities provided by target languages allowing
-the choice of a language to match the needs of an application. However, to
-facilitate the reflexion on the potential choice of language, I identify three
-representative candidates that in my opinion cover the range of languages that
-could be targeted, in decreasing order of functionalities provided:
 \begin{itemize}
-    \item \textit{High-level language with fast implementation}: The main
-    advantage of targeting a high-level language is to reduce the complexity of
-    the implementation of the VM. The target language runtime and compiler can
-    provide much of the support for functionnalities required, such as floating
-    point number support, exception mecanism and garbage collection. When
-    evolving a programming environment, this can be extremely valuable to
-    develop the VM and its tools such as a profiler, a debugger or an inspector.
-    However, the high-level language and the limitations of its implementation
-    introduce limits to the performance achievable.
-    \item \textit{Native language}: The main advantage of targeting a native
-    language is to allow maximum flexibility in the choice of implementation
-    techniques.  In particular, the ability to produce self-modifying code
-    can provide efficient techniques to optimize the dynamic features of
-    high-level languages. However, compared to a high-level language a lot of
-    functionalities need to be implemented and optimized to exploit the
-    flexibility. Also, idiosyncracies inherited from a historical legacy of
-    backward compatibility need to be dealt with.
-    \item \textit{Hardware description language}: The emergence of runtime
-    modification mecanisms on hardware circuits, such as dynamic
-    reconfiguration on FPGAs, has the potential to bring higher-performance at
-    a lower cost in energy by specializing the hardware to the running program.
-    In addition, designing the hardware and software part of a VM at the same
-    time has the potential of drastically simplifying the complexity of the
-    compiler and the hardware implementation by eleminating constraints
-    dictated by retro-compatibility requirements on micro-processors.
-    However, the performance of current tools, vendor lock-ins and limited
-    availability of protocol specifications for reconfigurability stand in the
-    way of effective research.
+    \item \textit{Open}. Its components' behavior can be modified by
+        first-class data structures and the range of possible behavior is
+        maximal. 
+
+    \item \textit{Extensible}. Its components can be independently modified or
+        replaced and they support incremental definitions. 
+
+    \item \textit{Dynamic}. It can be modified at run time.
+
+    \item \textit{Performant}. It is fast enough to provide instant feedback on
+        user modifications.
 \end{itemize}
 
-Photon targets a native language, x86 assembly, specifically to provide as much
-flexibility as possible on the choice of implementation techniques.
-Higher-level languages would have made the implementation easier but would have
-introduced limitations on the optimizations that could be implemented.
-Hardware description languages could have been interesting but the amount of
-supporting work needed to bring up a working system would have put it outside
-the scope of a master thesis.
+There is a continuum of support for these four properties. For example, some
+parts of a system might be open but not others.  I will not try to estimate the
+relative contribution of each of these properties to the overall flexibility of
+a system. I will instead evaluate systems on use cases for each of these
+property individually. A system could be said to be more open than another one
+but not more flexible unless it is clearly equally or more open, extensible,
+dynamic and performant than another one.
 
-\section{Implementation Language}
+\section{Virtual machine}
 
-The implementation language of a virtual machine is usually chosen either to
-maximize performance of the compiler and runtime or to simplify the
-implementation. In the general case, the implementation language need not be
-related to either the source or target language. However, a VM designed with
-the same language as source and host provides numerous advantages such as code
-reuse, sharing of the runtime and the elimination of conflictual interactions
-between the client and host runtime systems. The most important advantage in
-for Photon is providing intercession on the system’s behavior by exposing the
-inner components of the VM. For example, having the compiler phases exposed as
-JS objects on the global environment enables their redefinition to change the
-behavior of eval. 
+% definition
+A \textit{virtual machine} is a program that simulates the behavior of a
+machine, that may or may not have a physical implementation. It may be
+identical to the physical machine on which it is executing, as is the case with
+current commercial solutions used to execute different operating systems as user
+processes, or it might be completely different, as is the case when executing a
+high-level language such as JavaScript. In this latter case, the simulated
+machine might exhibit properties that do not have physical equivalents.
+For example, the illusion of infinite allocatable memory can be provided by
+implementing a garbage collector algorithm.~\footnote{Note, that the available
+working memory is still finite and limited by the underlying physical memory
+available.} 
 
-However, this raises meta-stability issues because infinite recursion can be
-introduced inadvertently. For example, if the basic operations of the
-language are exposed as object methods, using a property access operation in
-the method that defines the property access operation results in an infinite
-recursion. While the system is in its early phases, it is advantageous to open
-it for easy experimentation because it allows for a faster evolution, even at
-the cost of meta-stability issues. Those can be mitigated by restricting our
-coding style until these issues are prevented, for example by enforcing them
-using the meta-object protocol \cite{Kiczales:1991}.
+% relationship to an operating system
+In theory, there is no significant difference between a VM and
+an operating system.~\footnote{"An operating system is a collection of
+things that don't fit into a language. There shouldn't be one." -- Dan
+Ingalls~\cite{Ingalls1981}} They both act as a middle layer between the
+underlying machine and programs. They both provide abstractions and
+services common to all programs. In fact, VMs for high-level
+languages have been made to execute directly on hardware. In practice, the
+management of hardware peripherals, memory, processing units and network
+interfaces has been associated with operating systems and the support for
+higher-level features of programming languages has been associated with
+dedicated VMs. This historical distinction has allowed a plethora
+of languages to be available for application programmers by allowing language
+implementers to focus on supporting the semantic of programming languages
+instead of managing the physical machine resources.
+
+% efficiency gap
+The major drawback of simulating a computer is the important efficiency
+difference between a physical and a virtual implementation, the latter possibly
+being orders of magnitude slower then the former. Research on VM
+implementation has contributed techniques to minimize this efficiency gap.
+Various high-level languages, such as Java, JavaScript, Smalltalk, Scheme or
+Prolog, can now execute efficiently on general purpose processors making VMs
+pratical for application development.
+
+% scope
+In this dissertation, I will focus on VMs constructed to support programming
+languages on top of existing operating systems or VMs. I will ignore the
+virtualization of operating systems or the management of physical resources.
+
+VMs can be described by three languages:
+\begin{itemize}
+    \item \textit{Source language}. Language used by programs executing on the VM.
+    \item \textit{Implementation language}. Language that describe the behavior of the VM.
+    \item \textit{Target language}. Language of the machine on which the VM is executing.
+\end{itemize}
+These languages can be different. For example, current commercial VMs for
+JavaScript (source language) are written in C++ (implementation language) and
+execute on Intel X86 processors (target language). Special cases, which exhibit
+noteworthy properties, exist when some or all of these languages are the same. 
+
+When its source language and its implementation language are the same, a VM is
+said to be \textit{meta-circular}. Advantages of meta-circularity are resource
+sharing and uniformity of the runtime. For example, a memory manager used to
+manage the internal data structures of a VM can be shared with the source
+language runtime. Uniformity allows optimizations written for the source
+language to also apply to the implementation language. In the context of an
+open system, source language code can replace implementation language code to
+modify the behavior of the VM. In the litterature, \textit{self-hosting} is
+also used to describe meta-circular systems. I'll restrict this latter term for
+describing a system that is \textit{actually} used to produce new versions of
+itself.  Therefore, a meta-circular VM needing special extensions or
+performance that it cannot provide still depends on an external machine to
+produce a different version of itself and is not self-hosting. Self-hosting is
+therefore more strict.  Self-hosting enables a faster evolution of the system
+by allowing functionalities developed for the source language to apply to the
+implementation language. It frees a system from the limitations of other
+available systems that would be needed otherwise.
+
+When its source language and its target language are the same, we usually
+describe a VM as performing \textit{source-to-source} translation. This is
+especially useful to provide additional or different properties to the
+executing program while avoiding the implementation of complicated
+functionalities, such as floating-point or regular expression support.  It can
+be used to reduce a complicated language to a kernel language using only a
+subset of all the functionalities offered in the source language. This is
+especially useful when implementing mainstream languages possessing redundant
+features acquired through backward-compatibility-constrained evolution. It may
+ease reasoning about the program, facilitate instrumentation or exploit
+optimizations written for some functionalities to accelerate others.
+
+When its implementation language and its target language are the same, an
+\textit{executable} VM can execute on a machine without requiring any external
+support. Few VMs are implemented directly in a target low-level language unless
+an executable VM is needed but no translator from a high-level language to the
+target low-level language are available. When translators are available,
+executable VMs are usually the result of an automatic translation from a high-level
+description.
+
+When all languages are the same, I will say a VM is \textit{platonic}.  I would
+argue that a platonic VM is possibly the simplest that could be built for a
+given language. Only the elements of interest in the language can be acted
+upon, the others can be left as is without having to provide an implementation
+in a lower-level language.  Tools supporting the source language can be used to
+inspect, modify and debug the VM, creating a highly productive environment.
+Optimizations for the new functionalities can target existing optimisations of
+the source language to efficiently implement new functionalities and properties
+without having to specify low-level mecanims that would otherwise be required.
+It greatly simplifies exploration of novel ideas. More importantly, it suggests
+a metric to evaluate the cost of providing fonctionalities or properties that
+are not available in the original source language: the overhead of executing an
+original source program on the VM compared to bare execution on the reference
+machine. When the overhead is small, it is an indication that the functionality
+\textit{can} be implemented efficiently using known techniques. However, if the
+overhead is high, the functionality \textit{may} be implemented using known
+techniques or techniques yet to be invented.
+
+In this dissertation, using a platonic JS VM, I show that the object model
+presented is practical performance-wise by showing that is has a low
+overhead on given benchmarks for every object operation it implements. 
+
+\section{JavaScript}
+
+JS is a dynamic language, imperative but with a strong functional component,
+and a prototype-based object system similar to that of Self.
+
+A JS object contains a set of properties (a.k.a. fields in other OO languages),
+and a link to a parent object, known as the object's prototype. Properties are
+accessed with the notation \kw{obj.prop}, or equivalently \kw{obj["prop"]}.
+This allows objects to be treated as dictionaries whose keys are strings, or as
+one dimensional arrays (a numeric index is automatically converted to a
+string).  When fetching a property that is not contained in the object, the
+property is searched in the object's prototype recursively. When storing a
+property that is not found in the object, the property is added to the object,
+even if it exists in the object’s prototype chain. Properties can also be
+removed from an object using the \kw{delete} operator. JS treats global
+variables, including the top-level functions, as properties of the global
+object, which is a normal JS object.
+
+Anonymous functions and nested functions are supported by JS. Function objects
+are closures which capture the variables of the enclosing functions. Common
+higher-order functions are predefined. For example, the \kw{map}, \kw{forEach}
+and \kw{filter} functions allow processing the elements of an array of data
+using closures, similarly to other functional languages. All functions accept
+any number of actual parameters. The actual parameters are passed in an array,
+which is accessible as the \kw{arguments} local variable. The formal parameters
+in the function declaration are nothing more than aliases to the corresponding
+elements at the beginning of the array. Formal parameters with no corresponding
+element in the array are bound to a specific undefined value.
+
+JS also has reflective capabilities (enumerating the properties of an object,
+testing the existence of a property, etc.) and dynamic code execution
+(\kw{eval} of a string of JS code).  The next version of the standard is
+expected to add proper tail calls, rest parameters, block-scoped variables,
+modules, and many other features.
+
+Initially, our research initiative chose JS as a research object because it is
+widely used to write web applications and there is a performance gap between
+benchmarks executing on the fastest implementations and compiled with C/C++
+compilers, suggesting there are techniques to be found to close the gap.
+During exploration of VM implementation techniques, the dynamic nature of the
+language was found to be particularly well-suited to base a flexible design
+around it and initiated the work presented here.
+
+\section{Object Model}
+
+An object model is a set of object kinds, their supported operations and the
+time at which those operations can be performed.  Examples of object kinds are
+arrays, numbers, associative arrays and classes.  Examples of operations are
+object creation, addition, removal or update of properties as well as
+modification of the inherintance chain. Examples of time for performing
+operations are \textit{run time}, when a program is executing, \textit{compile
+time}, when a program is being compiled or \textit{edit time}, when a program's
+source code is being modified. An object model structures programs to obtain
+properties on the resulting system such as security, extensibility or
+performance. Most object models for programming languages provide an
+inheritance mecanism to facilitate \textit{extensibility} by allowing an object
+to be defined incrementally defined in terms of an existing object.
+
+Different languages have different object models. \textit{Class-based}
+object-oriented languages use \textit{class} objects to describe the properties
+and the inheritance chain of \textit{instance} objects. For example, C++ class
+objects exist only at compile time. Property values can be updated at run time.
+Properties can only be added or removed at edit time and all their accesses are
+verified at compile time. Java use run-time objects to represent classes and
+allow new classes to be added at run time.  Classes cannot be modified at run
+time unless their new definition is reloaded through the debugger API. Ruby
+class objects exist at run time and new properties can be added also at run
+time. \textit{Prototype-based} object-oriented languages forego the difference
+between class and instance objects. Objects and their inheritance chain is
+defined directly on objects. Self and JavaScript object properties can be
+added or removed at run time. 
+
+\textit{Message sending} is an operation that invoke a behavior on an object by
+executing a program associated to a given message.  A message can exist at run
+time and be an object like any other or it can exist only at compile time.
+Message sending \textit{decouples} the intention of a program from its
+implementation by adding a level of indirection between the invocation and the
+execution of a given behavior. This indirection allows the behavior to change
+during a program's execution. Therefore, it is a source of \textit{dynamism}.
+
+Some languages call the program associated to a message, a \textit{method
+implementation}, the message, a \textit{method name} and the act of sending a
+message, \textit{method calling}. This terminology is closely tied to an
+implementation strategy where the implementation is a function, the method name
+is a compile-time symbol and the method call is a lookup followed by a
+synchronous function call in the same address space. I will prefer the
+message-sending terminology because it is more abstract and would easily
+accomodate an asynchronous calling mecanism that could happen between different
+address spaces (i.e. machines). 
+
+A message-sending object model is an object model that takes message sending as
+its primitive operation. It defines every other operation in terms of message
+sends. By doing so, every other operation of the object model becomes dynamic,
+i.e. it can change at run time.
+
+An object model defined in terms of itself is an object model where every
+component required to implement the object model operations are themselves
+objects. For example, the behavior of objects might be functions, the messages
+might be symbols and classes might associate symbols to functions. By
+recursively defining the object model in terms of itself, it becomes
+\textit{open} to modification from regular object operations.
+
+A message-sending object model defined in terms of itself combines both the
+dynamism of message sending with the openness of recursivity. By providing
+every operation through a message send and having every component part of the
+object model, it effectively encapsulate its implementation strategy,
+facilitating its evolution. By being based on a message sending primitive, the
+optimization effort can be focused on this primitive and run-time information
+can be used to specialize the behavior invoked, providing an opportunity for
+\textit{performance}. 
+
+The next pages show how a message-sending object model for JS defined in terms of
+itself provides \textit{openness}, \textit{dynamism}, \textit{extensibility}
+and \textit{performance} and empirically evaluate its practicality for building
+\textit{flexible} virtual machines.
 
 \section{Outline}
-
-The progression of this thesis goes from the conceptual underpinnings of the
-virtual machine, to a design description independent of the target
-language, then to the implementation details required by our particular choice
-of target and implementation language and ends with an empirical evaluation of
-the resulting system.
-
-This organization was chosen to allow the thesis to serve different purposes.
-The first chapters, up to and including the chapter~\ref{chap:Design}, describe
-the system independent of the target language, to facilitate an implementation
-for a different target language.   Chapters~\ref{chap:Exec}, ~\ref{chap:Compiler},
-~\ref{chap:Runtime}, ~\ref{chap:Bootstrap} and~\ref{chap:Optimizations} serve as a reference to implement
-a native VM for a dynamic language. They could be useful for language
-implementers trying to bring up a VM for a different source language. Finally,
-the empirical evaluation in chapters~\ref{chap:Flexibility},
-~\ref{chap:Complexity}, ~\ref{chap:Performance} could serve to compare the
-flexibility of different VMs.
+\begin{itemize}
+    \item The next chapter presents previous work on flexible computer systems.
+    \item Chapter~\ref{chap:Design} explains the design of the object model
+    independently of the implementation or the target language of the VM.
+    \item Chapter~\ref{chap:Implementation} explains implementation
+    peculiarities for a particular target and implementation language, JS.
+    \item Chapter~\ref{chap:Optimizations} describes the optimization
+    techniques used to remove much of the dynamic overhead of the design,
+    tailored to a particular JS implementation.  
+    \item Chapter~\ref{chap:Flexibility} presents use cases in modifying the VM
+    that are either difficult or impossible to do with existing JS
+    implementations.
+    \item Chapter~\ref{chap:Complexity} evaluates the complexity of the
+    resulting system using the number of source lines of code as a proxy.
+    \item Chapter~\ref{chap:Performance} compares my implementation with a
+    state-of-the-art implementation to establish the overhead of providing the
+    flexibility.  
+    \item The conclusion presents the lessons I learned in building, whole or
+    part, three VMs during the course of this research project. I conclude with
+    recommandations on browser behavior that would allow this design to
+    serve as a basis for web pages to provide their own runtime, relaxing
+    current hard-constraints on web application evolution.
+\end{itemize}

@@ -1,0 +1,192 @@
+\chapter{Previous Work}
+\emph{``Those who cannot remember the past are condemned to repeat it.''} 
+
+--- George Santayana, $1863-1952$ \\
+
+Turning our attention to previous work can serve a number of purposes such as
+establishing the origin of fundamental concepts behind an idea,
+collecting learning material for the interested reader and demonstrating the
+originality of the work presented. Being free of the requirement of
+originality, since this dissertation is a Master thesis, we will focus on the
+first two.
+
+In the course of this litterature review, it became clear that the
+terminology around flexible computer systems is both varied and ill-defined.
+Synonyms to flexibility abound: \textit{malleability} brings images of
+amorpheous substrates, \textit{versatility} testifies for the universality of
+the artifact, \textit{plasticity} suggests a solid while reconfigurable medium
+and \textit{customizability} reminds of color options for mass-produced
+consumers goods. While nuanced in their suggestive tones, usage of these terms
+share the unfortunate characteristic of lacking a precise definition which
+might serve as a basis for expectations toward the system they describe.
+
+The consequence is that comparison between different systems built around
+different organizing principles is difficult and becomes almost impossible when
+the systems belong to different sub-disciplines, such as operating systems and
+virtual machine construction. Asserting that a system is flexible amounts to
+little more than a wish by the authors that a system will be easy for others or
+themselves to use for needs beyond the documented cases.  
+
+Untangling the issue of characterizing existing flexible systems according to
+the same framework is beyond the scope of this dissertation, as it would mostly
+be useful for establishing originality. However, this does not mean that we
+will fall prey to a "flexibility" relativism. The four properties of
+\textit{openness}, \textit{extensibility}, \textit{dynamism} and
+\textit{performance} will guide our review of previous work, by grounding our
+understanding of flexibility in a richer and recognized definition. Still, the
+exact meaning of those terms still vary in the litterature but we shall be
+careful in precising our usage.
+
+Flexibility applies to different components of a VM. To make the matter more
+manageable and to support the thesis without undue detour, this review will be
+restricted to issues pertaining to the object model. 
+
+The work described in this dissertation started as an exploration of the
+possibilities offered by an object model based on the open, extensible object
+model by Piumarta and Warth~\cite{Piumarta:2008}. The idea of characterizing a
+system in terms of four properties was also heavily inspired by their usage of
+the terms, although precise definitions were not provided.
+
+The next section provides the historical roots of concepts belonging to each of
+the four properties and the last section suggests reading material for the
+reader motivated for further independent study. This distinction is motivated
+by the fact that later accounts of ideas can additionaly present further
+developments, changes in nomenclature and might be more approachable then the
+original papers.
+
+\section{Historical roots}
+
+\subsection{Openness}
+
+The meaning of open depends on what is being qualified. Perhaps the most common
+usage is open \textit{source}. It refers to accessibility of the text
+representation, i.e. source code, that was used to produce the system.
+Accessibility to the source and development tools allows a motivated person to
+modify the text representation and generate a new version of the system
+incorporating the change. However, it says nothing about the nature and the
+number of changes that will be required to obtain a desired behavior.
+
+We will use open as an implementation qualifier. It therefore means that
+the behavior of the system can be modified by first-class data structures. The
+range of behavior modifications allowed by an implementation characterize the
+degree of openness.
+
+In chronological order, the following work contributed to key ideas behind open
+implementations:
+\begin{itemize}
+    \item Toward relaxing assumptions in languages and their implementation,
+        Mary Shaw and Wm A Wulf, 1980, Earliest account of the need to open
+        some parts of the implementation
+    \item Procedural Reflection in Programming Languages, Brian Smith, 1982,
+        Introduces terminology to think about reflection such as Knowledge
+        Representation Hypothesis, Reflection Hypothesis, Causal Connection and
+        propose a sound model for reflection, the Infinite Tower of Reflection
+    \item Concepts and Experiments in Computational Reflection, Pattie Maes,
+        1987, Introduces five properties to characterize reflection
+        architectures (separation, uniformity, completeness, consistency,
+        dynamic) and meta-objects to bring reflection to object-oriented
+        programming languages 
+    \item Implementational Reflection in Silica, Ramanao Rao, 1991, Introduce
+        the term open implementation by analogy with a reflection architecture
+        but for applications and not only programming language implementations
+    \item Open Implementation Analysis and Design, Chris Maeda et al., 1997,
+        Propose a methodology for designing open modules
+\end{itemize}
+
+% What about Smalltalk? Meta-stability, Bootstrap?
+
+\subsection{Extensibility}
+
+Extensible means that a VM's components can be independently modified or
+replaced, that new components can be supported without having to modify
+existing components and they can be incrementally defined in terms of existing
+components. Encapsulation and modularity covers a subset of that definition. In
+chronological order:
+
+\begin{itemize}
+    \item Some Features of the SIMULA 67 Language, 1966, Ole-Johan Dahl, BJørn
+        Myhrhaug, Kristen Nygaard, Introduces the concepts of class-based
+        inheritance and objects
+    \item On the criteria to be used in Decomposing Systems into Modules, David
+        L. Parnas, 1972, Introduces the concept of information hiding for
+        modular decomposition
+    \item On the discipline of Programming, 1976 and On the role of scientific
+        thought, Edsger W. Dijkstra, Introduces the term separation of concerns
+        which replaced information hiding, although it meant pretty much the
+        same thing
+    \item Using prototypical objects to implement shared behavior in
+        object-oriented systems, 1986, Henri Lieberman, Compared prototype-based
+        and class-based inheritance, showed that the prototype version was
+        superior because it could implement the class version but the reverse
+        was not true
+\end{itemize}
+
+
+\subsection{Dynamism}
+
+Dynamism has seen an increasing usage through the popularization of dynamic
+languages. Again, the actual meaning of dynamism in dynamic language is
+fuzzy. The common thread however is the presence of \textit{late-binding} of
+some aspects of the programming language, i.e. deferring until run time the
+actual computation required to implement a given functionality.
+
+Limiting our review to dynamic aspects of object models yields the following
+fundational work.  Notice that some article mentioned previously appear again
+since the concepts were pioneered in the context of dynamic languages:
+\begin{itemize}
+    \item Recursive functions of symbolic expressions and their computation by
+        machine, Part I, John MacCarthy, 1960, Earliest account of dynamic (strong) typing 
+    \item Actor Induction and Meta-evaluation, 1973, Carl Hewitt et al. Actor
+        asynchronous message-passing as a primitive operation (polymorphism)
+    \item Smalltalk, 1972-1976, Synchronous message-passing as a primitive
+        operation (polymorphism)
+    \item Procedural Reflexion in Programming Languages, 1982, Brian Cantwell
+        Smith, Introduced behavioral reflection, reflection on the run time behavior of programs, although the term procedural reflection is used
+    \item The LOOPS Manual, 1983, CommonLoops: merging Lisp and object-oriented
+        programming, 1986, Daniel G. Bobrow, Introduced multiple dispatch (polymorphism) as a generalization of message sending (single-dispatch)
+    \item Using prototypical objects to implement shared behavior in
+        object-oriented systems, 1986, Henri Lieberman Introduced the delegation mechanism
+        occuring at run time
+\end{itemize}
+
+\subsection{Performance}
+In terms of software-based optimizations to remove much of the overhead of the dynamism the following work pioneered many optimizations:
+\begin{itemize}
+    \item Efficient implementation of the Smalltalk-80 system, 1984, L Peter
+        Deutsch and Allan M. Schiffman, Introduces the inline-cache technique
+    \item An efficient implementation of SELF a dynamically-typed
+        object-oriented language based on prototypes, 1989, Introduces the maps
+        implementation concept to allow inline caches to work for
+        prototype-based systems 
+    \item Efficient Method Dispatch in PCL, 1990, Gregor Kiczales and Luis
+        Rodriguez, Introduces optimizations for multiple-dispatch functions
+\end{itemize}
+
+
+\section{Learning Material}
+
+\subsection{Litterature}
+\begin{itemize}
+    \item The Art of the Metaobject Protocol, 1995, Gregor Kiczales et al. Uses
+        the Common Lisp Object System for explaining how to open a
+        language implementation through a meta-object protocol
+    \item Open Implementations and Metaobject Protocols, Gregor Kiczales and
+        Adreas Paepcke, 1996, Tutorial book on opening an object model for a
+        programming language
+    \item Actor Model of Computation: Scalable Robust Information Systems,
+        2010, Carl Hewitt, Introduce the Actor model at a high-level, relate to
+        existing work and provide pointers to existing litterature on Actors
+\end{itemize}
+
+
+\subsection{Systems}
+\begin{itemize}
+    \item lisp/scheme
+    \item smalltalk
+%    \item forth
+    \item slate
+    \item maru
+    \item lua
+%    \item Maxine, OVM, Moxie, JikesRVM
+%    \item VMKit, 
+\end{itemize}
