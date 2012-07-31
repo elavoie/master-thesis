@@ -1,10 +1,75 @@
 \chapter{Flexibility}
 \label{chap:Flexibility}
 
-\section{Remplacing the compiler}
+\emph{``You must be shapeless, formless, like water. When you pour water in a
+cup, it becomes the cup. When you pour water in a bottle, it becomes the
+bottle. When you pour water in a teapot, it becomes the teapot. Water can drip
+and it can crash. Become like water my friend.''}
 
-\section{Changing the object representation}
+--- Bruce Lee \\
 
-\section{Modifying the primitive operations behavior}
+Any system exhibits particular compromises between opposing goals. Some
+constraints derive from the nature of the problem a particular system is trying
+to solve. Different problems might have conflicting constraints. Therefore, a
+given system cannot be the ultimate answer to life, the universe and everything
+to everybody. In designing a system, it is as important to decide what a system
+will not do easily as what it will.  It follows that to assert the flexibility
+of a system, we need to choose particular use cases and leave others.
 
-\section{Case study: Profiling the virtual machine}
+The prospect of using the development of the system to drive requirements is
+alluring, especially as a requirement analogy to the meta-circularity of the
+system. However, we need to keep in mind that it is not sufficient to ensure
+that the resulting system is more than a research curiosity. The following
+usages are outgrowths of discussions that happened with Bruno Dufour to
+determine usage scenarii that were less biaised by my own view of what the
+system could be used for.
+
+The single strategy behind every of those scenario is to define a protocol to
+implement the element of interest and expose the parts that can vary as a
+method, which can be replaced by user code. To emphasize the non-universal
+nature of a particular solution, each scenario describes the modification made
+to the system presented in the design section (see Section~\ref{chap:Design}),
+which acts as a middle-ground.  This is a deliberate choice to illustrate that
+flexibility is also enabled by having clear lines of evolution around a
+unifying principle, in this case, message-passing.
+
+We first explore simple modifications that work without modification to the
+protocols of the system, to obtain profiling information in terms of JS operations.
+We then discuss circumscribed modifications to the system, to enforce runtime
+invariants used to catch common programming mistakes. We conclude with a more
+involved example to provide fundational tools for dynamic analysis of JS code.
+
+
+\section{Obtaining semantic-level profiling information}
+
+\subsection{Number of objects created}
+
+\subsection{Number of property accesses}
+
+\section{Verifying runtime invariants}
+
+\subsection{Ensuring that all accesses are made to existing properties}
+
+\subsection{Ensure that a constructor always returns the object it received}
+
+
+\section{Obtaining a dynamic call graph}
+
+% Overview of the usefulness of dynamic call graph
+comprehension, code coverage, 
+
+% Explanation of a dynamic call graph
+
+% Results format
+
+% Instrumentation points at the semantic level of JS
+
+% Required support in the VM
+
+% Implementation
+
+wrap the called function in a closure
+
+% Example programs and output
+
+% Optimizing the instrumentation overhead
