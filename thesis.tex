@@ -1,5 +1,46 @@
 \documentclass[letterpaper,9pt]{report}
 \usepackage{thesis}
+\usepackage{url}
+\usepackage{listings}
+
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{DejaVuSansMono}
+
+% For programming language keywords
+\newcommand{\kw}[1]{{\lstinline[language=JavaScript]!#1!}}
+\newcommand{\jsfile}[1]{{
+    \begin{flushleft}
+    \scalebox{1}{\lstinputlisting[language=JavaScript]{#1}}
+    \end{flushleft}
+}}
+
+
+\lstdefinelanguage{JavaScript}{
+  morekeywords=[0]{typeof, new, this, delete, throw, catch, function, return, switch,
+            var, if, in, while, do, for, else, case, break, continue, with},
+  morekeywords=[1]{\_\_get\_\_, \_\_set\_\_, \_\_new\_\_, \_\_clone\_\_, \_\_delete\_\_, \_\_itr\_\_, \_\_str\_\_, \_\_type\_\_,},
+  ndkeywords={true, false, null, undefined},
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  basicstyle=\small\ttfamily,
+  %stringstyle=\small,
+  keywordstyle=[0]\bfseries,
+  keywordstyle=[1]\itshape,
+  morestring=[b]',
+  morestring=[b]",
+  showstringspaces=false
+}
+
+%\lstdefinelanguage{plain}{
+%  keywords={},
+%  ndkeywords={},
+%  comment=[l]{//},
+%  morecomment=[s]{/*}{*/},
+%  morestring=[b]',
+%  morestring=[b]"
+%}
+
+
 
 \begin{document}
 
