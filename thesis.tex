@@ -16,7 +16,7 @@
 
 
 \lstdefinelanguage{JavaScript}{
-  morekeywords=[0]{typeof, new, this, delete, throw, catch, function, return, switch,
+  morekeywords=[0]{typeof, new, this, delete, throw, try, catch, function, return, switch,
             var, if, in, while, do, for, else, case, break, continue, with},
   morekeywords=[1]{\_\_get\_\_, \_\_set\_\_, \_\_new\_\_, \_\_clone\_\_, \_\_delete\_\_, \_\_itr\_\_, \_\_str\_\_, \_\_type\_\_,},
   ndkeywords={true, false, null, undefined},
@@ -26,7 +26,6 @@
   %stringstyle=\small,
   keywordstyle=[0]\bfseries,
   keywordstyle=[1]\itshape,
-  morestring=[b]',
   morestring=[b]",
   showstringspaces=false
 }
@@ -70,21 +69,11 @@
 \include{text/figures}
 
 \pagenumbering{arabic}
-%\include{text/preface}
 \include{text/intro}
-%\include{text/vm}
-%\include{text/lang}
 \include{text/previous}
 \include{text/design}
-%\include{text/exec}
-%\include{text/comp}
-%\include{text/runtime}
-%\include{text/boot}
-%\include{text/impl}
-\include{text/opt}
 \include{text/evol}
-%\include{text/impl}
-%\include{text/complexity}
+\include{text/opt}
 \include{text/perf}
 \include{text/concl}
 

@@ -1,12 +1,14 @@
 SHELL=		/bin/sh
 RM=		/bin/rm
-LATEX=		pdflatex
+LATEX=		latex
 BIBTEX=		bibtex
-DVIPS=		/usr/bin/dvips
-PS2PDF=		/usr/bin/ps2pdf
+DVIPS=		dvips
+PS2PDF=		pstopdf
 GS=		/usr/bin/gs
 
 .SUFFIXES:      .tex .dvi .eps .ps .pdf
+
+all: thesis.pdf
 
 MAIN = thesis
 
@@ -46,10 +48,14 @@ $(EMAIN).pdf:	$(MAIN).ps
 thesis.pdf: $(FILES)
 	$(LATEX) thesis.tex 
 	$(BIBTEX) $*;
-	$(LATEX) $*.tex;
-	while grep -s 'Rerun' $*.log 2> /dev/null; do	\
-		$(LATEX) $*.tex;			\
-	done
+	$(LATEX) thesis.tex
+	$(LATEX) thesis.tex
+	$(DVIPS) -Ppdf -o thesis.ps thesis.dvi
+	$(PS2PDF) thesis.ps 
+    
+#	while grep -s 'Rerun' $*.log 2> /dev/null; do	\
+#		$(LATEX) $*.tex;			\
+#	done
 
 clean:
 	$(RM) -f *.aux \
