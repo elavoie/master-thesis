@@ -16,13 +16,9 @@ EMAIN = ethesis
 
 FIGDIR = figures
 
-FIGURES =	$(FIGDIR)/MUN_Logo_Pantone.eps		\
-		$(FIGDIR)/enrollment.eps 		\
-		$(FIGDIR)/enrollment-landscape.eps 	\
-		$(FIGDIR)/enrollment-rotate.eps 	\
-		$(FIGDIR)/db-deadlock.eps
+FIGURES = figures/*.eps
 
-FILES = text/*.tex thesis.sty
+FILES = text/*.tex thesis.sty listings/* 
 
 $(MAIN).dvi:    $(MAIN).tex $(FIGURES) $(FILES)
 	$(LATEX) $*.tex; 
@@ -45,7 +41,7 @@ $(EMAIN).pdf:	$(MAIN).ps
 .ps.pdf:       $*.dvi
 	$(PS2PDF) -sPAPERSIZE=letter $< $@
 
-thesis.pdf: $(FILES)
+thesis.pdf: $(FILES) $(FIGURES) $(MAIN).tex
 	$(LATEX) thesis.tex 
 	$(BIBTEX) $*;
 	$(LATEX) thesis.tex

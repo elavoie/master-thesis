@@ -21,3 +21,5 @@ function d()  { };           // Unused function
 
     // Not called: d
 })();
+
+dyn_call_graph_results();

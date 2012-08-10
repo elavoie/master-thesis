@@ -239,7 +239,85 @@ pitfalls.
 
 \subsection{Protecting the profiling code in a critical section} 
 
-\subsection{Using the implementation-level language}
+A \textit{critical section} usually refers to a section of code in a
+multi-threaded program in which the system guarantees that no preemption will
+occur. By analogy, we use the term to refer to a section of code in a profiled
+program in which the system guarantees that no profiling occurs.
 
-\subsection{Providing multiple similar runtime environments}
+By using a critical section, we solve the issue of having the profiling code
+being profiled. It is important to avoid profiling the profiling code, not only
+because it pollutes results but mostly because it can introduce
+\textit{meta-stability} issues, namely that performing an operation in the
+profiling code might call back into the same operation being profiled, creating
+an infinite loop.
+
+A critical section can be implemented by introducing a flag that controls
+whether profiling occurs or not. Just before the profiling code starts
+executing, the flag is set and right after the profiling code ends the flag is
+reset. It can be done with a boolean variable if the section needs not be
+reentrant or with a integer otherwise.
+
+When profiling JS function calls, we need to be cautious about the different
+ways the flow of control can be manipulated by the callee. In JS, a function
+can return either normally through its explicit or implicit return statement or
+by raising an exception. Fortunately, JS provides a \kw{finally} construct that
+garantees that however a function returns, the \kw{finally} block will always
+be executed. We can therefore perform pre-call operations in a \kw{try} block
+and perform post-call operations in a corresponding \kw{finally} block.
+
+The next requirement is to be able to intercept every function call in the
+program. Our design makes it easy by reducing every occurance of function calls
+to sending the message \kw{call} or \kw{apply} to the called function, whether
+it is global, local or is a method. We can further implement \kw{call} in terms
+of \kw{apply}, which gives us a single point of instrumentation for the whole
+system. By redefining the \kw{call} and \kw{apply} methods on a restricted set
+of functions we can profile only those functions. This is useful to determine
+if two functions are transitively called.  By redefining the \kw{call} and
+\kw{apply} method on the root function, we can profile the whole system.
+
+The only problem left by this approach comes from the circularity introduced by
+having every JS object operation and function invocation performing a
+\kw{call}. It means that redefining these operations in JS introduces an
+infinite loop. We solve it by extending the language with primitive operations
+that do not perform a \kw{call} operation. In the next example, those
+operations are displayed in italics. They will be explained later.
+
+The next example performs the instrumentation of all function calls by
+redefining the \kw{call} and \kw{apply} methods on the root function. It
+introduces two hooks, \kw{before_apply} and \kw{after_apply} than can be used
+to perform arbitrary JS operations. It satisfies all the aforementioned
+requirements:
+
+\jsfile{listings/dyn-call-graph-instr.js}
+
+The example illustrates two kinds of primitive operations used to circumvent
+the circularity of function calls, primitive methods and primitive
+\kw{arguments} operations.  Primitive methods do not appear on objects and
+their behavior is bound at compile-time.  Both \kw{apply} and \kw{call} have
+corresponding primitive methods, respectively \kw{\_\_\$apply\_\_} and
+\kw{\_\_\$call\_\_}, that otherwise follow the JS semantic. Primitive
+\kw{arguments} operations allow access to function arguments without the
+creation of an \kw{arguments} object and are prefixed by a \kw{\$}. Otherwise,
+method calls would be performed to create and initialize it.
+\kw{\$arguments\[i\]} accesses the ith function parameter and
+\kw{\$arguments_slice(i)} directly creates an array without any method call
+from a subset of the arguments elements.
+
+The two hooks \kw{before_apply} and \kw{after_apply} can be used to perform
+dynamic profiling of function calls. The next code fragment registers all
+called functions on a shadow stack as well as the calling relationship between
+the function on top of the shadow stack and the called function. A predicate is
+used to avoid registering calls to \kw{call} and \kw{apply} as well as
+functions which do not have an identifier, stored as an \kw{\_\_id\_\_}
+property. The \kw{dyn_call_graph_results} prints the call graph in the dot language for
+visualization:
+
+\jsfile{listings/dyn-call-graph-mon.js}
+
+The instrumentation performed here will output the expected call graph as shown
+in previous section. However, there is a performance cost associated to the
+simplicity of the instrumentation interface. The next section explains how to
+reduce it, without foregoing the flexibility and simplicity gained.
+
+
 
