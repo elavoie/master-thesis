@@ -1,13 +1,75 @@
 \chapter{Performance}
 \label{chap:Performance}
 
+The last section introduced techniques to reduce the run-time overhead of the
+object model. We now estimate the actual run time and memory-usage
+overhead incured by the additional flexibility. This can serve to
+evaluate if the overhead is acceptable for particular usage scenarios.
+Additionally, we also evaluate the effectiveness of the optimizations
+introduced in the last section, to show that they address the actual
+bottlenecks of the system.
+
+Performance analysis is riddled with potential pitfalls, particularly from the
+influence of hidden variables on the results. The complex execution model of
+the underlying JS VM, the operating system and the CPU and their interaction
+makes it complicated and hazardous to try to generalize performance results
+from one setting to another.  Unfortunately, a thorough analysis that could
+hopefully help us generalize better is beyond the scope of this master thesis.
+At the same time, we can take comfort in the fact that a "perfect" prediction
+for the resources that will be consumed by a given application on the proposed
+system can be obtained by actually running the application on it. Since it can
+be done easily, it alleviates the need for a detailled performance analysis.
+
+The next section explains the methodology used to evaluate the performance of
+the system. Results on representative benchmarks are then presented and
+compared with the performance results of Narcissus, a meta-circular evaluator
+developped at Mozilla that aims to provide a flexible environment to test
+language ideas. The similarity of the design goals makes it a suitable
+comparison.
+
 \section{Methodology}
 
-\section{Benchmarks}
+We compare four different systems:
+\begin{itemize}
+    \item V8
+    \item Photon with optimizations running over V8
+    \item Photon without optimizations running over V8
+    \item Narcissus running over SpiderMonkey
+\end{itemize}
 
-\section{Competitors}
+We use the benchmarks proposed by Mozilla and Google, respectively the
+SunSpider and V8 benchmark suites, since they became the \textit{de facto}
+standard to compare JS VM performance. However, there is consensus among
+vendors and in academia that theses benchmarks are not representative of
+current web applications. It is beyond the scope of this master thesis to
+create a representative benchmark suite but instead of throwing the towel, we
+will use 2 thousand-lines JS programs to obtain performance results. This still
+suffers from a selection bias but it is still better than only having
+micro-benchmarks. The 2 additional benchmarks are:
+\begin{itemize}
+    \item \textit{parser} A generated JS Parser that parses and pretty-print its own code
+    \item \textit{cpu} A RISC cpu simulator running fibonacci
+\end{itemize}
+
+We focus on two metrics, total running time and the maximum heap size to
+respectively measure run-time performance and memory usage. For
+micro-benchmarks we iterate 400 times after a warm-up phase where we iterate 10
+times. This is done to minimize the impact of the JIT compilation time and
+adaptative optimizations. The maximum heap size is used because it is easy to
+measure and should give a rough approximation of the overhead introduced by the
+object representation chosen.
 
 \section{Results}
+
+\subsection{V8 benchmarks}
+-added () around new Date used as an expression (base.js)
+-moved Benchmark definition at the end because no function hoisting is done (deltablue.js)
+
+\subsection{SunSpider benchmarks}
+-added semi-colon (find benchmark...)
+-removed new operation from string construction (date-format-tofte)
+
+\subsection{Custom benchmarks}
 
 \section{Interpretation}
 

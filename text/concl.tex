@@ -1,1 +1,28 @@
 \chapter{Conclusions}
+
+\section{Limitations}
+
+\subsection{Operations on \kw{null} or \kw{undefined} might throw a different exception}
+
+\subsection{Accessing the \kw{__proto__} property leaks the internal representation}
+
+\subsection{Setting the \kw{__proto__} property throws an exception}
+
+\section{Future Work}
+
+\subsection{Allow instrumentation code to target a subset of all objects}
+
+\subsection{Extend the scope of dynamic instrumentation}
+
+to binary and unary operations
+
+\subsection{Provide mecanisms to optimize the instrumentation code}
+
+\subsection{Improve the baseline performance}
+
+Dynamic recompilation of function body using the type information contained in inline caches
+
+\subsection{Apply the approach to efficiently enforce security invariants at run time}
+
+\subsection{Generalize to other languages}
+

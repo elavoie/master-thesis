@@ -8,43 +8,60 @@ Release from them is bliss supreme.''}
 --- Mahaa-Parinibbaana Sutta \cite{1988last} \\
 
 Computer systems are constantly modified to satisfy the evolving needs of their
-users. \textit{Flexible} systems evolve faster than rigid systems by placing less
+users. \textit{Flexible} systems evolve faster than rigid systems by placing fewer
 constraints on possible modifications, thus reducing the delay between the
 birth of an idea and its actual realization in a working system. Aiming for
 flexibility in the design of computer systems can make other properties, such as
-performance, security and reliability, easier to obtain by facilitating the
-evolution of the system.
+performance, security and reliability, easier to obtain by facilitating
+experimentation.
 
-A \textit{virtual machine} (VM) is a program that simulate the behavior of a
-machine.  The simulated machine might exhibit properties that do not have
+A \textit{virtual machine} (VM) is a program that simulates the behavior of a
+computing machine.  The simulated machine might exhibit properties that do not have
 physical equivalents. For example, by using a garbage collection component, it
 can provide infinite allocatable memory. Programs executing on VMs inherit
 their properties and constraints, therefore making them prime research objects
 to provide properties to an important number of programs.
 
-The research behind this work aims to facilitate the evolution of computer
-systems by designing flexible VMs. The need for flexible VMs arose as part of a
-larger research effort to build VMs for JavaScript (JS) that achieve a
-substantial improvement in performance compared to current VMs and developer
-tools to help programmers understand the performance behavior of their program.
-Flexible VMs facilitate the instrumentation of basic operations of the source
-language, helping the gathering of empirical data to devise new optimizations
-and inform the tool user. 
+Recent research and development on VMs, especially for the JavaScript language,
+has focused on performance, to the expense of flexibility. Notably, it has
+hindered our understanding of the dynamic behavior of real-world programs by
+making instrumentation of existing VMs laborious and complex. It has made the
+gathering of empirical data a one-time effort, by forcing researchers to patch
+the source code of a production VM, therefore making the burden of maintaining the
+instrumented VM up-to-date too demanding for any research team to shoulder.
+With our current approaches, it is too costly to obtain longitudinal data on
+the dynamic behavior of JavaScript programs.
 
-One of the core components in VMs is the \textit{object model}, which is the
-set of supported object kinds and their corresponding operations. It has an
-important influence on their flexibility.  
+Fortunately, the very same gains in performance can be used to regain
+flexibility, even on a rigid production VM. This dissertation shows that a
+sophisticated run-time optimizer can be harnessed to provide flexible run-time
+instrumentation of the object model and function-calling protocol at a
+performance competitive with a state-of-the-art interpreter, without having to
+modify the VM source code. Our approach consists in building a meta-circular VM
+targeting the source language, based on a message-sending object model. To
+demonstrate the approach, we provide a reference VM for an existing programming
+language, JavaScript, we show the possibility of instrumenting the object model
+operations and function calls and we finally compare the baseline performance
+(without instrumentation) to both a state-of-the-art interpreter and VM,
+respectively SpiderMonkey without its Just-In-Time compiler and V8.
 
-This dissertation shows that \textit{a message-sending object model defined in
-terms of itself is a practical basis for building flexible virtual machines}.
-To demonstrate \textit{practicality}, I provide a reference virtual machine
-implementation, Photon, for an existing mainstream programming language,
-JS, and I evaluate its properties with regard to the ease of
-modification, the complexity of the source code and the performance of the
-resulting system. The resulting VM is both flexible, simple and achieves a
-performance within a factor of X of a state of the art implementation.
+Although meta-circular VM implementations have been common in LISP languages,
+as far as we know, this is the first time the approach is shown to be practical,
+both in terms of performance and programming effort, on a mainstream language.
+As such, this dissertation contains two original contributions:
+\begin{itemize}
+    \item An analysis of the required language support for our approach.     
+    \item An object representation exploiting the underlying VM inline caches
+        and dynamic object model to provide performance for virtualized
+        operations
+\end{itemize}
 
-% Contributions?
+In addition to supporting the thesis above, we hope (1) the analysis will allow
+the interested reader to evaluate if the approach could be feasible in its
+favorite language, (2) to encourage future language designs to provide features
+facilitating a layered approach to VM implementations and (3) the object
+representation will be used by other language implementations seeking
+efficiency while targeting existing JS VMs.
 
 \section{Flexibility}
 
@@ -121,7 +138,7 @@ being orders of magnitude slower then the former. Research on VM
 implementation has contributed techniques to minimize this efficiency gap.
 Various high-level languages, such as Java, JavaScript, Smalltalk, Scheme or
 Prolog, can now execute efficiently on general purpose processors making VMs
-pratical for application development.
+practical for application development.
 
 % scope
 In this dissertation, I will focus on VMs constructed to support programming
@@ -212,7 +229,7 @@ one dimensional arrays (a numeric index is automatically converted to a
 string).  When fetching a property that is not contained in the object, the
 property is searched in the object's prototype recursively. When storing a
 property that is not found in the object, the property is added to the object,
-even if it exists in the object’s prototype chain. Properties can also be
+even if it exists in the object's prototype chain. Properties can also be
 removed from an object using the \kw{delete} operator. JS treats global
 variables, including the top-level functions, as properties of the global
 object, which is a normal JS object.

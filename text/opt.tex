@@ -1,8 +1,24 @@
 \chapter{Optimizations}
 \label{chap:Optimizations}
 
+\emph{``We should forget about small efficiencies, say about 97\% of the time: premature optimization is the root of all evil. Yet we should not pass up our opportunities in that critical 3\%. A good programmer will not be lulled into complacency by such reasoning, he will be wise to look carefully at the critical code; but only after that code has been identified''}
+
+-- Donald Knuth \\
+
 \section{Inline primitive operations}
 
 \section{Inline caching of message sends}
+
+Invariants: 
+\begin{itemize}
+    \item Parent objects never share a map (a map change happens when a child is created)
+    \item values are only cached when found on a parent object
+    \item value caches are only present on parent objects
+\end{itemize}
+
+Problems:
+\begin{itemize}
+    \item Caching a "call" message
+\end{itemize}
 
 \section{Semantic optimization}
