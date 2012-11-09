@@ -1,28 +1,199 @@
 \chapter{Conclusions}
 
+In the preceding chapters we saw how a meta-circular VM targeting its source
+language, based on a message-sending object model could provide flexible
+run-time instrumentation of the object model and function-calling protocol at a
+baseline performance competitive with a state-of-the-art interpreter, by
+harnessing a sophisticated run-time optimizer, without having to modify the
+underlying VM source code. The motivation for the work stems from our current
+inability to obtain longitudinal data on the behavior of JavaScript programs
+because of the effort involved with the current approach, namely to manually
+instrument a production interpreter and maintain it up-to-date. This
+dissertation explained how to solve the core technical issue behind this state
+of affairs, by harnessing the performance gains obtained in recent years for
+flexibility.
+
+However, there is still some work to be performed to \textit{actually} use
+those results to gather empirical data about JavaScript programs. At the same
+time, the approach suggests other possible uses which might be worth exploring.
+In the next sections, we discuss the limitations of the current prototype, with
+regard to its JavaScript implementation, and we identify how the approach could
+be broadly applied by improving upon our current results.
+
 \section{Limitations}
 
-\subsection{Operations on \kw{null} or \kw{undefined} might throw a different exception}
+The limitiations of our current prototype come from JavaScript peculiarities
+that could easily be eliminated if the next versions of the standard were
+allowed to relax strict backward compatibility. Another option would be
+to perform run-time checks to ensure they never arise.  However, we conjecture
+that the resulting system is more useful by relaxing the strict adherence to
+the behavior expected from current VMs for substantial performance gains.  In
+the face of numerous quirks and warts in the design of the JavaScript language,
+it is more important to provide a useful and powerful system, but potentially
+incorrect, than an unuseful but correct one.
 
 \subsection{Accessing the \kw{__proto__} property leaks the internal representation}
 
+This limitation can affect the soundness of the program. This could have been
+solved at the design stage of JavaScript, if the access to the prototype of an
+object has been made through a method call, such as \kw{getPrototype()} instead
+of by accessing the \kw{__proto__} property. This is a problem of mixing
+meta-level with base-level information.
+
+The problem can be mitigated with no run-time penalty by detecting, at
+compile-time, accesses to the \kw{__proto__} property and calling the object
+representation \kw{getProtype} method instead. However, the possibility of
+dynamically generating the \kw{__proto__} name render it unsound. It
+is yet to be seen if this actually happens in the wild.
+
+\subsection{Meta-methods can conflict with regular methods if they have the same name}
+
+This limitation will be solved in the next version of the standard, when
+unforgeable names will be available in user space.  Until then, we can rely on
+little used names to minimize possible conflicts with existing code.
+
 \subsection{Setting the \kw{__proto__} property throws an exception}
+
+As far as we know, this limitation does not come from an impossibility in the
+design to accomodate the assignation of the \kw{__proto__} property but from
+carefulness from potentially unforeseen cases. 
+
+\textit{Note to Marc: I just need to think this through}. 
+
+
+\subsection{Operations on \kw{null} or \kw{undefined} might throw a different exception}
+
+When trying to access a property or call a method on the \kw{null} or
+\kw{undefined} value, VMs for JS throw an exception telling the user that the
+property or the method does not exist on the object. Our current design reify
+property accesses as a call to the \kw{get} method on the object representation
+and calls as a call to the \kw{call} method, \textit{once the object operation
+has been cached}. If the receiver is \kw{null} or \kw{undefined} the exception
+will tell of a missing method that is different from the property or the method
+called.
+
+This problem actually only happens when instrumenting incorrect programs. It
+might not be a problem at all when browsing the web. Otherwise, it would be
+possible to test for \kw{null} or \kw{undefiend} on every operations, at a
+substantial run-time cost.
+
+Another option would be to change the exception being raised by adding test and
+patch code for that particular exception at every catch site, at a
+potentially more reasonable cost depending on the actual usage of the catch
+construct.
+
+This is fundamentally a problem of non-uniformity in the object model. It would
+not exist if every value was an object.  This could be fixed in a subsequent
+revision of JavaScript by providing auto-boxing of \kw{null} and
+\kw{undefined}, in a similar fashion as what is done for other primitive types,
+and adding a "does not understand" handler for property accesses and method
+calls that could be overwritten. The default behavior could be to raise an
+exception when accessing, setting or deleting a property or calling a method.
+The prototype object for \kw{undefined} and \kw{null} could then have methods that
+raise proper exceptions.
 
 \section{Future Work}
 
-\subsection{Allow instrumentation code to target a subset of all objects}
+The obvious short term work would be to package the system in a browser
+extension for Firefox or Chrome and use it to try to replicate the results
+obtained on the dynamic behavior of JavaScript programs~\cite{behavior_js}, to
+see if they still hold and try the instrumentation on more than just the 100
+more popular websites. Then we could extend the instrumentation to cover not
+only the object model operations and function calls but also the binary, unary,
+control-flow and reflexive operations.
 
-\subsection{Extend the scope of dynamic instrumentation}
+We believe there is much more potential to the current approach. The
+biggest open question is how close can we come to native performance while
+providing flexibility unavailable in the vanilla implementation. We compared
+ourselves to a state-of-the-art interpreter because this is what is being used
+for instrumentation nowadays. Similar performance is therefore enough for
+obtaining information about the dynamic behavior of JavaScript programs. 
 
-to binary and unary operations
+However, there could be qualitative improvements if the performance was much
+better, by opening whole new possibilities of applications.  In the next
+sections, we first reflect about possible approaches to improve efficiency
+using known techniques. We then move on to interesting use cases and
+possibilities.
 
-\subsection{Provide mecanisms to optimize the instrumentation code}
+\subsection{Efficient instrumentation}
 
-\subsection{Improve the baseline performance}
+There are two major areas for optimizations: the baseline performance of the
+system and the performance while the code is instrumented. We briefly touch
+upon each of them. 
 
-Dynamic recompilation of function body using the type information contained in inline caches
+\subsubsection{Improve the baseline performance}
 
-\subsection{Apply the approach to efficiently enforce security invariants at run time}
+The easiest known technique that would be worth trying to replicate in a
+meta-circular setting is the dynamic recompilation of the source code based on
+type-feedback obtained during execution. It would further allow the
+specialization of the code to the actual types occuring during execution.
 
-\subsection{Generalize to other languages}
+Our current object representation makes it easy by wrapping the function being
+executed.  The function could be replaced at run time with a specialized
+version. This could eliminate type tests and specialize functions used as
+constructors. Our current inline cache design allows the accumulation of
+arbitrary information.
 
+\subsubsection{Provide mecanisms to optimize the instrumentation code}
+
+First, the system internals currently use a memoization protocol to specialize base
+operations. By exposing the mecanism to user code, this would allow analyses to
+specialize their behavior based on previous executions. This could notably be
+used to avoid performing operations in expensive data structures the second
+time.
+
+Second, the system could offer a better granularity of instrumentation.
+Currently, instrumenting a base operation applies to all objects. However, if
+we could target only a subset of objects and handle that subset at the cache
+level, we could avoid the instrumentation cost for a majority of objects. This
+could be done by implementing the equivalent of polymorphic inline caches and
+having a finer-grained tracking mecanism for cache states.
+
+\subsection{Real-time analysis of the behavior of JavaScript programs}
+
+A sufficient performance could allow a real-time analysis of the behavior of
+JavaScript programs. Compared to the log and analyse approach previously
+done~\cite{behavior_js}, this could provide a qualitatively different
+experience.
+
+This could be used by web developers to develop an intuition about the
+performance cost of various operations. This could also be used by the
+JavaScript committee to develop a better idea of what features are actually
+used accross the web and could allow the deprecation of features that are never
+used.
+
+\subsection{Simplification of production VMs}
+
+Some little-used features (or quirks!) of the JavaScript languages hold back
+the performance that could be achievable and are maintained for
+backward-compatibility reasons. Those features could be provided by a
+meta-circular VM through newer and better performing features.  The
+meta-circular VM could be loaded lazily only when the old features are actually
+invoked.
+
+\subsection{Server-side instrumentation}
+
+A server could dynamically choose to send an instrumented version of its
+JavaScript code to gather information about the actual usage made by users of
+the application. While executing, the instrumented library could "phone home"
+to send back profiling information. However, due to access restrictions in the
+browser, a server configuration is required to permit the direct communication
+of the instrumented code with the library developer server.
+
+\subsection{Library-based profiling}
+
+It is currently hard for library developers to know precisely what
+functionalities are actually used and in which context. It could be possible to
+provide a pre-instrumented library version, tailored to the questions the
+library developers would like to be answered that other web developers could
+use in their web pages. 
+
+\subsection{Server code instrumentation}
+
+The emergence of NodeJS as a server environment obviously allows the system to
+gather information about server-side code.
+
+\subsection{Security invariants monitoring}
+
+Instrumentation could be performed to enforce security invariants instead of
+only logging operations. 

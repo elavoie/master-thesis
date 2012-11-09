@@ -16,21 +16,23 @@ performance, security and reliability, easier to obtain by facilitating
 experimentation.
 
 A \textit{virtual machine} (VM) is a program that simulates the behavior of a
-computing machine.  The simulated machine might exhibit properties that do not have
-physical equivalents. For example, by using a garbage collection component, it
-can provide infinite allocatable memory. Programs executing on VMs inherit
-their properties and constraints, therefore making them prime research objects
-to provide properties to an important number of programs.
+computing machine.  The simulated machine might exhibit properties that do not
+have physical equivalents. For example, by using a garbage collection
+component, it can provide the illusion of infinite allocatable memory. Programs
+executing on VMs inherit their properties and constraints, therefore making
+them prime research objects to provide properties to an important number of
+programs.
 
-Recent research and development on VMs, especially for the JavaScript language,
-has focused on performance, to the expense of flexibility. Notably, it has
-hindered our understanding of the dynamic behavior of real-world programs by
-making instrumentation of existing VMs laborious and complex. It has made the
-gathering of empirical data a one-time effort, by forcing researchers to patch
-the source code of a production VM, therefore making the burden of maintaining the
-instrumented VM up-to-date too demanding for any research team to shoulder.
-With our current approaches, it is too costly to obtain longitudinal data on
-the dynamic behavior of JavaScript programs.
+Recent research and development on VMs, especially for the JavaScript
+language~\cite{js_spec}, has focused on performance, to the expense of
+flexibility. Notably, it has hindered our understanding of the run-time
+behavior of real-world programs by making instrumentation of existing VMs
+laborious. The last attempt at gathering empirical data for JavaScript was a
+one-time effort, where researchers manually instrumented a production
+interpreter to obtain execution traces~\cite{behavior_js}. However this
+approach prevents the acquisition of longitudinal data because the burden of
+maintaining the instrumented interpreter up-to-date is too demanding for any
+research team to shoulder.
 
 Fortunately, the very same gains in performance can be used to regain
 flexibility, even on a rigid production VM. This dissertation shows that a
@@ -38,7 +40,7 @@ sophisticated run-time optimizer can be harnessed to provide flexible run-time
 instrumentation of the object model and function-calling protocol at a
 performance competitive with a state-of-the-art interpreter, without having to
 modify the VM source code. Our approach consists in building a meta-circular VM
-targeting the source language, based on a message-sending object model. To
+targeting the source language, based on a message-passing object model. To
 demonstrate the approach, we provide a reference VM for an existing programming
 language, JavaScript, we show the possibility of instrumenting the object model
 operations and function calls and we finally compare the baseline performance
@@ -50,16 +52,15 @@ as far as we know, this is the first time the approach is shown to be practical,
 both in terms of performance and programming effort, on a mainstream language.
 As such, this dissertation contains two original contributions:
 \begin{itemize}
-    \item An analysis of the required language support for our approach.     
+    \item An analysis of the required language support for our approach.
     \item An object representation exploiting the underlying VM inline caches
-        and dynamic object model to provide performance for virtualized
-        operations
+        and dynamic object model to provide efficient virtualized operations
 \end{itemize}
 
 In addition to supporting the thesis above, we hope (1) the analysis will allow
 the interested reader to evaluate if the approach could be feasible in its
 favorite language, (2) to encourage future language designs to provide features
-facilitating a layered approach to VM implementations and (3) the object
+facilitating a layered approach to obtain flexibility and (3) the object
 representation will be used by other language implementations seeking
 efficiency while targeting existing JS VMs.
 
