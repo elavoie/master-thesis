@@ -92,6 +92,11 @@ exception when accessing, setting or deleting a property or calling a method.
 The prototype object for \kw{undefined} and \kw{null} could then have methods that
 raise proper exceptions.
 
+\subsection{Limited support for eval}
+
+Our compiler does not support accessing the local environment of a function
+from evaluated code.
+
 \section{Future Work}
 
 The obvious short term work would be to package the system in a browser

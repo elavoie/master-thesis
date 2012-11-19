@@ -2,74 +2,120 @@
 \label{chap:Performance}
 
 The last section introduced techniques to reduce the run-time overhead of the
-object model. We now estimate the actual run time and memory-usage
-overhead incured by the additional flexibility. This can serve to
-evaluate if the overhead is acceptable for particular usage scenarios.
-Additionally, we also evaluate the effectiveness of the optimizations
-introduced in the last section, to show that they address the actual
-bottlenecks of the system.
-
-Performance analysis is riddled with potential pitfalls, particularly from the
-influence of hidden variables on the results. The complex execution model of
-the underlying JS VM, the operating system and the CPU and their interaction
-makes it complicated and hazardous to try to generalize performance results
-from one setting to another.  Unfortunately, a thorough analysis that could
-hopefully help us generalize better is beyond the scope of this master thesis.
-At the same time, we can take comfort in the fact that a "perfect" prediction
-for the resources that will be consumed by a given application on the proposed
-system can be obtained by actually running the application on it. Since it can
-be done easily, it alleviates the need for a detailled performance analysis.
+object model. We now evaluate the actual run-time and memory-usage overhead
+incured by the additional flexibility. We will see that it compares favorably
+to the performance of a state-of-the-art interpreter, making the approach
+viable for instrumentation. Additionnally, the actual figures obtained will
+allow the reader to evaluate if this approach could be applied to other usage
+scenarios.
 
 The next section explains the methodology used to evaluate the performance of
-the system. Results on representative benchmarks are then presented and
-compared with the performance results of Narcissus, a meta-circular evaluator
-developped at Mozilla that aims to provide a flexible environment to test
-language ideas. The similarity of the design goals makes it a suitable
-comparison.
+the system. We then present the baseline performance (without instrumentation)
+obtained on different systems for common benchmarks. We then see the
+performance impact of a chosen instrumentation and we conclude with an
+interpretation of the results. 
+
 
 \section{Methodology}
 
-We compare four different systems:
+We compare three different systems:
 \begin{itemize}
-    \item V8
-    \item Photon with optimizations running over V8
-    \item Photon without optimizations running over V8
-    \item Narcissus running over SpiderMonkey
+    \item Photon running over V8 (V8's full optimizations)
+    \item V8 (full optimizations)
+    \item SpiderMonkey interpreter (JIT disabled)
 \end{itemize}
 
-We use the benchmarks proposed by Mozilla and Google, respectively the
-SunSpider and V8 benchmark suites, since they became the \textit{de facto}
-standard to compare JS VM performance. However, there is consensus among
-vendors and in academia that theses benchmarks are not representative of
-current web applications. It is beyond the scope of this master thesis to
-create a representative benchmark suite but instead of throwing the towel, we
-will use 2 thousand-lines JS programs to obtain performance results. This still
-suffers from a selection bias but it is still better than only having
-micro-benchmarks. The 2 additional benchmarks are:
-\begin{itemize}
-    \item \textit{parser} A generated JS Parser that parses and pretty-print its own code
-    \item \textit{cpu} A RISC cpu simulator running fibonacci
-\end{itemize}
+V8 was chosen to host Photon because preliminary tests showed the system to be
+faster on it. The additional speed is attributed to the ability of the runtime
+to do function inlining, On-Stack-Replacement and the presence of fast Garbage
+Collectors. Other VMs are catching up on features so we anticipate that in the
+near future they could probably be used interchangeably. We compare Photon to
+V8 to quantify the performance cost incured by our approach. This really gives
+the cost of harnessing some performance to provide more flexibility to the
+system.  We finally compare to a popular state-of-the-art interpreter to argue
+that our approach can be used wherever a manual instrumentation of that
+interpreter could have been performed. 
+
+In choosing the systems to compare, we eliminated a few current alternatives.
+We assume that when faced with the task of instrumenting production code to
+obtain run-time data, manually instrumenting a JIT-compiler would be deemed too
+complex to be cost-effective in terms of development time. At the time of
+writing, a new interpreter became available, namely JavaScriptCore's
+low-level interpreter.  However, we argue that the only real instrumentation
+alternative right now would be SpiderMonkey's interpreter because the
+JavaScriptCore low-level interpreter is implemented in an assembly dialect to
+obtain performance gains. As this new interpreter matures, we speculate that
+its complexity will increase, negating most of the simplicity usually
+attributed to interpreters.~\footnote{Should the reader still consider the
+alternative of instrumenting JavaScriptCore's low-level interpreter instead,
+she should know that in our tests, on V8's benchmarks, JavaScriptCore low-level
+interpreter was roughly three times faster than SpiderMonkey's interpreter.}
+Finally, we do not show performance results for Narcissus, Mozilla's JavaScript
+in JavaScript interpreter, because the latest version would not run either
+SunSpider or V8 benchmarks.
+
+To assess performance, we use the SunSpider and V8 benchmark suites, since they
+became the \textit{de facto} standard to compare JS VM performance. They both
+come with their own different evaluation methodology. We used the methodology
+of each benchmark suite without modification to make our results comparable to
+other results obtained elsewhere for other systems. All the benchmarks were run
+unmodified. However, the date benchmarks from SunSpider were omitted because
+they relied on using \kw{eval} to access local variables, which is not
+supported by our current compiler.  Since Photon's local environment use the
+underlying VM's local environment (it is not reified), we believe that
+supporting this feature in the future will not affect significatively the
+performance results presented here.
 
 We focus on two metrics, total running time and the maximum heap size to
-respectively measure run-time performance and memory usage. For
-micro-benchmarks we iterate 400 times after a warm-up phase where we iterate 10
-times. This is done to minimize the impact of the JIT compilation time and
-adaptative optimizations. The maximum heap size is used because it is easy to
-measure and should give a rough approximation of the overhead introduced by the
-object representation chosen.
+respectively measure run-time performance and memory usage. Running time is
+measured either directly, in the case of SunSpider's benchmarks or indirectly
+through a score, in the case of V8's benchmarks. Memory usage is only used to
+estimate the overhead of Photon compared to V8.
 
-\section{Results}
+We present results in two different groups, the baseline performance and the
+instrumented performance.  The baseline performance is used to measure the
+minimal overhead of the approach.  This is important to assess the viability of
+the approach because a baseline overhead that would be too high could make the
+approach unusable in the majority of cases, independently of the other
+characteristics of the system. The instrumented performance is used to measure
+the impact of instrumentation on the baseline performance. It is common
+knowledge that instrumenting an interpreter has little impact over its overall
+performance (this was verified by Richards and al. when they instrumented
+JavaScriptCore~\cite{behavior_js}). However, our approach might be more
+sensible to instrumentation. We therefore show the impact of a basic
+instrumentation on the performance of Photon. We used the V8 benchmarks because
+they perform more and more varied operations in a single benchmark than the
+SunSpider benchmarks. We count the number of occurrence at run time of each
+reifed object model operation. We chose this particular instrumentation because
+it is simple, it covers every object model operation and it can be used to
+reproduce the object read, write or delete proportion figure
+from~\cite{behavior_js}.
+
+
+\section{Baseline Performance}
 
 \subsection{V8 benchmarks}
--added () around new Date used as an expression (base.js)
--moved Benchmark definition at the end because no function hoisting is done (deltablue.js)
+
+\subsubsection{Running Times}
+
+
+% Benchmark name -- V8 Running Time -- Photon Running Time -- SpiderMonkey Running Time -- Photon / V8 -- Photon / SpiderMonkey
+
+\subsubsection{Memory Overhead}
+
+% Benchmark name -- V8 Max Heap Size -- Photon Max Heap Size -- Photon / V8 
 
 \subsection{SunSpider benchmarks}
--added semi-colon (find benchmark...)
--removed new operation from string construction (date-format-tofte)
 
-\subsection{Custom benchmarks}
+\subsubsection{Running Times}
+
+% Benchmark name -- V8 Running Time -- Photon Running Time -- SpiderMonkey Running Time -- Photon / V8 -- Photon / SpiderMonkey
+
+\subsubsection{Memory Overhead}
+
+% Benchmark name -- V8 Max Heap Size -- Photon Max Heap Size -- Photon / V8 
+
+\section{Instrumented Performance}
 
 \section{Interpretation}
 
