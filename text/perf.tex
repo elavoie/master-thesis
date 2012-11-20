@@ -86,20 +86,21 @@ sensible to instrumentation. We therefore show the impact of a basic
 instrumentation on the performance of Photon. We used the V8 benchmarks because
 they perform more and more varied operations in a single benchmark than the
 SunSpider benchmarks. We count the number of occurrence at run time of each
-reifed object model operation. We chose this particular instrumentation because
+reifed object-model operation. We chose this particular instrumentation because
 it is simple, it covers every object model operation and it can be used to
 reproduce the object read, write or delete proportion figure
 from~\cite{behavior_js}.
 
+% TODO: Provide machine specs and versions for both d8 and spidermonkey
 
+% TODO ?? Provide graphic with confidence intervals and means
 \section{Baseline Performance}
 
 \subsection{V8 benchmarks}
 
 \subsubsection{Running Times}
 
-
-% Benchmark name -- V8 Running Time -- Photon Running Time -- SpiderMonkey Running Time -- Photon / V8 -- Photon / SpiderMonkey
+\input{/Users/erick/Recherche/photon-js/results/baseline/v8/time/table.tex}
 
 \subsubsection{Memory Overhead}
 
@@ -109,7 +110,7 @@ from~\cite{behavior_js}.
 
 \subsubsection{Running Times}
 
-% Benchmark name -- V8 Running Time -- Photon Running Time -- SpiderMonkey Running Time -- Photon / V8 -- Photon / SpiderMonkey
+\input{/Users/erick/Recherche/photon-js/results/baseline/sunspider/time/table.tex}
 
 \subsubsection{Memory Overhead}
 

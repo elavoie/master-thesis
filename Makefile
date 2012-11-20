@@ -18,7 +18,10 @@ FIGDIR = figures
 
 FIGURES = figures/*.eps
 
-FILES = text/*.tex thesis.sty listings/* 
+FILES = text/*.tex thesis.sty listings/* \
+        /Users/erick/Recherche/photon-js/results/baseline/v8/time/table.tex \
+        /Users/erick/Recherche/photon-js/results/baseline/sunspider/time/table.tex \
+
 
 $(MAIN).dvi:    $(MAIN).tex $(FIGURES) $(FILES)
 	$(LATEX) $*.tex; 
