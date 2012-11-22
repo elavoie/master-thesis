@@ -22,7 +22,8 @@ FILES = text/*.tex thesis.sty listings/* \
         /Users/erick/Recherche/photon-js/results/baseline/v8/time/table.tex \
         /Users/erick/Recherche/photon-js/results/baseline/sunspider/time/table.tex \
         /Users/erick/Recherche/photon-js/results/baseline/v8/memory/table.tex \
-        /Users/erick/Recherche/photon-js/results/baseline/sunspider/memory/table.tex
+        /Users/erick/Recherche/photon-js/results/baseline/sunspider/memory/table.tex \
+        /Users/erick/Recherche/photon-js/results/instrumented/v8/time/table.tex \
 
 
 
