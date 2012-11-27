@@ -48,7 +48,7 @@ $(EMAIN).pdf:	$(MAIN).ps
 .ps.pdf:       $*.dvi
 	$(PS2PDF) -sPAPERSIZE=letter $< $@
 
-thesis.pdf: $(FILES) $(FIGURES) $(MAIN).tex
+thesis.pdf: $(FILES) $(FIGURES) $(MAIN).tex ref.bib
 	$(LATEX) thesis.tex 
 	$(BIBTEX) $*;
 	$(LATEX) thesis.tex

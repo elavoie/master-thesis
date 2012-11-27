@@ -1,5 +1,67 @@
 \chapter{Design}
 \label{chap:Design}
+\emph{``Il semble que la perfection soit atteinte non quand il n'y a plus rien
+\`a ajouter, mais quand il n'y a plus rien \`a retrancher.''}
 
-\section{Goals}
+\hfill --- Antoine de Saint-Exup\'ery
+
+\emph{``It can scarcely be denied that the supreme goal of all theory is to
+make the irreducible basic elements as simple and as few as possible without
+having to surrender the adequate representation of a single datum of
+experience.''}
+
+\hfill --- Albert Einstein
+
+\emph{``There are only two kinds of languages: the ones people complain about
+and the ones nobody uses.''} \footnote{\emph{Of course, all "there are only
+two" quotes have to be taken with a grain of salt.} Bjarne Stroustrup~\cite{stroustrup}}
+
+\hfill --- Bjarne Stroustrup
+
+Programming languages that survived the wilderness of actual usage and
+evolution usually suffer from birth or acquired quirks, defects and
+idiosyncracies. JavaScript is no exception. In embarking on the journey of
+opening it for dynamic instrumentation, we faced the opposing goals of trying
+to be compatible with existing programs while keeping the design as simple as
+possible. This chapter explains our latest iteration, which runs existing
+benchmarks with no modification while providing the flexibility to change the
+semantics of object model operations and function calls \textit{while the
+program is running}. The runtime environment required to implement the design
+can be written in \input{/Users/erick/Recherche/photon-js/perf/loc.txt} lines
+of JavaScript code, satisfying our simplicity criteria.
+
+The aim of this chapter is not to provide an exhaustive explanation of how we
+handled every idiosyncracy of JavaScript. A reference implementation is
+provided for that purpose. Its \textit{raison d'\^etre} is to provide a
+high-level overview of the core ideas behind the system, hopefully in a way
+that will ease generalization to other languages.
+
+Reification choices, namely the elements of the language we chose to open, are
+presented. Then, the message-sending foundation is explained, both by seeing
+how the semantic of opened operation can be expressed on it and how it can be
+efficiently implemented in JavaScript. After, an object representation is
+presented. We believe this representation is original through its use of
+proxies that mirror the inheritance chain of the proxied objects.Finally, a brief compilation
+example is provided to illustrate how JavaScript can be compiled to this
+runtime environment.
+
+\section{Reification choices}
+\subsection{Object Model Operations}
+\subsection{Function calling}
+
+\section{Message-sending foundation}
+% Open, Dynamic
+\subsection{Semantic}
+\subsection{Inline Caching implementation}
+\subsection{Tracking and Invalidation Mecanism}
+
+\section{Object Representation}
+% Performance, Extensible
+\subsection{Prototype-based}
+\subsection{Proxy}
+\subsection{Containers}
+
+
+\section{Compilation}
+\subsection{Examples}
 

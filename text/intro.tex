@@ -40,7 +40,7 @@ sophisticated run-time optimizer can be harnessed to provide flexible run-time
 instrumentation of the object model and function-calling protocol at a
 performance competitive with a state-of-the-art interpreter, without having to
 modify the VM source code. Our approach consists in building a meta-circular VM
-targeting the source language, based on a message-passing object model. To
+targeting the source language, based on a message-sending object model. To
 demonstrate the approach, we provide a reference VM for an existing programming
 language, JavaScript, we show the possibility of instrumenting the object model
 operations and function calls and we finally compare the baseline performance
@@ -332,6 +332,10 @@ The next pages show how a message-sending object model for JS defined in terms o
 itself provides \textit{openness}, \textit{dynamism}, \textit{extensibility}
 and \textit{performance} and empirically evaluate its practicality for building
 \textit{flexible} virtual machines.
+
+\section{Meta-Circularity}
+\subsection{VM Paradigm vs Instrumentation}
+
 
 \section{Outline}
 \begin{itemize}
