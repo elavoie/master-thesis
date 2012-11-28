@@ -37,17 +37,80 @@ high-level overview of the core ideas behind the system, hopefully in a way
 that will ease generalization to other languages.
 
 Reification choices, namely the elements of the language we chose to open, are
-presented. Then, the message-sending foundation is explained, both by seeing
-how the semantic of opened operation can be expressed on it and how it can be
-efficiently implemented in JavaScript. After, an object representation is
-presented. We believe this representation is original through its use of
-proxies that mirror the inheritance chain of the proxied objects.Finally, a brief compilation
-example is provided to illustrate how JavaScript can be compiled to this
-runtime environment.
+presented and their particular choice is justified. Then, the message-sending
+foundation is explained, both by seeing how the semantic of opened operation
+can be expressed on it and how it can be efficiently implemented in JavaScript.
+After, an object representation is presented. We believe this representation is
+original through its use of proxies that mirror the inheritance chain of the
+proxied objects.Finally, a brief compilation example is provided to illustrate
+how JavaScript can be compiled to this runtime environment.
 
 \section{Reification choices}
-\subsection{Object Model Operations}
-\subsection{Function calling}
+
+Numerous elements of a programming language can be opened to
+user-modifications. A list relevant to JavaScript might include (but not be
+limited to):
+\begin{itemize}
+    \item \textit{Syntax}: How a program is represented (ex: as s-expressions,
+    text or graphical tiles)
+    \item \textit{Control-flow operators}: The operators modifying the flow of
+    control (ex: branching instructions, loops, exceptions, continuations) 
+    \item \textit{Environment}: The list of variables accessed by a program and
+    their scope (ex: local, global or closure variables)
+    \item \textit{Primitive operations}: Operations on primitive values for
+    languages that have distinct primitive and object values (ex: \kw{+} in
+    JavaScript) 
+    \item \textit{Object representation}: How objects are constructed from
+    basic elements (ex:Dictionary-based representation, Fixed-memory blocks, etc.)
+    \item \textit{Object model operations}: What operations the objects
+    support, what behavior they perform and how they affect their
+    representation (ex: accessing a property, deleting a property, changing the
+    class, etc.)
+    \item \textit{Function-calling protocol}: What operations are performed
+    before and after a call. (ex: logging type information)
+\end{itemize}
+
+Our choice of which elements to reify has been influenced by past empirical
+studies choices of data to gather, by the availability of language features
+that support the reification and by the optimizations performed by the
+underlying runtime. Developments in any of those area will further influence
+what elements are interesting, possible and practical to reify, therefore we
+urge the reader not to consider this work as the end of the road but instead as
+an example of what could be interesting, possible and practical given our
+current circumstances. The field is evolving, so should our understanding and
+practices.
+
+Given our focus on instrumentating JavaScript, we left out the reification of
+the syntax. Our view is that a proper macro system would be ideal, but such a
+feature is not necessary to understand what current JavaScript programs are
+actually doing. Control-flow operators were left out, mostly for performance
+reasons but also because the current version of JavaScript would not allow
+their reification easily as a method. Wrapping a block in a function modifies
+its environment, potentially changing the \kw{this} value in the block. The
+next version of JavaScript introduces an arrow function with a lexical
+\kw{this} that will fix this short-coming, so as soon as modern VMs support the
+arrow-notation it should be possible to reify the control-flow instructions.
+The environment and primitive operations were kept closed for performance
+reasons, to ensure fast closure creation, variable access and arithmetic
+operations.
+
+The object representation and the object model operations were reified because
+a large part of the dynamic instrumentation of JavaScript has targeted the
+object model to elucidate the amount of dynamism actually used. This
+reification was possible because the primitive operations are extensible
+through the \kw{toString} and \kw{valueOf} protocol to support proxy
+objects.~\footnote{It was a welcomed feature. It actually made our VM faster by
+permitting us to directly use the native primitive operators instead of also
+having to reify primitive operation to dispatch to our custom objects.} The
+object representation and object model were designed to exploit the host's
+inline caches and global function inlining and calling protocol.  
+
+Finally, the function-calling protocol was reified to facilitate the
+construction of dynamic call graphs. It was possible because we can globally
+transform all functions for support. Our protocol was designed to avoid
+reliance on \kw{call} and \kw{apply} native methods and default to the
+native calling protocol as long as they are not modified, in the interest of
+speed.
 
 \section{Message-sending foundation}
 % Open, Dynamic
