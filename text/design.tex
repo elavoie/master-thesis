@@ -113,16 +113,180 @@ native calling protocol as long as they are not modified, in the interest of
 speed.
 
 \section{Message-sending foundation}
+Simplicity is achieved when few abstractions can capture the essence of a whole
+class of phenomenons. In our design, the message-sending operation serves to
+unify all reified operations around a single mecanism. It facilitates the
+achievement of correctness, and arguably, performance, because it allows its
+implementation to target the highest performing operations of the underlying
+system. It would be unreasonable to expect better performance than a hand-tuned
+native implementation~\footnote{However, faster-than-native
+speeds might be achieved if the native implementation is suboptimal and performs
+worse than a potentially equivalent other native functionality. It is my
+conjecture that as systems grow in complexity, such opportunities might be
+more common in the future.}. However, this approach might give us a better
+performance than equivalent instrumentations that try to optimize every reified
+operations independently, without the support of a unified mecanism.
+
+The particular choice of message-sending as a foundation was motivated by its
+tried and true application to Smalltalk and Self with success for the obtention
+of a dynamic, open and eventually fast implementation. The initial awareness of
+the possibility to unify an object model around a message-sending primitive
+came from the Open, Extensible Object Models from Piumarta and
+Warth~\cite{Piumarta:2008}.
+
+
+
 % Open, Dynamic
 \subsection{Semantic}
-\subsection{Inline Caching implementation}
-\subsection{Tracking and Invalidation Mecanism}
+
+We will now see the chosen semantic for the message-sending operation, in
+steps. We will first discuss the basic operation, that closely correspond to a
+method call in JavaScript. We will then reify the function call to allow its
+redefinition. We will then see how we can reify the memoization operation
+performed by inline caches to enable user-supplied functions to specify their
+cached behavior, potentially allowing algorithmic improvements in speed. A
+message send is always synchronous to another object in the same address space,
+which closely micmics the most common usage in recent object-oriented
+languages.
+
+To present the message-sending operation, we need to make some assumptions
+about the object representation. We will assume, without loss of generality,
+that the object representation is itself object-oriented, prototype-based and
+that operations to the representation are made by calling methods on
+objects.~\footnote{In our particular case, it happens to be the case, as
+we will see later in this chapter.}. However, the reader should keep in mind
+that the message-sending operation is orthogonal to the object representation
+chosen. 
+
+We will assume that the representation supports at least 4 methods:
+\begin{itemize}
+    \item \kw{has(name)} method: returns true if the object has the \kw{name}
+    property
+    \item \kw{get(name)} method: returns the value of the \kw{name} property 
+    \item \kw{call(rcv, ..args)} method: calls the object as a method with the
+    \kw{rcv} receiver and \kw{args} arguments and returns its return value
+    \item \kw{getPrototype()} method: returns the prototype of an
+    object~\footnote{As explained in the conclusion, using the \kw{__proto__}
+    property breaks the encapsulation and mixes base-level and meta-level
+    information. We therefore prefer to access the prototype through a method
+    call. We use it here to advocate this particular usage.}
+\end{itemize}
+
+Unless specified, the pseudo-code follows the regular JavaScript semantic. We
+will take advantage of the expressivity of the rest and spread operators, bound
+to appear in the next revision. For presentation simplicity, primitive values,
+missing values and error handling are omitted.
+
+\subsubsection{Basic}
+
+The basic version essentially performs a regular lookup followed by a method
+call. The lookup operation is called \kw{bind} to emphasize the
+\textit{late-boundness} inherent in a method call, which is the source of
+dynamism. This is the semantic of a method call in JavaScript as well:
+
+\jsfile{listings/basic-send.js}
+
+From the point of view of the user program, the \kw{call} operation is opaque
+and cannot be modified. When trying to obtain a dynamic call graph, this is
+unfortunate, because it forces the rewriting of every call site at compile
+time, including method calls, to catch all \textit{call} events.
+
+We can do it dynamically with a slight modification of the semantic of the
+operation.
+
+\subsubsection{Augmented function-calling flexibility}
+
+In JavaScript, the \kw{call} method on every function reifies the calling
+protocol and allows a program to call into a function at run time, as if it was
+done through the direct mecanisms. The exact behavior of a function call should be
+the same, whether it is called directly or indirectly. However, there is no
+causal relationship between the state of the \kw{call} method and the behavior
+of function calls. In other words, redefining the \kw{call} method on
+\kw{Function.prototype} does not affect the behavior of call sites.
+
+We can establish this causal relationship with a slight modification of the
+send operation:
+
+\jsfile{listings/augmented-send.js}
+
+This semantic allows a particular function to be instrumented, simply be
+redefining its call method with proper support. We can also catch all functions
+calls, as long as these are mapped to message sends.
+
+Performance \textit{aficionados} might cringe at the idea of adding a level of
+indirection to every function call. Before we address performance issue of the
+message-sending protocol itself, we first look at a bigger opportunity of
+performance gains, namely memoizing the function behavior and see how we can
+support it.
+
+\subsubsection{Memoization protocol}
+
+Memoization is usually associated with functional programming and entails
+trading space-efficiency for time-efficiency by remembering past return values
+of functions with no side-effect. We will use the same definition here although
+we will relax the no side-effect constraint by placing the burden of insuring
+that memoized functions will always return the same value as if the original
+function was called, on the programmer. Whether memoization might break
+invariants of the system is left to her to elucidate when writing a particular
+memoized function.
+
+This particular functionality became necessary when trying to implement
+efficiently the JavaScript object model operations in Photon because they are
+reified as methods for openness. It became clean that using inline caches to
+memoize their optimized versions was desirable.
+
+The basic idea is to allow a method to inspect its arguments and receiver
+before the first call to specialize itself for subsequent calls. The first call
+is always performed by calling the original function while all subsequent calls
+will be made to the memoized function.
+
+There is an unfortunate interaction between memoization and the reification of
+the call protocol. A further refinement specifies that memoization can only
+occur if the call method of the function has not been redefined, otherwise it
+would change the identity of the function passed to the call method. We simply
+need to check if the call method of a function corresponds to the default call
+method, in which case the identity of the function is not important, only its
+behavior. If it is the case, then, we can store the memoized function in the
+cache. Otherwise, we call the original function through its redefined call
+method:
+
+\jsfile{listings/memoized-send.js}
+
+This definition has the advantage that one can temporarily redefine the calling
+method but when the original method will be restored, the memoization will be
+able to resume.
+
+Memoization introduced the idea of a cache for message sends. Caching entails
+invalidation if the invariants behind caching are violated. We will see how to
+handle that when discussing how to efficiently implement message sending.
+Before that, we will see how we can use message sending as a foundation for all
+reified operations.
+
+\subsection{Translating reified operations to message-sending}
+
+\subsection{Efficient implementation}
+
+\subsubsection{Inlining the call protocol}
+\subsubsection{Inline caching}
+\subsubsection{Tracking and Invalidation Mecanism}
 
 \section{Object Representation}
 % Performance, Extensible
 \subsection{Prototype-based}
 \subsection{Proxy}
 \subsection{Containers}
+
+\section{Function-Calling Protocol}
+
+Function calls in JavaScript happen in various operations:
+\begin{itemize}
+    \item \textit{Global Function call}
+    \item \textit{Local Function call}
+    \item \textit{Method call}
+    \item \textit{\kw{apply} or \kw{call} method}
+    \item \textit{Standard Library implicit call}
+\end{itemize}
+
 
 
 \section{Compilation}
