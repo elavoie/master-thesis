@@ -103,7 +103,7 @@ objects.~\footnote{It was a welcomed feature. It actually made our VM faster by
 permitting us to directly use the native primitive operators instead of also
 having to reify primitive operation to dispatch to our custom objects.} The
 object representation and object model were designed to exploit the host's
-inline caches and global function inlining and calling protocol.  
+inline caches, global function inlining and calling protocol.  
 
 Finally, the function-calling protocol was reified to facilitate the
 construction of dynamic call graphs. It was possible because we can globally
@@ -134,8 +134,6 @@ the possibility to unify an object model around a message-sending primitive
 came from the Open, Extensible Object Models from Piumarta and
 Warth~\cite{Piumarta:2008}.
 
-
-
 % Open, Dynamic
 \subsection{Semantic}
 
@@ -154,7 +152,7 @@ about the object representation. We will assume, without loss of generality,
 that the object representation is itself object-oriented, prototype-based and
 that operations to the representation are made by calling methods on
 objects.~\footnote{In our particular case, it happens to be the case, as
-we will see later in this chapter.}. However, the reader should keep in mind
+we will see later in this chapter.} However, the reader should keep in mind
 that the message-sending operation is orthogonal to the object representation
 chosen. 
 
@@ -162,7 +160,8 @@ We will assume that the representation supports at least 4 methods:
 \begin{itemize}
     \item \kw{has(name)} method: returns true if the object has the \kw{name}
     property
-    \item \kw{get(name)} method: returns the value of the \kw{name} property 
+    \item \kw{get(name)} method: returns the value of the \kw{name} property on
+    this particular object
     \item \kw{call(rcv, ..args)} method: calls the object as a method with the
     \kw{rcv} receiver and \kw{args} arguments and returns its return value
     \item \kw{getPrototype()} method: returns the prototype of an
@@ -232,7 +231,7 @@ memoized function.
 
 This particular functionality became necessary when trying to implement
 efficiently the JavaScript object model operations in Photon because they are
-reified as methods for openness. It became clean that using inline caches to
+reified as methods for openness. It became clear that using inline caches to
 memoize their optimized versions was desirable.
 
 The basic idea is to allow a method to inspect its arguments and receiver
@@ -253,8 +252,7 @@ method:
 \jsfile{listings/memoized-send.js}
 
 This definition has the advantage that one can temporarily redefine the calling
-method but when the original method will be restored, the memoization will be
-able to resume.
+method without penalty after the original method has been restored.
 
 Memoization introduced the idea of a cache for message sends. Caching entails
 invalidation if the invariants behind caching are violated. We will see how to
@@ -264,10 +262,196 @@ reified operations.
 
 \subsection{Translating reified operations to message-sending}
 
-\subsection{Efficient implementation}
+The following two sections summarize the operations of JavaScript that we
+opened by converting them to message sends, according to the semantic presented
+precendently.
 
-\subsubsection{Inlining the call protocol}
-\subsubsection{Inline caching}
+\subsubsection{Function calls}
+
+Function calls in JavaScript happen in various operations. An explanation of
+each occurence as well as their equivalent message send are given in
+table~\ref{tb:CallTypes}.
+
+\begin{table}[htb]
+\caption{Call types and their equivalent message sends}
+\centering
+
+\begin{tabular}{|p{.33\textwidth}|p{.33\textwidth}|p{.33\textwidth}|}
+  \hline
+  Call Type & Explanation & Equivalent Message Send \\
+  \hline \hline
+    \tbbox{Global\\} & 
+    \tbbox{
+        Calling a function whose value is in a global variable. \\
+        Ex: \kw{foo()}
+    } &
+    \tbbox{
+        Sending a message on the global object. \\
+        Ex: \kw{send(global,"foo")}
+    } \\
+  \hline
+  \tbbox{Local\\} & 
+    \tbbox{
+        Calling a function in a local variable.  \\
+        Ex: \kw{fn()}
+    } &
+    \tbbox{
+        Sending the \kw{call} message to the function.\\
+        Ex: \kw{send(fn,"call")}
+    } \\
+  \hline
+  \tbbox{Method\\} & 
+    \tbbox{
+        Calling an object method. \\
+        Ex: \kw{obj.foo()}
+    } &
+    \tbbox{
+        Sending a message to the object.\\
+        Ex: \kw{send(obj,"foo")}
+    } \\
+  \hline
+  \tbbox{\kw{apply} or \kw{call}} & 
+    \tbbox{
+        Calling the \kw{call} or \kw{apply} function method. \\
+        Ex: \kw{fn.call()}
+    } &
+    \tbbox{
+        Sending the \kw{call} or \kw{apply} message.\\
+        Ex: \kw{send(fn,"call")}
+    } \\
+  \hline
+\end{tabular}
+
+\label{tb:CallTypes}
+\end{table}
+
+
+\subsubsection{Object model operations}
+
+An explanation of each opened object model operation as well as their
+equivalent message send are given in table~\ref{tb:ObjectModelOperations}.
+
+\begin{table}[htb]
+\caption{Object model operations and their equivalent message sends}
+\centering
+
+\begin{tabular}{|p{.33\textwidth}|p{.33\textwidth}|p{.33\textwidth}|}
+  \hline
+  Object Model Operation & Explanation & Equivalent Message Send \\
+  \hline \hline
+  \tbbox{Property access} & 
+    \tbbox{
+        Retrieving the value of a property that might exist or not.\\
+        Ex: \kw{obj.foo}  
+    } &
+    \tbbox{
+        Sending the \kw{__get__} message.\\
+        Ex: \kw{send(obj,"__get__","foo")}
+    } \\
+  \hline
+  \tbbox{Property assignation} & 
+    \tbbox{
+        Creating or updating a property.\\
+        Ex: \kw{obj.foo=42} 
+    } &
+    \tbbox{
+        Sending the \kw{__set__} message.\\
+        Ex: \kw{send(obj,"__set__","foo",42)}
+    } \\
+  \hline
+  \tbbox{Property deletion} &
+    \tbbox{
+        Deleting a property that might exist or not.\\
+        Ex: \kw{delete obj.foo}
+    } &
+    \tbbox{
+        Sending the \kw{__delete__} message. Ex:\\
+        \kw{send(obj,"__delete__","foo")}
+    } \\
+  \hline
+  \tbbox{Object litteral creation} & 
+    \tbbox{
+        Creating an object in-place.\\
+        Ex: \kw{\{foo:42\}} 
+    } &
+    \tbbox{
+        Sending the \kw{__new__} message.\\
+        Ex: \kw{send(\{foo:42\}, "__new__")}
+    } \\
+  \hline
+  \tbbox{Constructor creation} & 
+    \tbbox{
+        Creating an object with \kw{new}. \\
+        Ex: \kw{new Fun()}
+    } &
+    \tbbox{
+        Sending the \kw{__ctor__} message.\\
+        Ex: \kw{send(Fun, "__ctor__")}
+    } \\
+  \hline
+\end{tabular}
+
+\label{tb:ObjectModelOperations}
+\end{table}
+
+\subsection{Efficient implementation}
+Now that the semantic and mapping have been established, we will address the
+biggest hurdle that might prevent an approach based on a unified message
+sending foundation to be used, namely performance.
+
+The core insight behind our implementation comes from seeing global function
+calls both as an optimized calling mecanism and as a dynamically specializable
+operation. They provide the same ability as code patching in assembly. On
+the current version of V8, when the number of arguments expected matches the
+number of arguments supplied, it opens the possibility of inlining the function
+at the call site. If later the global function is redefined, the call site will
+be deoptimized transparently. It is a really powerful mecanism because much of
+the complexity of run-time specialization is performed by the underlying host.
+We can simply piggy back on those optimizations.
+
+Let's start with an example. Given the aforementioned semantic of message
+sending, sending the message \kw{msg} to an object \kw{obj} inside a \kw{foo}
+function can be written this way:
+
+\jsfile{listings/send-example.js}
+
+The \kw{send} function is a global function. We can replace it with another
+global function that is garanteed to be unique, so it can be uniquely
+identified with the call site. In addition to the message to be sent, we can
+pass it a unique identifier that will be used to find the corresponding global
+function name, for later specialization of the call site:
+
+\jsfile{listings/inline-cache-example.js}
+
+Notice how the \kw{initState} function follows the same calling convention as
+the \kw{send} function. As we will see later, it is also the same calling
+conventions used for our function call protocol. Notice also that
+\kw{dataCache0} is an array, which means that the different states of the cache
+can use the array to store additional information.
+
+After an initial execution, the second time around, the cache will hold an
+optimized version of the operation. From now on, we will use the object
+representation we defined previously with a slight difference: we will assume
+the \kw{get} operation performs an implicit lookup through its prototype chain,
+as previously we stated that it would only lookup on the current object.
+Given this new definition, the cache state might be equivalent to:
+
+\jsfile{listings/inline-cache-optimized-example.js}
+
+Appart from the indirection of the global function call, this example is
+optimal with regard to the object representation definition we have. If the
+underlying runtime choose to inline the global function, the cost of the
+indirection will be effectively eliminated.
+
+We can do better than that but we will need to wait after the object
+representation has been introduced for further optimization gains.  The initial
+inspiration for this optimization was drawn from the lazy function definition
+pattern as explained by Peter Michaux, in which after the initial setup
+performed by a function, a new function without the initialization code can
+replace the original function to provide an efficient
+operation~\cite{michaux:LazyFunctionDefinitionPattern}. We believe this is the
+first time this pattern is used as an inline cache in the litterature.
+
 \subsubsection{Tracking and Invalidation Mecanism}
 
 \section{Object Representation}
@@ -275,17 +459,11 @@ reified operations.
 \subsection{Prototype-based}
 \subsection{Proxy}
 \subsection{Containers}
+\subsection{Optimization opportunities}
+\subsubsection{Specialized operations}
+\subsubsection{Specialized arguments length}
 
-\section{Function-Calling Protocol}
-
-Function calls in JavaScript happen in various operations:
-\begin{itemize}
-    \item \textit{Global Function call}
-    \item \textit{Local Function call}
-    \item \textit{Method call}
-    \item \textit{\kw{apply} or \kw{call} method}
-    \item \textit{Standard Library implicit call}
-\end{itemize}
+\section{Function-calling protocol}
 
 
 
