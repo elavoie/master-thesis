@@ -443,16 +443,179 @@ optimal with regard to the object representation definition we have. If the
 underlying runtime choose to inline the global function, the cost of the
 indirection will be effectively eliminated.
 
-We can do better than that but we will need to wait after the object
-representation has been introduced for further optimization gains.  The initial
-inspiration for this optimization was drawn from the lazy function definition
-pattern as explained by Peter Michaux, in which after the initial setup
-performed by a function, a new function without the initialization code can
-replace the original function to provide an efficient
+\subsubsection{Cache states and transitions}
+
+We can build on the previous insight by precisely defining the behaviors of the
+inline caches and the conditions that trigger those behaviors. There are
+various ways to do it with different performance and flexibility profiles. We
+have not exhaustively explored the possibilities, therefore there might be
+interesting configurations yet to be uncovered. Nonetheless, we still found a
+simple arrangement that allows reified operations to be specialized to their
+call sites with a small memory overhead in terms of tracking run-time
+invariants.  An enthousiastic reader should read the following not as the final
+word on the matter but as a point of departure, as we believe there are other
+interesting configurations to be found.
+
+We use a state machine formalism to present the different behaviors associated
+with inline caches and the triggers that are responsible for the transitions
+between those behaviors. In our formalism, due to the nature of synchronous
+message sends, a state transition occurs before the event has been fully
+processed. However the processing of the event is not influenced by it.  
+
+To simplify invariants tracking, we decided to always perform lookups for
+regular method calls. By making the lookup operation as close as possible to
+the native operation of JavaScript, it allows the underlying VM to optimize it.
+In our design, the idea is to delegate the regular method call to the object
+representation. The other important operation was to allow specialization of
+object model operations, which is critical for speed. This is done by memoizing
+a specialized version in the inline cache. We therefore ended up with two
+states in addition to the initial state of the cache, as explained in
+table~\ref{tb:CacheStates}.
+
+\begin{table}[htb]
+\caption{Cache states}
+\centering
+
+\begin{tabular}{|p{.33\textwidth}|p{.33\textwidth}|}
+  \hline
+  Cache states & Explanation \\
+  \hline \hline
+  \tbbox{Initial State} & 
+    \tbbox{
+        Perform a regular send.
+    } \\
+  \hline
+  \tbbox{Regular method call} & 
+    \tbbox{
+        Lookup method then call.
+    } \\
+  \hline
+  \tbbox{Memoized method call} & 
+    \tbbox{
+        Method specific behavior. The memoized method is responsible for
+        maintaining invariants.
+    } \\
+  \hline
+\end{tabular}
+
+\label{tb:CacheStates}
+\end{table}
+
+
+Transitions between states happen on message send and object model operation
+events.  An insight was to realize that we could under-approximate the tracking
+of invariants and invalidate conservatively more caches than what would
+minimally be required. As long as the operations triggering the invalidation of
+caches are infrequent, the performance impact should be minimal. We therefore
+track method values cached in memoized states by name without consideration of
+the receiver object. If a method with the same name is updated on any object,
+all caches with a given message name will be invalidated. Also, if the
+\kw{call} method on the \kw{Function.prototype} object or any method with the
+\kw{__memoize__} name is updated, \textit{all} caches will be invalidated. This
+way, we can only track caches associated with names. The upper bound on memory
+usage for tracking information is proportional to the number of cache sites.
+
+There is no state associated with a redefined \kw{call} method. In that
+particular case, all caches will stay in the initial state and a regular
+message send will be performed (and not cached). Figure~\ref{fig:CacheStates}
+summarizes those elements in a state diagram. A more detailed explanation of
+every event and transition conditions are given in table~\ref{tb:CacheEvents}
+and table~\ref{tb:CacheTransitionConditions}.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=\textwidth]{figures/cacheStates}
+\caption{\label{fig:CacheStates} Cache States and Transitions}
+\end{center}
+\end{figure}
+
+\begin{table}[htb]
+\caption{Cache Events}
+\centering
+
+\begin{tabular}{|p{.33\textwidth}|p{.33\textwidth}|}
+  \hline
+  Cache Events & Explanation \\
+  \hline \hline
+  \tbbox{Send} & 
+    \tbbox{
+    A message is sent to a receiver object.
+    } \\
+  \hline
+  \tbbox{Call redefinition} & 
+    \tbbox{
+    The \kw{call} method on \kw{Function.prototype} is redefined.
+    } \\
+  \hline
+  \tbbox{Any memoized redefinition} & 
+    \tbbox{
+    Any \kw{__memoize__} method is being redefined.
+    } \\
+  \hline
+  \tbbox{Bailout} & 
+    \tbbox{
+    A run-time invariant has been violated.
+    } \\
+  \hline
+  \tbbox{Method redefinition} & 
+    \tbbox{
+    An object with a method with the same name has his method being updated.
+    } \\
+  \hline
+\end{tabular}
+
+\label{tb:CacheEvents}
+\end{table}
+
+\begin{table}[htb]
+\caption{Cache Transition Conditions}
+\centering
+
+\begin{tabular}{|p{.33\textwidth}|p{.33\textwidth}|}
+  \hline
+  Cache Transition Condition & Explanation \\
+  \hline \hline
+  \tbbox{Default call} & 
+    \tbbox{
+    \kw{Function.prototype call} method is the same as the one initially supplied.
+    } \\
+  \hline
+  \tbbox{Redefined call} & 
+    \tbbox{
+    \kw{Function.prototype call} method is different than the one initially supplied.     
+    } \\
+  \hline
+  \tbbox{No \kw{__memoize__} method} & 
+    \tbbox{
+    No method named \kw{__memoize__} has been found on the method to be called.
+    } \\
+  \hline
+  \tbbox{\kw{__memoize__} method} & 
+    \tbbox{
+    A method named \kw{__memoize__} has been found on the method to be called.
+    } \\
+  \hline
+\end{tabular}
+
+\label{tb:CacheTransitionConditions}
+\end{table}
+
+The initial inspiration for optimizing sends with global functions that would
+change during execution was drawn from the lazy function definition pattern as
+explained by Peter Michaux, in which after the initial setup performed by a
+function, a new function without the initialization code can replace the
+original function to provide an efficient
 operation~\cite{michaux:LazyFunctionDefinitionPattern}. We believe this is the
 first time this pattern is used as an inline cache in the litterature.
 
-\subsubsection{Tracking and Invalidation Mecanism}
+For simplicity reasons, we did not try to aim for robustness in addition to
+flexibility and performance. It is therefore possible to break the system by
+supplying a memoized method that does not correctly maintain invariants. We
+decided to aim for maximum flexibility with a simple mecanism that could be
+used to specialize object model operations. The responsibility of supplying a
+correct method is left on the programmer. That being said, we believe it should
+be possible to further constrain this flexibility for robutness, within the
+same framework.
 
 \section{Object Representation}
 % Performance, Extensible
