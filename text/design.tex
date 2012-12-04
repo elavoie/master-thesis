@@ -650,7 +650,7 @@ will see, it opens the possibility of specializing and optimizing the object
 representation operations at runtime by attaching specialized methods at the
 appropriate places on the proxy prototype chain.
 
-The basic object representation will be presented for every native object type. We
+The basic object representation will be presented for native object types. We
 will then see how we can specialize methods for the number of arguments found
 at their call site.  After, we will see how we can specialize operations for
 constant arguments values or specific object types.
@@ -823,12 +823,41 @@ proxies to adapt to dynamic circumstances by adding specialized methods at run
 time, first and foremost, for performance reasons. We will see how to exploit
 this fact, first to specialize operations to a fixed number of arguments and
 then to a constant argument type or value. Those two specializations are
-independant and can be combined for further performance gains.
+independant and can be combined for further performance gains. To avoid name
+clashing and ease reading we will adopt the convention that specialized methods
+share the same prefix as basic methods with the type or value information and
+or number of arguments following in the name.
 
 \subsection{Fixed arguments number specialization}
 
+The object representation design does not require a special calling convention
+for functions. However for maximum performance gains in JavaScript we would
+like to avoid using the \kw{call} and \kw{apply} native methods. We can do it
+by globally rewriting every function to explicitly pass the receiver object. This
+way, a specialized call operation can simply pass the references to the native
+function. An example implementation for a \kw{call} operation specialized for
+one argument in addition to its receiver could be:
+
+\jsfile{listings/function-call-example.js}
+
+Specializing one proxy operation requires to specialize \textit{all} objects
+for that particular operation to ensure that whatever receiver, function or
+object is called at a given site, a proper operation is supplied. Fortunately,
+the object-oriented nature of our chosen representation makes it easy. Only
+root proxys need to have an additional method and all other proxy will then
+implement the specialized operation.
+
 \subsection{Type or value specialization}
 
+In the same way, we can specialize an operation for a known value. For
+example, suppose we would like an optimized operation that accesses a stable
+property name. A proper specialized method could be written:
+
+\jsfile{listings/proxy-operation-specialization.js}
+
+Notice that a method that falls back to the general case is provided to the
+root object to add support to all other proxies. The same idiom can be used for
+type specialization instead of value.
 
 \subsection{Notes}
 
