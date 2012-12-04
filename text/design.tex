@@ -119,11 +119,11 @@ unify all reified operations around a single mecanism. It facilitates the
 achievement of correctness, and arguably, performance, because it allows its
 implementation to target the highest performing operations of the underlying
 system. It would be unreasonable to expect better performance than a hand-tuned
-native implementation~\footnote{However, faster-than-native
+native implementation.~\footnote{However, faster-than-native
 speeds might be achieved if the native implementation is suboptimal and performs
 worse than a potentially equivalent other native functionality. It is my
 conjecture that as systems grow in complexity, such opportunities might be
-more common in the future.}. However, this approach might give us a better
+more common in the future.} However, this approach might give us a better
 performance than equivalent instrumentations that try to optimize every reified
 operations independently, without the support of a unified mecanism.
 
@@ -859,22 +859,83 @@ Notice that a method that falls back to the general case is provided to the
 root object to add support to all other proxies. The same idiom can be used for
 type specialization instead of value.
 
-\subsection{Notes}
+\subsection{Note}
 
-This idea came as a surprise during the implementation of the VM and was
-partially exploited to obtain our current performance results. However, because
-of time constraints and not strict necessity to our thesis, an extensive
-empirical study of its performance characteristics and the exploitation of
-every optimization opportunity is yet to be performed. We decided to present
-the idea here first, before it was fully fleshed-out, to both claim originality
-and give the reader a primer on its possibilities. In the remainder of this
+The idea of mirroring the object prototype chain in the proxy prototype chain
+came as a surprise during the implementation of the VM and was partially
+exploited to obtain our current performance results. However, because of time
+constraints and not strict necessity to our thesis, an extensive empirical
+study of its performance characteristics and the exploitation of every
+optimization opportunity is yet to be performed. We decided to present the idea
+here first, before it was fully fleshed-out, to both claim originality and give
+the reader a primer on its possibilities. In the remainder of this
 dissertation, we will only present aggregate performance results for our VM on
 common benchmarks without trying to extract the contribution provided by this
 object representation. The reader should keep in mind that the arguments number
-specialization for the \kw{call} method is performed but not the object
-representation operation specialization. An exhaustive empirical study should
-be the focus of a subsequent publication.
+specialization for the \kw{call} method is performed but not the
+object-representation operation specialization. An exhaustive empirical study
+should be the focus of a subsequent publication.
 
-\section{Compilation}
-\subsection{Examples}
+\section{Compilation Example}
+
+To wrap up and see how those different elements work together in practice,
+let's finish with a brief compilation example. We will use the following example:
+
+\jsfile{listings/compilation-example.js}
+
+In this example, an anonymous function is called right after being created to
+provide a lexical scope, which means that the \kw{o} and \kw{i} variables are
+local to the function. In this scope, we create an \kw{o} empty object, which
+has the root object of the meta-circular VM for prototype. Then this object is
+extended with a \kw{foo} method. This method returns the \kw{bar} property of
+the receiver object. We then create and initialize the \kw{bar} property of the
+\kw{o} object. Finally, we call the \kw{foo} method two times to give it the
+chance to specialize the call site, both of the \kw{foo} call and the \kw{bar}
+property access inside the \kw{foo} method.
+
+We first see how compiling this example to translate object model operations to
+message sends uses the inline caching idiom. The compiled code has been
+interseeded with the original code in comments to allow the reader to follow
+easily:
+
+\jsfile{listings/compilation-example-compiled.js}
+
+\newpage
+
+In addition to what has been discussed in the design chapter, the astute reader will have noticed the following things:
+\begin{itemize}
+    \item \textit{Type information in data caches}: During compilation, known
+    types which directly correspond to abstract syntax tree nodes as preserved.
+    It allows the runtime to exploit stable information. For example, in
+    \kw{dataCache1}, the \kw{"string"} type allows the runtime to know the
+    property access is to a constant string name.    
+    \item \textit{Root objects are different from the host root objects}:
+    \kw{root.function}, \kw{root.object} and \kw{root.global} virtualize the
+    object model root objects to avoid interference with the host objects.
+    \item \textit{Functions have an extra \kw{\$closure} parameter}: This extra
+    parameter is used to pass the proxy to the function to the code or
+    dataCache information for the implementation to send the cache state to the
+    cache function behavior.
+\end{itemize}
+
+Appart from those additional details, the compilation conforms to the
+explanation given in this chapter. The environment is used as such, without
+reification, objects are proxied or created from object representation methods.
+
+After execution, the inline caches at \kw{codeCache1} and \kw{codeCache5} will
+be respectively in a memoized state and a regular method call state, which
+correspond to the following behaviors: 
+
+\jsfile{listings/compilation-example-compiled-specialized.js}
+
+In the last case, we can see that the \kw{call} method has been specialized for
+no arguments except the receiver, exploiting optimization opportunities offered
+by our object representation. This example therefore summarizes the unification
+of object model operations to message sends, their efficient implementation and
+a novel object representation that can dynamically adapt itself to information
+available at runtime.
+
+The next chapter will show how we can use the added flexibility for
+instrumentation and runtime invariant monitoring.
+
 
