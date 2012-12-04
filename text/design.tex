@@ -618,17 +618,233 @@ be possible to further constrain this flexibility for robutness, within the
 same framework.
 
 \section{Object Representation}
-% Performance, Extensible
-\subsection{Prototype-based}
-\subsection{Proxy}
-\subsection{Containers}
-\subsection{Optimization opportunities}
-\subsubsection{Specialized operations}
-\subsubsection{Specialized arguments length}
 
-\section{Function-calling protocol}
+The object representation in a virtual machine is a core aspect that has a
+major influence on its flexibility and performance. The following object
+representation has been designed to encapsulate the invariants of our
+implementation while enabling piggy backing of the underlying VM inline
+caches for performance. Our representation suggests promising optimization
+possibilities that would benefit from further exploration. We believe that our
+particular usage of the underlying object model dynamism is new and could serve
+as a basis for other language implementations seeking performance on modern JS
+VMs.
+
+Two insights led to the current design. First, on a well optimized VM, the most
+efficient implementation of a given operation in a meta-circular implementation
+is frequently the exact same operation performed by the host VM. Second, method
+calls on JavaScript VMs are usually really fast. Therefore, we should provide
+operations as method calls on objects whose internal representation is as close
+as possible to the host object being implemented. It can be achieved by
+structuring the object representation as proxies to native objects with a
+particular constraint, which we think has never been exploited before:
+\textit{the proxies prototype chain should mirror the native objects' chain}.
+
+The core idea is to associate a proxy object to every object in the system. In
+itself, this idea is not new. It has been advocated by Bracha and Ungar almost
+10 years ago to provide meta-level facilities~\cite{Bracha:2004vp}. Proxy
+objects are also bound to appear in the next version of JavaScript and are
+currently supported by some major JS VMs.~\footnote{Which ones???}. However to
+the best of our knowledge, it has never been suggested that the prototype chain
+of proxy objects should follow the prototype chain of proxied objects. As we
+will see, it opens the possibility of specializing and optimizing the object
+representation operations at runtime by attaching specialized methods at the
+appropriate places on the proxy prototype chain.
+
+The basic object representation will be presented for every native object type. We
+will then see how we can specialize methods for the number of arguments found
+at their call site.  After, we will see how we can specialize operations for
+constant arguments values or specific object types.
+
+\subsection{Basic Representation}
+
+The first and simplest object type in JavaScript is the object. It has
+properties and a prototype. A proxy object has a reference to the native object
+to intercept every operation that goes to the object. The prototype chain of
+proxies mirrors the object prototype chain. A JavaScript implementation, with
+\kw{Object.prototype}, as the root of all objects, is illustrated in
+Figure~\ref{fig:BasicRepresentation}.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.75]{figures/objectRepresentation}
+\caption{\label{fig:BasicRepresentation} Basic object representation}
+\end{center}
+\end{figure}
+
+An advantage of a representation like this one is that property accesses can be
+implemented directly as a native property access to the proxied object. It
+allows the host VM to do lookup caching. It even works for reified root
+objects, in this example, by considering \kw{parent} the {Object.prototype} of
+all objects of the meta-circular VM.
+
+However, it does not work well with native types that can be created litterally
+such as arrays, functions and regular expressions. These would require their
+prototype to be changed to another object at the creation site, ruining
+structural invariants assumed by the host VM. For those objects, the original
+native prototype is maintained and in cases where a lookup needs to be
+performed, it is done explicitly through the proxy prototype chain. This is
+illustrated with arrays in Figure~\ref{fig:SpecialRepresentation}.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.75]{figures/specialRepresentation}
+\caption{\label{fig:SpecialRepresentation} Special object representation}
+\end{center}
+\end{figure}
+
+Given this structural representation for basic types, we can now define all
+object operations as methods on proxy objects as explained in
+Table~\ref{tb:ObjectRepresentationOperations}. Remark that given the current
+JavaScript \textit{de facto} standard of accessing the prototype object with
+the \kw{__proto__} name, if proper care is not taken in the property access
+method, the proxied object will be returned instead of the expected proxy
+object of the parent.~\footnote{For this particular reason, we would advocate
+for implementations to expose the prototype of an object through a method call
+instead of a property. We could still preserve backward compatibility for
+litteral object definitions but once the object is created, the prototype
+should not be accessible or modifiable through the \kw{__proto__} property.}.
+
+\begin{table}[htb]
+\caption{Object representation operations and their interface}
+\centering
+
+\begin{tabular}{|p{.33\textwidth}|p{.33\textwidth}|p{.33\textwidth}|}
+  \hline
+  Operation & Explanation & Interface \\
+  \hline \hline
+  \tbbox{Property access} & 
+    \tbbox{
+        Retrieving the value of a property that might exist or not.\\
+        Ex: \kw{obj.foo}  
+    } &
+    \tbbox{
+        \kw{get(name)}\\
+        Ex: \kw{obj.get("foo")}
+    } \\
+  \hline
+  \tbbox{Property assignation} & 
+    \tbbox{
+        Creating or updating a property.\\
+        Ex: \kw{obj.foo=42} 
+    } &
+    \tbbox{
+        \kw{set(name, value)}\\
+        Ex: \kw{obj.set("foo",42)}
+    } \\
+  \hline
+  \tbbox{Property deletion} &
+    \tbbox{
+        Deleting a property that might exist or not.\\
+        Ex: \kw{delete obj.foo}
+    } &
+    \tbbox{
+        \kw{delete(name)}\\
+        \kw{obj.delete("foo")}
+    } \\
+  \hline
+  \tbbox{Property test} & 
+    \tbbox{
+        Test if a property name is present or not. Ex:\\
+        \kw{obj.hasOwnProperty("foo")}  
+    } &
+    \tbbox{
+        \kw{has(name)} \\
+        Ex: \kw{obj.has("foo")}
+    } \\
+  \hline
+  \tbbox{Object creation} & 
+    \tbbox{
+        Creating an object from a parent object.\\
+        Ex: \kw{Object.create(parent)} 
+    } &
+    \tbbox{
+        \kw{create()}\\
+        Ex: \kw{parent.create()}
+    } \\
+  \hline
+  \tbbox{Call} & 
+    \tbbox{
+        Call the object as a function.\\
+        Ex: \kw{fun()} 
+    } &
+    \tbbox{
+        \kw{call(rcv, ..args)}\\
+        Ex: \kw{fun.call(global)}
+    } \\
+  \hline
+  \tbbox{Box} & 
+    \tbbox{
+        Returns the proxy of an object if applicable.
+    } &
+    \tbbox{
+        \kw{box()}\\
+        Ex: \kw{obj.box()}
+    } \\
+   \hline
+  \tbbox{Unbox} & 
+    \tbbox{
+        Returns the proxied object.
+    } &
+    \tbbox{
+        \kw{unbox()}\\
+        Ex: \kw{obj.unbox()}
+    } \\
+   \hline
+  \tbbox{Prototype access} & 
+    \tbbox{
+        Returns the prototype of an object.\\
+        Ex: \kw{obj.__proto__}
+    } &
+    \tbbox{
+        \kw{getPrototype()}\\
+        Ex: \kw{obj.getPrototype()}
+    } \\
+   \hline
+  \tbbox{Prototype update} & 
+    \tbbox{
+        Sets the prototype of an object.\\
+        Ex: \kw{obj.__proto__ = parent}
+    } &
+    \tbbox{
+        \kw{setPrototype(parent)}\\
+        Ex: \kw{obj.setPrototype(parent)}
+    } \\
+   \hline
+\end{tabular}
+
+\label{tb:ObjectRepresentationOperations}
+\end{table}
+
+The astute reader will have noticed that although proxies mirror native objects
+in their inheritance chain, they do not mirror their properties. In fact, their
+properties can be fixed for the whole execution if one assumes that the
+semantic of object operations does not change. These facts are what allow
+proxies to adapt to dynamic circumstances by adding specialized methods at run
+time, first and foremost, for performance reasons. We will see how to exploit
+this fact, first to specialize operations to a fixed number of arguments and
+then to a constant argument type or value. Those two specializations are
+independant and can be combined for further performance gains.
+
+\subsection{Fixed arguments number specialization}
+
+\subsection{Type or value specialization}
 
 
+\subsection{Notes}
+
+This idea came as a surprise during the implementation of the VM and was
+partially exploited to obtain our current performance results. However, because
+of time constraints and not strict necessity to our thesis, an extensive
+empirical study of its performance characteristics and the exploitation of
+every optimization opportunity is yet to be performed. We decided to present
+the idea here first, before it was fully fleshed-out, to both claim originality
+and give the reader a primer on its possibilities. In the remainder of this
+dissertation, we will only present aggregate performance results for our VM on
+common benchmarks without trying to extract the contribution provided by this
+object representation. The reader should keep in mind that the arguments number
+specialization for the \kw{call} method is performed but not the object
+representation operation specialization. An exhaustive empirical study should
+be the focus of a subsequent publication.
 
 \section{Compilation}
 \subsection{Examples}
