@@ -1,22 +1,21 @@
 \chapter{Performance}
-\emph{``There is a deep difference between what we do and what mathematicians
+\funnyquote{There is a deep difference between what we do and what mathematicians
 do. The "abstractions" we manipulate are not, in point of fact, abstract. They
 are backed by real pieces of code, running on real machines, consuming real
 energy and taking up real space. To attempt to completely ignore the underlying
 implementation is like trying to completely ignore the laws of physics; it may
-be tempting but it won't get us very far.''}
-
--- Gregor Kiczales~\cite{Kiczales92towardsa} \\
+be tempting but it won't get us very far.}
+{Gregor Kiczales~\cite{Kiczales92towardsa}}
 
 \label{chap:Performance}
 
-The last section introduced techniques to reduce the run-time overhead of the
-object model. We now evaluate the actual run-time and memory-usage overhead
-incured by the additional flexibility. We will see that it compares favorably
-to the performance of a state-of-the-art interpreter, making the approach
-viable for instrumentation. Additionnally, the actual figures obtained will
-allow the reader to evaluate if this approach could be applied to other usage
-scenarios.
+The last section has shown how the additional flexibility provided by the
+system could be used to instrument the VM and modify some of its operation
+semantic. We now evaluate the actual run-time and memory-usage overhead incured
+by the additional flexibility. We will see that it compares favorably to the
+performance of a state-of-the-art interpreter, making the approach viable for
+instrumentation. Additionnally, the actual figures obtained will allow the
+reader to evaluate if this approach could be applied to other usage scenarios.
 
 The next section explains the methodology used to evaluate the performance of
 the system. We then present the baseline performance (without instrumentation)
@@ -126,6 +125,12 @@ from~\cite{behavior_js}.
 \input{/Users/erick/Recherche/photon-js/results/baseline/sunspider/memory/table.tex}
 
 \section{Instrumented Performance}
+\label{sec:InstrumentedPerformance}
+
+% TODO: Make sure there is a single instance of the __get__, __set__ and
+% __delete__ method
+% TODO: Check the performance impact of removing checks for null or undefined
+% in get
 
 \subsection{Running Times}
 

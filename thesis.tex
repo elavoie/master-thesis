@@ -9,13 +9,21 @@
 % For programming language keywords
 \newcommand{\kw}[1]{{\lstinline[language=JavaScript]!#1!}}
 \newcommand{\jsfile}[1]{{
+	\renewcommand{\baselinestretch}{1.0}%
+	\normalsize
     \begin{flushleft}
     \scalebox{1}{\lstinputlisting[language=JavaScript]{#1}}
     \end{flushleft}
+	\renewcommand{\baselinestretch}{\spacing}%
+	\normalsize
 }}
 
 \newcommand{\tbbox}[1]{{
+	\renewcommand{\baselinestretch}{1.0}%
+	\normalsize
     \parbox[t][1.1cm]{.33\textwidth}{#1}
+	\renewcommand{\baselinestretch}{\spacing}%
+	\normalsize
 }}
 
 \lstdefinelanguage{JavaScript}{
@@ -60,12 +68,28 @@
 %	{May 2009}
 % The \thesistitle definition is in thesis.sty.  Other customizations
 % can be made there.
-\thesistitle
-	{Harnessing Performance for Flexibility in a Virtual Machine for JavaScript}
+
+% 
+
+%\titrememoire
+%    {Harnacher la performance pour obtenir de la flexibilit\'e dans
+%    l'instrumentation d'une machine virtuelle pour JavaScript par la
+%    m\'etacircularit\'e}
+%	{Erick Lavoie}
+%	{Ma\^itrise en Sciences}
+%	{D\'epartement d'Informatique et de Recherche Op\'erationelle}
+%	{D\'ecembre 2012}
+%\newpage
+
+\titrememoire
+    {Harnessing Performance for Flexibility in instrumenting a Virtual Machine
+    for JavaScript through Metacircularity}
 	{Erick Lavoie}
-	{Maîtrise en Sciences}
+	{Ma\^itre \`es sciences (M.Sc.) en informatique}
 	{D\'epartement d'Informatique et de Recherche Op\'erationelle}
-	{Décembre 2012}
+	{D\'ecembre 2012}
+
+\include{text/abstract_fr}
 
 %\include{text/abstract_fr}
 \include{text/abstract}

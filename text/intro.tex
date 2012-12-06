@@ -1,19 +1,18 @@
 \chapter{Introduction}
 
-\emph{``Impermanent are all component things,\\
+\funnyquote{Impermanent are all component things,\\
 They arise and cease, that is their nature:\\
 They come into being and pass away,\\
-Release from them is bliss supreme.''} 
-
---- Mahaa-Parinibbaana Sutta \cite{1988last} \\
+Release from them is bliss supreme.}
+{Mahaa-Parinibbaana Sutta \cite{1988last}}
 
 Computer systems are constantly modified to satisfy the evolving needs of their
-users. \textit{Flexible} systems evolve faster than rigid systems by placing fewer
-constraints on possible modifications, thus reducing the delay between the
-birth of an idea and its actual realization in a working system. Aiming for
-flexibility in the design of computer systems can make other properties, such as
-performance, security and reliability, easier to obtain by facilitating
-experimentation.
+users. \textit{Flexible} systems can evolve faster than rigid systems by
+placing fewer constraints on possible modifications, thus reducing the delay
+between the birth of an idea and its actual realization in a working system.
+Aiming for flexibility in the design of computer systems can make other
+properties, such as performance, security and reliability, easier to obtain by
+facilitating experimentation.
 
 A \textit{virtual machine} (VM) is a program that simulates the behavior of a
 computing machine.  The simulated machine might exhibit properties that do not
@@ -27,11 +26,11 @@ Recent research and development on VMs, especially for the JavaScript
 language~\cite{js_spec}, has focused on performance, to the expense of
 flexibility. Notably, it has hindered our understanding of the run-time
 behavior of real-world programs by making instrumentation of existing VMs
-laborious. The last attempt at gathering empirical data for JavaScript was a
-one-time effort, where researchers manually instrumented a production
-interpreter to obtain execution traces~\cite{behavior_js}. However this
-approach prevents the acquisition of longitudinal data because the burden of
-maintaining the instrumented interpreter up-to-date is too demanding for any
+laborious. The last published attempt at gathering empirical data for
+JavaScript was a one-time effort, where researchers manually instrumented a
+production interpreter to obtain execution traces~\cite{behavior_js}. However
+this approach prevents the acquisition of longitudinal data because the burden
+of maintaining the instrumented interpreter up-to-date is too demanding for any
 research team to shoulder.
 
 Fortunately, the very same gains in performance can be used to regain
@@ -39,30 +38,36 @@ flexibility, even on a rigid production VM. This dissertation shows that a
 sophisticated run-time optimizer can be harnessed to provide flexible run-time
 instrumentation of the object model and function-calling protocol at a
 performance competitive with a state-of-the-art interpreter, without having to
-modify the VM source code. Our approach consists in building a meta-circular VM
-targeting the source language, based on a message-sending object model. To
-demonstrate the approach, we provide a reference VM for an existing programming
-language, JavaScript, we show the possibility of instrumenting the object model
-operations and function calls and we finally compare the baseline performance
-(without instrumentation) to both a state-of-the-art interpreter and VM,
-respectively SpiderMonkey without its Just-In-Time compiler and V8.
+modify the VM source code. Our approach consists in running a metacircular VM
+targeting the source language, based on a message-sending object model, on top
+of another fast VM. To demonstrate the approach, we provide a reference VM for
+an existing programming language, JavaScript, we show the possibility of
+instrumenting the object model operations and function calls and we finally
+compare the performance with and without instrumentation to the SpiderMonkey
+interpreter and V8 JIT-compiler based VM. 
 
-Although meta-circular VM implementations have been common in LISP languages,
-as far as we know, this is the first time the approach is shown to be practical,
-both in terms of performance and programming effort, on a mainstream language.
-As such, this dissertation contains two original contributions:
+Although there are existing systems for JavaScript targeting JavaScript as
+their runtime, such as Google Caja to enforce security
+invariants~\cite{Caja:2012}, Google Traceur to support the next version of
+JavaScript on existing VMs~\cite{Traceur:2012} and JSBench to record execution
+traces for automatic benchmark generation~\cite{Richards:2011}, we believe our
+system is unique in its combinaison of design choices that makes it simple,
+flexible and sufficiently efficient for data gathering of dynamic behavior. As
+such, this dissertation contains three original contributions: 
 \begin{itemize}
-    \item An analysis of the required language support for our approach.
+    \item The unification of the reified object model operations and
+        function-calling protocol around a single message-sending primitive
+        while preserving compatibility with the current version of JavaScript
+    \item An efficient implementation of the message-sending primitive inspired
+          by inline cache optimizations
     \item An object representation exploiting the underlying VM inline caches
-        and dynamic object model to provide efficient virtualized operations
+          and dynamic object model to provide efficient virtualized operations
 \end{itemize}
 
-In addition to supporting the thesis above, we hope (1) the analysis will allow
-the interested reader to evaluate if the approach could be feasible in its
-favorite language, (2) to encourage future language designs to provide features
-facilitating a layered approach to obtain flexibility and (3) the object
-representation will be used by other language implementations seeking
-efficiency while targeting existing JS VMs.
+In addition to supporting the thesis above, we hope (1) to encourage future
+language designs to provide features facilitating an efficient layered approach
+to obtain flexibility and (2) the object representation will be used by other
+language implementations seeking efficiency while targeting existing JS VMs.
 
 \section{Flexibility}
 
@@ -158,16 +163,16 @@ execute on Intel X86 processors (target language). Special cases, which exhibit
 noteworthy properties, exist when some or all of these languages are the same. 
 
 When its source language and its implementation language are the same, a VM is
-said to be \textit{meta-circular}. Advantages of meta-circularity are resource
+said to be \textit{metacircular}. Advantages of metacircularity are resource
 sharing and uniformity of the runtime. For example, a memory manager used to
 manage the internal data structures of a VM can be shared with the source
 language runtime. Uniformity allows optimizations written for the source
 language to also apply to the implementation language. In the context of an
 open system, source language code can replace implementation language code to
 modify the behavior of the VM. In the litterature, \textit{self-hosting} is
-also used to describe meta-circular systems. I'll restrict this latter term for
+also used to describe metacircular systems. I'll restrict this latter term for
 describing a system that is \textit{actually} used to produce new versions of
-itself.  Therefore, a meta-circular VM needing special extensions or
+itself.  Therefore, a metacircular VM needing special extensions or
 performance that it cannot provide still depends on an external machine to
 produce a different version of itself and is not self-hosting. Self-hosting is
 therefore more strict.  Self-hosting enables a faster evolution of the system

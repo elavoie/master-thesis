@@ -1,22 +1,19 @@
 \chapter{Design}
 \label{chap:Design}
-\emph{``Il semble que la perfection soit atteinte non quand il n'y a plus rien
-\`a ajouter, mais quand il n'y a plus rien \`a retrancher.''}
+\funnyquote{Il semble que la perfection soit atteinte non quand il n'y a plus
+rien \`a ajouter, mais quand il n'y a plus rien \`a retrancher.}
+{Antoine de Saint-Exup\'ery}
 
-\hfill --- Antoine de Saint-Exup\'ery
-
-\emph{``It can scarcely be denied that the supreme goal of all theory is to
+\funnyquote{It can scarcely be denied that the supreme goal of all theory is to
 make the irreducible basic elements as simple and as few as possible without
 having to surrender the adequate representation of a single datum of
-experience.''}
+experience.}
+{Albert Einstein}
 
-\hfill --- Albert Einstein
-
-\emph{``There are only two kinds of languages: the ones people complain about
-and the ones nobody uses.''} \footnote{\emph{Of course, all "there are only
-two" quotes have to be taken with a grain of salt.} Bjarne Stroustrup~\cite{stroustrup}}
-
-\hfill --- Bjarne Stroustrup
+\funnyquote{There are only two kinds of languages: the ones people complain
+about and the ones nobody uses.}
+{Bjarne Stroustrup~\footnote{\textit{Of course, all "there are only
+two" quotes have to be taken with a grain of salt.}~\cite{stroustrup}}}
 
 Programming languages that survived the wilderness of actual usage and
 evolution usually suffer from birth or acquired quirks, defects and
@@ -42,7 +39,7 @@ foundation is explained, both by seeing how the semantic of opened operation
 can be expressed on it and how it can be efficiently implemented in JavaScript.
 After, an object representation is presented. We believe this representation is
 original through its use of proxies that mirror the inheritance chain of the
-proxied objects.Finally, a brief compilation example is provided to illustrate
+proxied objects. Finally, a brief compilation example is provided to illustrate
 how JavaScript can be compiled to this runtime environment.
 
 \section{Reification choices}
@@ -98,7 +95,7 @@ The object representation and the object model operations were reified because
 a large part of the dynamic instrumentation of JavaScript has targeted the
 object model to elucidate the amount of dynamism actually used. This
 reification was possible because the primitive operations are extensible
-through the \kw{toString} and \kw{valueOf} protocol to support proxy
+through the \kw{toString} and \kw{valueOf} methods to support proxy
 objects.~\footnote{It was a welcomed feature. It actually made our VM faster by
 permitting us to directly use the native primitive operators instead of also
 having to reify primitive operation to dispatch to our custom objects.} The
@@ -108,7 +105,7 @@ inline caches, global function inlining and calling protocol.
 Finally, the function-calling protocol was reified to facilitate the
 construction of dynamic call graphs. It was possible because we can globally
 transform all functions for support. Our protocol was designed to avoid
-reliance on \kw{call} and \kw{apply} native methods and default to the
+reliance on \kw{call} and \kw{apply} native methods and to default to the
 native calling protocol as long as they are not modified, in the interest of
 speed.
 
@@ -194,12 +191,13 @@ We can do it dynamically with a slight modification of the semantic of the
 operation.
 
 \subsubsection{Augmented function-calling flexibility}
+\label{sec:AugmentedFunctionCalling}
 
 In JavaScript, the \kw{call} method on every function reifies the calling
 protocol and allows a program to call into a function at run time, as if it was
 done through the direct mecanisms. The exact behavior of a function call should be
 the same, whether it is called directly or indirectly. However, there is no
-causal relationship between the state of the \kw{call} method and the behavior
+causal connection between the state of the \kw{call} method and the behavior
 of function calls. In other words, redefining the \kw{call} method on
 \kw{Function.prototype} does not affect the behavior of call sites.
 
@@ -276,7 +274,7 @@ table~\ref{tb:CallTypes}.
 \caption{Call types and their equivalent message sends}
 \centering
 
-\begin{tabular}{|p{.33\textwidth}|p{.33\textwidth}|p{.33\textwidth}|}
+\begin{tabular}{|p{.25\textwidth}|p{.33\textwidth}|p{.33\textwidth}|}
   \hline
   Call Type & Explanation & Equivalent Message Send \\
   \hline \hline
@@ -286,7 +284,7 @@ table~\ref{tb:CallTypes}.
         Ex: \kw{foo()}
     } &
     \tbbox{
-        Sending a message on the global object. \\
+        Sending a message to the global object. \\
         Ex: \kw{send(global,"foo")}
     } \\
   \hline
@@ -335,7 +333,7 @@ equivalent message send are given in table~\ref{tb:ObjectModelOperations}.
 \caption{Object model operations and their equivalent message sends}
 \centering
 
-\begin{tabular}{|p{.33\textwidth}|p{.33\textwidth}|p{.33\textwidth}|}
+\begin{tabular}{|p{.25\textwidth}|p{.33\textwidth}|p{.33\textwidth}|}
   \hline
   Object Model Operation & Explanation & Equivalent Message Send \\
   \hline \hline
@@ -395,6 +393,8 @@ equivalent message send are given in table~\ref{tb:ObjectModelOperations}.
 \end{table}
 
 \subsection{Efficient implementation}
+\label{sec:EfficientImplementation}
+
 Now that the semantic and mapping have been established, we will address the
 biggest hurdle that might prevent an approach based on a unified message
 sending foundation to be used, namely performance.
@@ -618,6 +618,7 @@ be possible to further constrain this flexibility for robutness, within the
 same framework.
 
 \section{Object Representation}
+\label{sec:ObjectRepresentation}
 
 The object representation in a virtual machine is a core aspect that has a
 major influence on its flexibility and performance. The following object
@@ -630,7 +631,7 @@ as a basis for other language implementations seeking performance on modern JS
 VMs.
 
 Two insights led to the current design. First, on a well optimized VM, the most
-efficient implementation of a given operation in a meta-circular implementation
+efficient implementation of a given operation in a metacircular implementation
 is frequently the exact same operation performed by the host VM. Second, method
 calls on JavaScript VMs are usually really fast. Therefore, we should provide
 operations as method calls on objects whose internal representation is as close
@@ -675,7 +676,7 @@ An advantage of a representation like this one is that property accesses can be
 implemented directly as a native property access to the proxied object. It
 allows the host VM to do lookup caching. It even works for reified root
 objects, in this example, by considering \kw{parent} the {Object.prototype} of
-all objects of the meta-circular VM.
+all objects of the metacircular VM.
 
 However, it does not work well with native types that can be created litterally
 such as arrays, functions and regular expressions. These would require their
@@ -708,7 +709,7 @@ should not be accessible or modifiable through the \kw{__proto__} property.}.
 \caption{Object representation operations and their interface}
 \centering
 
-\begin{tabular}{|p{.33\textwidth}|p{.33\textwidth}|p{.33\textwidth}|}
+\begin{tabular}{|p{.25\textwidth}|p{.33\textwidth}|p{.33\textwidth}|}
   \hline
   Operation & Explanation & Interface \\
   \hline \hline
@@ -739,7 +740,7 @@ should not be accessible or modifiable through the \kw{__proto__} property.}.
     } &
     \tbbox{
         \kw{delete(name)}\\
-        \kw{obj.delete("foo")}
+        Ex: \kw{obj.delete("foo")}
     } \\
   \hline
   \tbbox{Property test} & 
@@ -831,7 +832,7 @@ or number of arguments following in the name.
 \subsection{Fixed arguments number specialization}
 
 The object representation design does not require a special calling convention
-for functions. However for maximum performance gains in JavaScript we would
+for functions. However, for maximum performance gains in JavaScript, we would
 like to avoid using the \kw{call} and \kw{apply} native methods. We can do it
 by globally rewriting every function to explicitly pass the receiver object. This
 way, a specialized call operation can simply pass the references to the native
@@ -886,7 +887,7 @@ let's finish with a brief compilation example. We will use the following example
 In this example, an anonymous function is called right after being created to
 provide a lexical scope, which means that the \kw{o} and \kw{i} variables are
 local to the function. In this scope, we create an \kw{o} empty object, which
-has the root object of the meta-circular VM for prototype. Then this object is
+has the root object of the metacircular VM for prototype. Then this object is
 extended with a \kw{foo} method. This method returns the \kw{bar} property of
 the receiver object. We then create and initialize the \kw{bar} property of the
 \kw{o} object. Finally, we call the \kw{foo} method two times to give it the

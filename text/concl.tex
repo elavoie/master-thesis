@@ -1,18 +1,17 @@
 \chapter{Conclusion}
 
-\emph{``The end is the beginning of all things,\\
-        Suppressed and hidden,\\
-        Awaiting to be released through the rhythm\\
-        Of pain and pleasure''}
+\funnyquote{The end is the beginning of all things,\\
+Suppressed and hidden,\\
+Awaiting to be released through the rhythm\\
+Of pain and pleasure}
+{Jiddu Krishnamurti}
 
--- Jiddu Krishnamurti \\
-
-\emph{``Now this is not the end. It is not even the beginning of the end. But it is, perharps, the end of the beginning.''}
-
--- Winston Churchill \\
+\funnyquote{Now this is not the end. It is not even the beginning of the end. But
+it is, perharps, the end of the beginning.}
+{Winston Churchill}
 
 
-In the preceding chapters we saw how a meta-circular VM targeting its source
+In the preceding chapters we saw how a metacircular VM targeting its source
 language, based on a message-sending object model could provide flexible
 run-time instrumentation of the object model and function-calling protocol at a
 baseline performance competitive with a state-of-the-art interpreter, by
@@ -109,8 +108,8 @@ raise proper exceptions.
 Our compiler does not support accessing the local environment of a function
 from evaluated code.
 
-\subsection{Function calls implicitly made by the standard library cannot be intercepted}
-
+\subsection{Function calls implicitly made by the standard library are not intercepted}
+ 
 \section{Future Work}
 
 The obvious short term work would be to package the system in a browser
@@ -147,7 +146,7 @@ upon each of them.
 \subsubsection{Improve the baseline performance}
 
 The easiest known technique that would be worth trying to replicate in a
-meta-circular setting is the dynamic recompilation of the source code based on
+metacircular setting is the dynamic recompilation of the source code based on
 type-feedback obtained during execution. It would further allow the
 specialization of the code to the actual types occuring during execution.
 
@@ -190,8 +189,8 @@ used.
 Some little-used features (or quirks!) of the JavaScript languages hold back
 the performance that could be achievable and are maintained for
 backward-compatibility reasons. Those features could be provided by a
-meta-circular VM through newer and better performing features.  The
-meta-circular VM could be loaded lazily only when the old features are actually
+metacircular VM through newer and better performing features.  The
+metacircular VM could be loaded lazily only when the old features are actually
 invoked.
 
 \subsection{Server-side instrumentation}

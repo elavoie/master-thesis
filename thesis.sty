@@ -39,8 +39,17 @@
 % Almost everything is double spaced.
 %
 %\newcommand{\spacing}{1.8}
-\newcommand{\spacing}{1.0}
+\newcommand{\spacing}{1}
 \renewcommand{\baselinestretch}{\spacing}
+
+\newcommand{\funnyquote}[2]{
+	\renewcommand{\baselinestretch}{1.0}%
+    \noindent
+    \textit{``#1''} \\
+    --- #2 \\
+	\renewcommand{\baselinestretch}{\spacing}%
+}
+
 
 % Footnotes are to be single spaced.
 %
@@ -91,6 +100,42 @@ A thesis submitted to the \\
 Facult\'e des \'Etudes Sup\'erieures \\
 in partial fulfilment of the \\
 requirements for the degree of \\
+#3 \\
+
+\vspace{\fill}
+
+#4 \\
+Universit\'e de Montr\'eal
+
+\vspace{\fill}
+
+#5 \\
+
+\vspace{\fill}
+
+Montr\'eal \hfill Qu\'ebec, Canada
+\end{center}
+}
+
+\newcommand{\titrememoire}[5]{%
+\thispagestyle{empty}
+\begin{center}
+
+\renewcommand{\baselinestretch}{1.0}%
+\textbf{\Large #1}
+\renewcommand{\baselinestretch}{\spacing}%
+
+\vspace{1.0cm}
+
+par \\
+\copyright\ #2
+
+\vspace{\fill}
+
+\vspace{\fill}
+
+M\'emoire pr\'esent\'e \`a la Facult\'e des \'etudes sup\'erieures \\
+en vue de l'obtention du grade de\\
 #3 \\
 
 \vspace{\fill}

@@ -1,14 +1,12 @@
 \chapter{Previous Work}
-\emph{``Those who cannot remember the past are condemned to repeat it.''} 
-
---- George Santayana, $1863-1952$ \\
+\funnyquote{Those who cannot remember the past are condemned to repeat it.} 
+{George Santayana, $1863-1952$}
 
 Turning our attention to previous work can serve a number of purposes such as
-establishing the origin of fundamental concepts behind an idea,
-collecting learning material for the interested reader and demonstrating the
-originality of the work presented. Being free of the requirement of
-originality, since this dissertation is a Master thesis, we will focus on the
-first two.
+establishing the origin of fundamental concepts behind an idea, collecting
+learning material for the interested reader and demonstrating the originality
+of the work presented. In this chapter, all three will be addressed but this
+dissertation being a master thesis, the emphasis will be made on the first two. 
 
 In the course of this litterature review, it became clear that the
 terminology around flexible computer systems is both varied and ill-defined.
@@ -28,18 +26,19 @@ little more than a wish by the authors that a system will be easy for others or
 themselves to use for needs beyond the documented cases.  
 
 Untangling the issue of characterizing existing flexible systems according to
-the same framework is beyond the scope of this dissertation, as it would mostly
-be useful for establishing originality. However, this does not mean that we
-will fall prey to a "flexibility" relativism. The four properties of
-\textit{openness}, \textit{extensibility}, \textit{dynamism} and
-\textit{performance} will guide our review of previous work, by grounding our
-understanding of flexibility in a richer and recognized definition. Still, the
-exact meaning of those terms still vary in the litterature but we shall be
-careful in precising our usage.
+the same framework is beyond the scope of this dissertation, since first and
+foremost, we are trying to show that performance can be used to gain
+flexibility. However, this does not mean that we will fall prey to a
+"flexibility" relativism. The four properties of \textit{openness},
+\textit{extensibility}, \textit{dynamism} and \textit{performance} will guide
+our review of previous work, by grounding our understanding of flexibility in a
+richer and recognized definition. Still, the exact meaning of those terms vary
+in the litterature but we shall be careful in precising our usage.
 
 Flexibility applies to different components of a VM. To make the matter more
 manageable and to support the thesis without undue detour, this review will be
-restricted to issues pertaining to the object model. 
+restricted to issues pertaining to the object model and function-calling
+protocol. 
 
 The work described in this dissertation started as an exploration of the
 possibilities offered by an object model based on the open, extensible object
@@ -48,154 +47,232 @@ system in terms of four properties was also heavily inspired by their usage of
 the terms, although precise definitions were not provided.
 
 The next section provides the historical roots of concepts belonging to each of
-the four properties and the last section suggests reading material for the
-reader motivated for further independent study. This distinction is motivated
-by the fact that later accounts of ideas can additionaly present further
-developments, changes in nomenclature and might be more approachable then the
-original papers.
+the four properties. The next section suggests reading material for the reader
+for further independent study. This distinction is motivated by the fact that
+later accounts of ideas can additionaly present further developments, changes
+in nomenclature and might be more approachable then the original papers.
+Finally, a comparison of our work to state-of-the-art systems related to
+JavaScript and instrumentation is made.
 
 \section{Historical roots}
+
+For each property of flexibility, the previous work will be presented in
+chronological order to provide a sense of evolution and temporal distance to
+the reader. As some of the work origin from the sixties, it should be clear to
+to her that these ideas are not new. Throughout the exposition, we make
+explicit the elements that inspired our work and contrast the elements that are
+different.
 
 \subsection{Openness}
 
 The meaning of open depends on what is being qualified. Perhaps the most common
 usage is open \textit{source}. It refers to accessibility of the text
-representation, i.e. source code, that was used to produce the system.
-Accessibility to the source and development tools allows a motivated person to
-modify the text representation and generate a new version of the system
-incorporating the change. However, it says nothing about the nature and the
-number of changes that will be required to obtain a desired behavior.
+representation, or source code, that was used to produce the system.
+Accessibility to the source code and development tools allows a motivated
+person to modify the text representation and generate a new version of the
+system incorporating the change. However, it says nothing about the nature and
+the number of changes that will be required to obtain a desired behavior.
 
 We will use open as an implementation qualifier. It therefore means that
 the behavior of the system can be modified by first-class data structures. The
 range of behavior modifications allowed by an implementation characterize the
 degree of openness.
 
-In chronological order, the following work contributed to key ideas behind open
-implementations:
-\begin{itemize}
-    \item Toward relaxing assumptions in languages and their implementation,
-        Mary Shaw and Wm A Wulf, 1980, Earliest account of the need to open
-        some parts of the implementation
-    \item Procedural Reflection in Programming Languages, Brian Smith, 1982,
-        Introduces terminology to think about reflection such as Knowledge
-        Representation Hypothesis, Reflection Hypothesis, Causal Connection and
-        propose a sound model for reflection, the Infinite Tower of Reflection
-    \item Concepts and Experiments in Computational Reflection, Pattie Maes,
-        1987, Introduces five properties to characterize reflection
-        architectures (separation, uniformity, completeness, consistency,
-        dynamic) and meta-objects to bring reflection to object-oriented
-        programming languages 
-    \item Implementational Reflection in Silica, Ramanao Rao, 1991, Introduce
-        the term open implementation by analogy with a reflection architecture
-        but for applications and not only programming language implementations
-    \item Open Implementation Analysis and Design, Chris Maeda et al., 1997,
-        Propose a methodology for designing open modules
-\end{itemize}
+The earliest account of the need to open implementations seems to be made by
+Shaw and Wulf in 1980~\cite{Shaw:1980}. In it, they argue that the approach
+taken to define abstract data types should also be used to define the behavior
+of language operations, namely to separate the \textit{specification} from its
+\textit{implementation}. They identify storage layout, variable handling,
+operator semantics, dynamic storage allocation, data structure traversal and
+scheduling and synchronisation as areas ripe to benefit from being opened.
+Compared to our focus on opening the object model operations and
+function-calling protocol, these elements are closer to the machine execution
+model than to the language's semantic. 
 
-% What about Smalltalk? Meta-stability, Bootstrap?
+Smith worked concurrently on similar areas with a different approach. He
+first asked how a system could reason about its own inference processes. This
+was an inherently philosophical question. In his PhD dissertation in
+1982~\cite{Smith:1982}, he answered it, not only by clarifying the notions
+behind reflectivity, but also by showing how an interpreter for lisp could be
+built to satisfy those notions. His work planted the seeds for an influential
+line of research. Compared to Shaw and Wulf work, it directly addressed the
+semantic implications of opening implementations while they merely suggested
+that some elements should not be bound early without giving any indication on
+how to define the semantic of a programming language to do so.  The notion of
+reflection is also stronger because it implies the ability to modify the
+implementation from within the language itself. Among the notions Smith
+introduced, we use the \textit{causal connection} criteria to think about
+JavaScript semantic in section~\ref{sec:AugmentedFunctionCalling}. This
+criteria says that a data structure is causally connected to the behavior of a
+system if changing the data structure changes the behavior of the system.
+
+In a landmark OOPSLA paper in 1987~\cite{Maes:1987}, Maes showed how to
+bring reflection to object-oriented programming languages through meta-objects.
+These objects were shown to encapsulate various elements of the language
+implementation. Later in 1991, Ramano Rao introduced the open implementation
+term to replace the reflection architecture term that was previously in use to
+emphasive the fact that not only language implementations can be open but also
+applications~\cite{Rao:1991}. Then, a methodology for designing open
+implementations was suggested by Maeda and al.~\cite{Maeda:1997}, first by
+taking an existing closed implementation and then by progressively opening all
+the elements of interest. This line of work took the conceptual underpinnings
+of reflection and integrated it with other language developments at the time,
+showing that it could be used in practice to build not only programming
+languages but whole systems around those principles. In the same spirit, our
+work applies the open implementation idea to a mainstream language, JavaScript,
+and solves the associated design and performance issues associated with it.
 
 \subsection{Extensibility}
 
 Extensible means that a VM's components can be independently modified or
 replaced, that new components can be supported without having to modify
 existing components and they can be incrementally defined in terms of existing
-components. Encapsulation and modularity covers a subset of that definition. In
-chronological order:
+components. Encapsulation and modularity covers a subset of that definition. 
 
-\begin{itemize}
-    \item Some Features of the SIMULA 67 Language, 1966, Ole-Johan Dahl, BJørn
-        Myhrhaug, Kristen Nygaard, Introduces the concepts of class-based
-        inheritance and objects
-    \item On the criteria to be used in Decomposing Systems into Modules, David
-        L. Parnas, 1972, Introduces the concept of information hiding for
-        modular decomposition
-    \item On the discipline of Programming, 1976 and On the role of scientific
-        thought, Edsger W. Dijkstra, Introduces the term separation of concerns
-        which replaced information hiding, although it meant pretty much the
-        same thing
-    \item Using prototypical objects to implement shared behavior in
-        object-oriented systems, 1986, Henri Lieberman, Compared prototype-based
-        and class-based inheritance, showed that the prototype version was
-        superior because it could implement the class version but the reverse
-        was not true
-\end{itemize}
+A major breakthrough in structuring the definition of computer systems was the
+introduction of the notion of \textit{inheritance} in 1966 by Dahl, Myrhaug and
+Nygaard in the Simula 67 language~\cite{Dahl:1968}. The language had the notion
+of classes and objects and new classes could be defined in terms of existing
+classes through its inheritance mecanism. The language had a major influence on
+the design of Smalltalk~\cite{Kay:1993} and C++~\cite{Stroustrup:2007}.
 
+Another major idea for extensibility was the notion of \textit{encapsulation},
+initially called \textit{information hiding} by Parnas in
+1972~\cite{Parnas:1972}. In his paper, he argue that instead of decomposing
+systems by subroutines performed, they should be be decomposed such that modules
+encapsulate key design decisions, in a way that is as independent as possible
+from other decisions.  Later Dijkstra argue for a similar idea which he named
+\textit{separation of concerns} and applied it not only to system design but
+also problem-solving and general thinking. The first occurence of the term
+seems to be found in 'A Discipline of Programming'~\cite{dijkstra:1976}. The
+object-oriented community finally adopted encapsulation to describe the idea.
+
+In the object-oriented community, a class-based approach to object
+decomposition was favored until Lieberman proposed in
+1986~\cite{Lieberman:1986} to use a prototype-based approach to implement
+shared-behavior. This latter mecanism was shown to be more expressive since it
+could be used to implement a equivalent class-base mecanism but the opposite
+was not possible. This had a major influence on the design of
+Self~\cite{Ungar:1987} which later influenced the design of JavaScript.
+
+The object representation presented in section~\ref{sec:ObjectRepresentation}
+exploits prototype-based inheritance and a method-based behavior definition
+that allows encapsulation of design decisions made for optimizations. It allows
+instrumentations to be written for our system with minimal knowledge about its
+inner working. Our work does not contribute new ideas for extensibility but
+uses powerful existing ones to simplify its implementation and evolution.
 
 \subsection{Dynamism}
 
 Dynamism has seen an increasing usage through the popularization of dynamic
 languages. Again, the actual meaning of dynamism in dynamic language is
 fuzzy. The common thread however is the presence of \textit{late-binding} of
-some aspects of the programming language, i.e. deferring until run time the
+some aspects of the programming language, namely deferring until run time the
 actual computation required to implement a given functionality.
 
-Limiting our review to dynamic aspects of object models yields the following
-fundational work.  Notice that some article mentioned previously appear again
-since the concepts were pioneered in the context of dynamic languages:
-\begin{itemize}
-    \item Recursive functions of symbolic expressions and their computation by
-        machine, Part I, John MacCarthy, 1960, Earliest account of dynamic (strong) typing 
-    \item Actor Induction and Meta-evaluation, 1973, Carl Hewitt et al. Actor
-        asynchronous message-passing as a primitive operation (polymorphism)
-    \item Smalltalk, 1972-1976, Synchronous message-passing as a primitive
-        operation (polymorphism)
-    \item Procedural Reflexion in Programming Languages, 1982, Brian Cantwell
-        Smith, Introduced behavioral reflection, reflection on the run time behavior of programs, although the term procedural reflection is used
-    \item The LOOPS Manual, 1983, CommonLoops: merging Lisp and object-oriented
-        programming, 1986, Daniel G. Bobrow, Introduced multiple dispatch (polymorphism) as a generalization of message sending (single-dispatch)
-    \item Using prototypical objects to implement shared behavior in
-        object-oriented systems, 1986, Henri Lieberman Introduced the delegation mechanism
-        occuring at run time
-\end{itemize}
+There is an overlap between the work presented in the previous section and this
+one because ideas for extensibility evolved in parallel with ideas for
+dynamism.
+
+The earliest account of dynamic strong typing seems to be in the initial Lisp
+paper by McCarthy in 1960~\cite{McCarthy:1960}. In it, the type of variables
+was enforced (strong typing) at run time (dynamic typing). Later, polymorphism
+through message-sending, or the ability of a given identifier to invoke
+different behavior during execution, was pioneered both in its asynchronous
+version in the Actor model by Hewitt in 1973~\cite{Hewitt:1973} and in its
+synchronous version by the Smalltalk crew, led by Kay between 1972 and
+1976~\cite{Kay:1993}. The main difference between the asynchronous version and
+the synchronous version is that in the former, the flow of control returns to
+the sender before the message has been processed while it waits for the message
+to be processed in the latter. In both cases, message-sending is the primitive
+operation on which all the other operations are based.
+
+Going back to Smith in 1982~\cite{Smith:1982}, in his work on reflection, we
+can also note that the emphasis was put on the ability to reflect upon the
+dynamic behavior of programs, which would later be called behavioral reflection
+although the term Smith used was procedural reflection.
+
+Finally, one important characteristic of prototype-based inheritance, as
+explained by Lieberman in 1986~\cite{Lieberman:1986} is its dynamic nature. The
+prototype of an object is known and can change during program execution.
+
+JavaScript uses dynamic strong typing and prototype-based inheritance.  We
+exploit these characteristics for dynamic instrumentation. In our work, the
+idea of using message-sending as a foundation was inspired by Smalltalk  and
+the dynamic nature of the instrumentation we perform owes a great deal to the
+behavioral reflection work. We will use reflection capabilities in
+chapter~\ref{chap:Flexibility} to show how to change the semantic of object
+model operations.
 
 \subsection{Performance}
-In terms of software-based optimizations to remove much of the overhead of the dynamism the following work pioneered many optimizations:
-\begin{itemize}
-    \item Efficient implementation of the Smalltalk-80 system, 1984, L Peter
-        Deutsch and Allan M. Schiffman, Introduces the inline-cache technique
-    \item An efficient implementation of SELF a dynamically-typed
-        object-oriented language based on prototypes, 1989, Introduces the maps
-        implementation concept to allow inline caches to work for
-        prototype-based systems 
-    \item Efficient Method Dispatch in PCL, 1990, Gregor Kiczales and Luis
-        Rodriguez, Introduces optimizations for multiple-dispatch functions
-\end{itemize}
 
+Dynamic languages have had the reputation of being slow and inefficient. This
+is changing as mainstream languages incorporate more dynamic features and
+serious engineering efforts are targeted at improving their performance. Appart
+from optimizations deriving from idioms of a particular language, two historical
+papers provide ground work we used.
+
+In 1984, Deutsch an Schiffman introduce the inline cache technique to optimize
+method dispatch on class-based object-oriented languages~\cite{Deutsch:1984}.
+The technique uses dynamic code patching to memoize the class of the receiver
+to store the lookup result at the call site for faster later execution. In
+1989, Chambers and al. generalized the technique to prototype-based languages
+by introducing the concept of \textit{map}, an implicit class constructed by
+the implementation as objects are created and modified during
+execution~\cite{self}.
+
+Both of these techniques were inspirations for the optimizations we explain in
+section~\ref{sec:EfficientImplementation}.
 
 \section{Learning Material}
 
-\subsection{Litterature}
+In addition to the references provided previously we suggest that the
+interested reader consult the following references for further study. They have
+been chosen because they might be more approachable than the original articles
+and provide a richer context for the same ideas:
 \begin{itemize}
-    \item The Art of the Metaobject Protocol, 1995, Gregor Kiczales et al. Uses
+    \item \textit{The Art of the Metaobject Protocol}~\cite{Kiczales:1991} uses
         the Common Lisp Object System for explaining how to open a
         language implementation through a meta-object protocol
-    \item Open Implementations and Metaobject Protocols, Gregor Kiczales and
-        Adreas Paepcke, 1996, Tutorial book on opening an object model for a
-        programming language
-    \item Actor Model of Computation: Scalable Robust Information Systems,
-        2010, Carl Hewitt, Introduce the Actor model at a high-level, relate to
-        existing work and provide pointers to existing litterature on Actors
+    \item \textit{Open Implementations and Metaobject
+        Protocols}~\cite{Kickzales:1996} is a tutorial book on opening an object
+        model for a programming language
+    \item \textit{Actor Model of Computation: Scalable Robust Information
+        Systems}~\cite{DBLP:journals/corr/abs-1008-1459} is a work-in-progress
+        article that provides an overview of the Actor model, relates it to
+        existing work and provide pointers to existing litterature on Actors 
 \end{itemize}
 
-\subsection{Instrumenting JavaScript Virtual Machines}
-\begin{itemize}
-    \item JSMeter
-    \item Empirical evaluation of JavaScript Behavior
-\end{itemize}
+\section{Instrumenting JavaScript Virtual Machines}
+The last years have seen increasing interest from the research community toward
+JavaScript and web applications. Most relevant to our work here are empirical
+evaluations of JavaScript dynamic behavior. Ratanaworabhan and
+al.~\cite{jsmeter} as well as Richards and al.~\cite{behavior_js} have
+respectively shown that benchmarks do not correspond to the behavior of real
+Web applications and that JavaScript applications are more dynamic than what
+was previously thought. Both papers are sources of experiments to perform on
+JavaScript VMs and serve as a starting point in thinking about the capabilities
+required for a VM aiming for instrumentation. We replicate a part of the object
+model instrumentation from the second paper in our performance evaluation in
+section~\ref{sec:InstrumentedPerformance}.
 
+Richards and al. have also proposed another system, JSBench to record execution
+traces of JavaScript execution on websites, that can be replayed as standalone
+benchmarks~\cite{Richards:2011}. Their system performs a source-to-source
+translation of JavaScript source code and proxy some operations of the language
+to record traces, similar in spirit with what we do. Although they claimed the
+overhead introduced by their system for the benchmarks presented was less than
+10\% and depended on the number of proxy objects created, no comprehensive
+evaluation of the performance of their instrumentation strategy was done. It is
+therefore impossible to compare the performance overhead of our approach with
+theirs from the evaluation results they published. Further investigation would
+be required to see if our approach could be practical to record execution
+traces in the same manner.
 
-\subsection{Systems}
-\begin{itemize}
-    \item lisp/scheme
-    \item smalltalk
-%    \item forth
-    \item slate
-    \item maru
-    \item lua
-%    \item Maxine, OVM, Moxie, JikesRVM
-%    \item VMKit, 
-    \item Google Tracer compiler
-    \item Mozilla Shamway
-    \item JSBench
-\end{itemize}
+%\section{Virtual Machines running on top of JavaScript Virtual Machines}
+%Various virtual machines have been built
+%\begin{itemize}
+%    \item Google Traceur compiler
+%    \item Mozilla Shumway
+%    \item Google Caja
+%\end{itemize}
