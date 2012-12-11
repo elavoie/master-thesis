@@ -1,3 +1,4 @@
+// Language: Source JS
 // Global functions    
 function a()  { };           // Does not call any other
 function b()  { a.call(); }; // Calling through "call"

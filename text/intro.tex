@@ -79,47 +79,36 @@ that there is few manipulations to perform in a user interface or that unplanned
 extensions could be developed in a limited time.
 
 While intuitive, this definition is not sufficiently objective to compare
-different systems. It is tied to a subjective interpretation of efforts required to
-perform modifications. For the remainder of this dissertation, I'll use a more
-restricted definition of flexibility. A system will be considered flexible if
-it exhibits the four following properties:
+different systems. It is tied to a subjective interpretation of efforts
+required to perform modifications. For the remainder of this dissertation, a
+more restricted definition of flexibility will be used. A system will be
+considered flexible if it exhibits the four following properties:
 
 \begin{itemize}
-    \item \textit{Open}. Its components' behavior can be modified by
-        first-class data structures and the range of possible behavior is
-        maximal. 
-
-    \item \textit{Extensible}. Its components can be independently modified or
+    \item \textit{Open}: Its component behaviors can be modified by first-class
+        data structures. 
+    \item \textit{Extensible}: Its components can be independently modified or
         replaced and they support incremental definitions. 
-
-    \item \textit{Dynamic}. It can be modified at run time.
-
-    \item \textit{Performant}. It is fast enough to provide instant feedback on
-        user modifications.
+    \item \textit{Dynamic}: Its components can be modified at run time.
+    \item \textit{Performant}: The resulting system is fast enough for the task
+        at hand and allows prompt feedback about the modification.
 \end{itemize}
 
-There is a continuum of support for these four properties. For example, some
-parts of a system might be open but not others.  I will not try to estimate the
-relative contribution of each of these properties to the overall flexibility of
-a system. I will instead evaluate systems on use cases for each of these
-property individually. A system could be said to be more open than another one
-but not more flexible unless it is clearly equally or more open, extensible,
-dynamic and performant than another one.
+This definition serves both as a design goal for the resulting system and a way
+to compare different systems. The notions of \textit{openness},
+\textit{extensibility}, \textit{dynamism} and \textit{performance} appear
+throughout this dissertation and are used to situate our work against the
+litterature and other systems.
 
 \section{Virtual machine}
 
 % definition
 A \textit{virtual machine} is a program that simulates the behavior of a
-machine, that may or may not have a physical implementation. It may be
-identical to the physical machine on which it is executing, as is the case with
-current commercial solutions used to execute different operating systems as user
-processes, or it might be completely different, as is the case when executing a
-high-level language such as JavaScript. In this latter case, the simulated
-machine might exhibit properties that do not have physical equivalents.
-For example, the illusion of infinite allocatable memory can be provided by
-implementing a garbage collector algorithm.~\footnote{Note, that the available
-working memory is still finite and limited by the underlying physical memory
-available.} 
+computing machine, that may or may not have a physical implementation. It may
+be identical to the physical machine on which it is executing, as is the case
+with current commercial solutions used to execute different operating systems
+as user processes, or it might be completely different, as is the case when
+executing a high-level language such as JavaScript.  
 
 % relationship to an operating system
 In theory, there is no significant difference between a VM and
@@ -140,27 +129,31 @@ instead of managing the physical machine resources.
 % efficiency gap
 The major drawback of simulating a computer is the important efficiency
 difference between a physical and a virtual implementation, the latter possibly
-being orders of magnitude slower then the former. Research on VM
+being orders of magnitude slower than the former. Research on VM
 implementation has contributed techniques to minimize this efficiency gap.
 Various high-level languages, such as Java, JavaScript, Smalltalk, Scheme or
 Prolog, can now execute efficiently on general purpose processors making VMs
 practical for application development.
 
 % scope
-In this dissertation, I will focus on VMs constructed to support programming
-languages on top of existing operating systems or VMs. I will ignore the
-virtualization of operating systems or the management of physical resources.
+In this dissertation, our focus will be directed torward VMs constructed to
+support programming languages on top of existing VMs. The virtualization of
+operating systems, the management of physical resources as well as most of the
+low-level details required to execute directly on processors will be ignored.
 
-VMs can be described by three languages:
+\section{Metacircularity}
+
+VMs can be described by two languages:
 \begin{itemize}
-    \item \textit{Source language}. Language used by programs executing on the VM.
-    \item \textit{Implementation language}. Language that describe the behavior of the VM.
-    \item \textit{Target language}. Language of the machine on which the VM is executing.
+    \item \textit{Source language}. Language used by programs executing on the
+        VM.
+    \item \textit{Implementation language}. Language that describe the behavior
+        of the VM.
 \end{itemize}
 These languages can be different. For example, current commercial VMs for
-JavaScript (source language) are written in C++ (implementation language) and
-execute on Intel X86 processors (target language). Special cases, which exhibit
-noteworthy properties, exist when some or all of these languages are the same. 
+JavaScript (source language) are written in C++ (implementation language).  A
+special case exists when the two languages are the same, with noteworthy
+properties.
 
 When its source language and its implementation language are the same, a VM is
 said to be \textit{metacircular}. Advantages of metacircularity are resource
@@ -172,55 +165,38 @@ open system, source language code can replace implementation language code to
 modify the behavior of the VM. In the litterature, \textit{self-hosting} is
 also used to describe metacircular systems. I'll restrict this latter term for
 describing a system that is \textit{actually} used to produce new versions of
-itself.  Therefore, a metacircular VM needing special extensions or
-performance that it cannot provide still depends on an external machine to
-produce a different version of itself and is not self-hosting. Self-hosting is
-therefore more strict.  Self-hosting enables a faster evolution of the system
-by allowing functionalities developed for the source language to apply to the
+itself.  A metacircular VM needing special extensions or performance that it
+cannot provide still depends on an external machine to produce a different
+version of itself and is not self-hosting.  Self-hosting is therefore a
+stricter definition.  Self-hosting enables a faster evolution of the system by
+allowing functionalities developed for the source language to apply to the
 implementation language. It frees a system from the limitations of other
-available systems that would be needed otherwise.
+available systems that would be needed otherwise. The VM presented in this
+dissertation is not self-hosting.
 
-When its source language and its target language are the same, we usually
-describe a VM as performing \textit{source-to-source} translation. This is
-especially useful to provide additional or different properties to the
-executing program while avoiding the implementation of complicated
-functionalities, such as floating-point or regular expression support.  It can
-be used to reduce a complicated language to a kernel language using only a
-subset of all the functionalities offered in the source language. This is
-especially useful when implementing mainstream languages possessing redundant
-features acquired through backward-compatibility-constrained evolution. It may
-ease reasoning about the program, facilitate instrumentation or exploit
-optimizations written for some functionalities to accelerate others.
+VMs can be implemented as interpreters when the behavior of
+programs is directly specified in the implementation language.  However, VMs
+can also incorporate a compiler that performs translation of the programs to
+the language on which the VM is executing, while the program is executing. We
+say such a VM incorporates a Just-In-Time (JIT) Compiler. 
 
-When its implementation language and its target language are the same, an
-\textit{executable} VM can execute on a machine without requiring any external
-support. Few VMs are implemented directly in a target low-level language unless
-an executable VM is needed but no translator from a high-level language to the
-target low-level language are available. When translators are available,
-executable VMs are usually the result of an automatic translation from a high-level
-description.
+We argued that a VM which incorporates a JIT compiler that
+targets its source language is possibly one of the simplest that can be built
+that mostly preserve performance characteristic of unmodified source elements.
+In fact, it amounts to a \textit{differential} implementation, in which only
+the elements of interest in the language are acted upon. Optimizations for the
+new functionalities can target existing optimisations of the source language to
+efficiently implement them, without having to specify low-level mecanims.
+There is even the possibility of faster-than-native performance if some
+features can be translated to equivalent features with better performance
+characteristics. For these reasons, a metacircular implementation that targets
+its source language was chosen.
 
-When all languages are the same, I will say a VM is \textit{platonic}.  I would
-argue that a platonic VM is possibly the simplest that could be built for a
-given language. Only the elements of interest in the language can be acted
-upon, the others can be left as is without having to provide an implementation
-in a lower-level language.  Tools supporting the source language can be used to
-inspect, modify and debug the VM, creating a highly productive environment.
-Optimizations for the new functionalities can target existing optimisations of
-the source language to efficiently implement new functionalities and properties
-without having to specify low-level mecanims that would otherwise be required.
-It greatly simplifies exploration of novel ideas. More importantly, it suggests
-a metric to evaluate the cost of providing fonctionalities or properties that
-are not available in the original source language: the overhead of executing an
-original source program on the VM compared to bare execution on the reference
-machine. When the overhead is small, it is an indication that the functionality
-\textit{can} be implemented efficiently using known techniques. However, if the
-overhead is high, the functionality \textit{may} be implemented using known
-techniques or techniques yet to be invented.
-
-In this dissertation, using a platonic JS VM, I show that the object model
-presented is practical performance-wise by showing that is has a low
-overhead on given benchmarks for every object operation it implements. 
+A metric can be suggested to evaluate the cost of providing fonctionalities or
+properties that are not available in the original source language: the overhead
+of executing an original source program on the VM compared to bare execution on
+the reference machine. This metric will be used to evaluate the performance
+cost of the flexibility gained from the suggested design.
 
 \section{JavaScript}
 
@@ -263,7 +239,11 @@ benchmarks executing on the fastest implementations and compiled with C/C++
 compilers, suggesting there are techniques to be found to close the gap.
 During exploration of VM implementation techniques, the dynamic nature of the
 language was found to be particularly well-suited to base a flexible design
-around it and initiated the work presented here.
+around it and initiated the work presented here. Notably, the ability to use
+the underlying JIT compiler by way of \kw{eval} and the \kw{Function}
+constructor function also enables the \textit{differential} implementation of a
+JIT compiler by adding preliminary phases to the compilation of the source
+programs.
 
 \section{Object Model}
 
@@ -271,14 +251,14 @@ An object model is a set of object kinds, their supported operations and the
 time at which those operations can be performed.  Examples of object kinds are
 arrays, numbers, associative arrays and classes.  Examples of operations are
 object creation, addition, removal or update of properties as well as
-modification of the inherintance chain. Examples of time for performing
+modification of the inheritance chain. Examples of time for performing
 operations are \textit{run time}, when a program is executing, \textit{compile
 time}, when a program is being compiled or \textit{edit time}, when a program's
 source code is being modified. An object model structures programs to obtain
 properties on the resulting system such as security, extensibility or
 performance. Most object models for programming languages provide an
 inheritance mecanism to facilitate \textit{extensibility} by allowing an object
-to be defined incrementally defined in terms of an existing object.
+to be incrementally defined in terms of an existing object.
 
 Different languages have different object models. \textit{Class-based}
 object-oriented languages use \textit{class} objects to describe the properties
@@ -294,7 +274,7 @@ between class and instance objects. Objects and their inheritance chain is
 defined directly on objects. Self and JavaScript object properties can be
 added or removed at run time. 
 
-\textit{Message sending} is an operation that invoke a behavior on an object by
+\textit{Message sending} is an operation that invokes a behavior on an object by
 executing a program associated to a given message.  A message can exist at run
 time and be an object like any other or it can exist only at compile time.
 Message sending \textit{decouples} the intention of a program from its
@@ -307,7 +287,7 @@ implementation}, the message, a \textit{method name} and the act of sending a
 message, \textit{method calling}. This terminology is closely tied to an
 implementation strategy where the implementation is a function, the method name
 is a compile-time symbol and the method call is a lookup followed by a
-synchronous function call in the same address space. I will prefer the
+synchronous function call in the same address space. We will use the
 message-sending terminology because it is more abstract and would easily
 accomodate an asynchronous calling mecanism that could happen between different
 address spaces (i.e. machines). 
@@ -315,57 +295,49 @@ address spaces (i.e. machines).
 A message-sending object model is an object model that takes message sending as
 its primitive operation. It defines every other operation in terms of message
 sends. By doing so, every other operation of the object model becomes dynamic,
-i.e. it can change at run time.
+i.e. it can change at run time. By being based on a single message sending
+primitive, the optimization effort can be focused on this primitive and
+run-time information can be used to specialize the behavior invoked, providing
+an opportunity for \textit{performance}. 
 
-An object model defined in terms of itself is an object model where every
-component required to implement the object model operations are themselves
-objects. For example, the behavior of objects might be functions, the messages
-might be symbols and classes might associate symbols to functions. By
-recursively defining the object model in terms of itself, it becomes
-\textit{open} to modification from regular object operations.
+\section{Function-calling Protocol}
 
-A message-sending object model defined in terms of itself combines both the
-dynamism of message sending with the openness of recursivity. By providing
-every operation through a message send and having every component part of the
-object model, it effectively encapsulate its implementation strategy,
-facilitating its evolution. By being based on a message sending primitive, the
-optimization effort can be focused on this primitive and run-time information
-can be used to specialize the behavior invoked, providing an opportunity for
-\textit{performance}. 
+\section{VM Paradigm vs Instrumentation}
 
-The next pages show how a message-sending object model for JS defined in terms of
-itself provides \textit{openness}, \textit{dynamism}, \textit{extensibility}
-and \textit{performance} and empirically evaluate its practicality for building
-\textit{flexible} virtual machines.
+It can legitimately be asked what the difference is between a metacircular VM
+executing on top of an existing VM and a system that would perform
+source-to-source translation at run time. This difference is mostly conceptual
+and users of these systems need not know the difference. However, there seems
+to be a fundamental difference that governs the range of implementation
+techniques available to the implementer: what assumption is made about the
+possibility of source code unadvertently interfering with implementation code.
+In other words, does the system makes an \textit{open-world} assumption or a
+\textit{closed-world} assumption.
 
-\section{Meta-Circularity}
-\subsection{VM Paradigm vs Instrumentation}
-Closed world assumption vs Open world assumption
+In the first case, we will say that the system performs instrumentation of the
+source code. In the second case, we will say that the system can be considered
+a virtual machine, running on top of another virtual machine. 
 
-\section{Features required from the host runtime}
-
+Our system makes a closed-world assumption to use the JavaScript global object
+for optimizations of implementation mecanisms.
 
 \section{Outline}
+
+Now that the conceptual underpinnings of our work have been established, we can
+turn our attention to the actual dissertation: 
 \begin{itemize}
-    \item The next chapter presents previous work on flexible computer systems.
-    \item Chapter~\ref{chap:Design} explains the design of the object model
-    independently of the implementation or the target language of the VM.
-    \item Chapter~\ref{chap:Implementation} explains implementation
-    peculiarities for a particular target and implementation language, JS.
-    \item Chapter~\ref{chap:Optimizations} describes the optimization
-    techniques used to remove much of the dynamic overhead of the design,
-    tailored to a particular JS implementation.  
+    \item Chapter~\ref{chap:PreviousWork} presents previous work on flexible computer systems.
+    \item Chapter~\ref{chap:Design} explains the design of the VM with a
+        particular emphasis on the message-sending foundation and the object
+        representation.
     \item Chapter~\ref{chap:Flexibility} presents use cases in modifying the VM
-    that are either difficult or impossible to do with existing JS
-    implementations.
-    \item Chapter~\ref{chap:Complexity} evaluates the complexity of the
-    resulting system using the number of source lines of code as a proxy.
+        that are either difficult or impossible to do with existing JS
+        implementations.
     \item Chapter~\ref{chap:Performance} compares my implementation with a
-    state-of-the-art implementation to establish the overhead of providing the
-    flexibility.  
-    \item The conclusion presents the lessons I learned in building, whole or
-    part, three VMs during the course of this research project. I conclude with
-    recommandations on browser behavior that would allow this design to
-    serve as a basis for web pages to provide their own runtime, relaxing
-    current hard-constraints on web application evolution.
+        state-of-the-art implementation to establish the overhead of providing
+        the flexibility and show suitability to replace existing instrumented
+        interpreters.
+    \item Finally, the conclusion in chapter~\ref{chap:Conclusion} explains the
+        current limitations of the system and sketches ideas for further work
+        using our current results
 \end{itemize}

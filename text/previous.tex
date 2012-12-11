@@ -1,4 +1,6 @@
 \chapter{Previous Work}
+\label{chap:PreviousWork} 
+
 \funnyquote{Those who cannot remember the past are condemned to repeat it.} 
 {George Santayana, $1863-1952$}
 
@@ -28,12 +30,13 @@ themselves to use for needs beyond the documented cases.
 Untangling the issue of characterizing existing flexible systems according to
 the same framework is beyond the scope of this dissertation, since first and
 foremost, we are trying to show that performance can be used to gain
-flexibility. However, this does not mean that we will fall prey to a
-"flexibility" relativism. The four properties of \textit{openness},
-\textit{extensibility}, \textit{dynamism} and \textit{performance} will guide
-our review of previous work, by grounding our understanding of flexibility in a
-richer and recognized definition. Still, the exact meaning of those terms vary
-in the litterature but we shall be careful in precising our usage.
+flexibility. A taxonomy of existing systems would not help with the endeavor.
+However, this does not mean that we will fall prey to a "flexibility
+relativism". The four properties of \textit{openness}, \textit{extensibility},
+\textit{dynamism} and \textit{performance} will guide our review of previous
+work, by grounding our understanding of flexibility in a richer and recognized
+definition. Still, the exact meaning of those terms vary in the litterature but
+we shall be careful in precising our usage.
 
 Flexibility applies to different components of a VM. To make the matter more
 manageable and to support the thesis without undue detour, this review will be
@@ -145,13 +148,14 @@ from other decisions.  Later Dijkstra argue for a similar idea which he named
 \textit{separation of concerns} and applied it not only to system design but
 also problem-solving and general thinking. The first occurence of the term
 seems to be found in 'A Discipline of Programming'~\cite{dijkstra:1976}. The
-object-oriented community finally adopted encapsulation to describe the idea.
+object-oriented community finally adopted encapsulation to describe the idea,
+when applied to computer systems.
 
 In the object-oriented community, a class-based approach to object
 decomposition was favored until Lieberman proposed in
 1986~\cite{Lieberman:1986} to use a prototype-based approach to implement
 shared-behavior. This latter mecanism was shown to be more expressive since it
-could be used to implement a equivalent class-base mecanism but the opposite
+could be used to implement an equivalent class-base mecanism but the opposite
 was not possible. This had a major influence on the design of
 Self~\cite{Ungar:1987} which later influenced the design of JavaScript.
 
@@ -210,7 +214,7 @@ Dynamic languages have had the reputation of being slow and inefficient. This
 is changing as mainstream languages incorporate more dynamic features and
 serious engineering efforts are targeted at improving their performance. Appart
 from optimizations deriving from idioms of a particular language, two historical
-papers provide ground work we used.
+papers provide the ground works we used.
 
 In 1984, Deutsch an Schiffman introduce the inline cache technique to optimize
 method dispatch on class-based object-oriented languages~\cite{Deutsch:1984}.
@@ -227,7 +231,7 @@ section~\ref{sec:EfficientImplementation}.
 \section{Learning Material}
 
 In addition to the references provided previously we suggest that the
-interested reader consult the following references for further study. They have
+interested reader consults the following references for further study. They have
 been chosen because they might be more approachable than the original articles
 and provide a richer context for the same ideas:
 \begin{itemize}

@@ -1,31 +1,31 @@
-// Language: Implementation JS
+// Language: Source JS
 (function () {
     print("Retrieving original operation");
-    var get = root.object.get("__get__");
+    var get = Object.prototype.__get__;
 
     print("Replacing the semantic of the operation");
-    root.object.set("__get__", clos(function ($this, $closure, name) {
-        var obj = $this;
+    Object.prototype.__get__ = function (name) {
+        var obj = this;
 
         while (obj !== null) {
-            if (obj.has(name))
-                return obj.get(name);
+            if (obj.hasOwnProperty(name))
+                return get.call(obj, name);
 
             obj = obj.getPrototype();
         }
         
         throw new Error("ReferenceError: property '" + name + "' not found");
-    }));
+    };
 
     print("Testing the semantic of the operation");
     try {
-        send(root.object.create(), "__get__", "bar");        
+        ({}).bar;
         print("Should not be reached");
     } catch (e) {
         print(e);
     }
 
     print("Restauring the original behavior");
-    root.object.set("__get__", get);
-    print(send(root.object.create(), "__get__", "bar"));
+    Object.prototype.__get__ = get;
+    print({}.bar);
 })();

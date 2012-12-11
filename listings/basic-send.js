@@ -1,11 +1,5 @@
 function bind(rcv, msg) {
-    var obj = rcv;
-    while (obj !== null) {
-        if (obj.has(msg))
-            return obj.get(msg);
-        obj = obj.getPrototype();
-    }
-    return null;
+    return rcv.get(msg);
 }
 
 function send(rcv, msg, ..args) {

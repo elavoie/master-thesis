@@ -1,6 +1,4 @@
 codeCache1 = function ($this,dataCache,name) {
-    if ($this === undefined || $this === null)
-        throw new Error("TypeError: " + $this + " does not have a property '" + name + "'");
     return $this.get(name);
 }
 

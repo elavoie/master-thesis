@@ -1,15 +1,15 @@
+// Language: Source JS
 (function () {
     print("Remembering the old behavior");
-    var ctor = root["function"].__ctor__; 
+    var ctor = Function.prototype.__ctor__; 
 
     print("Replacing the constructor behavior");
-    root["function"].__ctor__ = function ()
-    {
-        var o = this.prototype.__new__();
-        var r = this.call(o);
+    Function.prototype.__ctor__ = function () {
+        var o = Object.create(this.prototype);
+        var r = this.apply(o, arguments);
 
         if (r !== o)
-            throw "--> Constructor did not return the 'this' object";
+            throw Error("--> Constructor did not return the 'this' object");
         
         return o;
     }
@@ -18,6 +18,7 @@
     function Foo()
     {
         this.foo = 42;
+        // implicitly returns the undefined value
     }
 
     print("Calling the faulty constructor");
@@ -30,7 +31,7 @@
     }
 
     print("Restauring the old behavior");
-    root["function"].__ctor__ = ctor;
+    Function.prototype.__ctor__ = ctor;
 
     print("Testing the old behavior");
     new Foo();

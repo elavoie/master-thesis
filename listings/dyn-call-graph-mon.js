@@ -1,32 +1,27 @@
+// Language: Source JS
 var callgraph = {};
 var callstack = ["global"];
 
-function before_apply(fn) {
-    if (fn.__id__ !== undefined && 
-        fn.__id__ !== "undefined" &&
-        fn.__id__ !== "call" && 
-        fn.__id__ !== "apply") {
+function beforeApply(fn) {
+    if (fn.__id__ !== undefined) {
         var node = callgraph[callstack[callstack.length - 1]];
         if (node === undefined) {
             node = {};
             callgraph[callstack[callstack.length - 1]] = node;
         }
-        node[fn.__id__] = true;
         callstack.push(fn.__id__);
     }
 }
 
-function after_apply(fn) {
-    if (fn.__id__ !== undefined && 
-        fn.__id__ !== "undefined" &&
-        fn.__id__ !== "call" && 
-        fn.__id__ !== "apply") {
-        var id = callstack.pop();
+function afterApply(fn) {
+    if (fn.__id__ !== undefined) {
+        callstack.pop();
+        var node = callgraph[callstack[callstack.length - 1]];
+        node[fn.__id__] = true;
     }
-
 }
 
-function dyn_call_graph_results() {
+function dynCallGraphResults() {
     var str = "digraph {";
     for (var caller in callgraph) {
         if (callgraph.hasOwnProperty(caller)) {
@@ -43,3 +38,5 @@ function dyn_call_graph_results() {
 
     print(str);
 }
+
+startCallInstrumentation(beforeApply, afterApply);

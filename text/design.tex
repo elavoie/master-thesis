@@ -58,7 +58,7 @@ limited to):
     languages that have distinct primitive and object values (ex: \kw{+} in
     JavaScript) 
     \item \textit{Object representation}: How objects are constructed from
-    basic elements (ex:Dictionary-based representation, Fixed-memory blocks, etc.)
+    basic elements (ex: Dictionary-based representation, Fixed-memory blocks, etc.)
     \item \textit{Object model operations}: What operations the objects
     support, what behavior they perform and how they affect their
     representation (ex: accessing a property, deleting a property, changing the
@@ -153,16 +153,18 @@ we will see later in this chapter.} However, the reader should keep in mind
 that the message-sending operation is orthogonal to the object representation
 chosen. 
 
-We will assume that the representation supports at least 4 methods:
+We will assume that the representation supports at least five methods:
 \begin{itemize}
-    \item \kw{has(name)} method: returns true if the object has the \kw{name}
-    property
-    \item \kw{get(name)} method: returns the value of the \kw{name} property on
-    this particular object
-    \item \kw{call(rcv, ..args)} method: calls the object as a method with the
+    \item \kw{call(rcv, ..args)}: calls the object as a method with the
     \kw{rcv} receiver and \kw{args} arguments and returns its return value
-    \item \kw{getPrototype()} method: returns the prototype of an
-    object~\footnote{As explained in the conclusion, using the \kw{__proto__}
+    \item \kw{get(name)}: returns the value of the \kw{name} property on
+    this object and implicitly performs a lookup through the prototype chain
+    \item \kw{has(name)}: returns true if the \kw{name}
+    property is present on the object itself
+    \item \kw{set(name, value)}: create a new \kw{name} property if not already
+    present, and set or update its value to \kw{value} 
+    \item \kw{getPrototype()}: returns the prototype of an
+    object~\footnote{As explained in the conclusion, using the \kw{\_\_proto\_\_}
     property breaks the encapsulation and mixes base-level and meta-level
     information. We therefore prefer to access the prototype through a method
     call. We use it here to advocate this particular usage.}
@@ -221,31 +223,30 @@ support it.
 Memoization is usually associated with functional programming and entails
 trading space-efficiency for time-efficiency by remembering past return values
 of functions with no side-effect. We will use the same definition here although
-we will relax the no side-effect constraint by placing the burden of insuring
-that memoized functions will always return the same value as if the original
-function was called, on the programmer. Whether memoization might break
-invariants of the system is left to her to elucidate when writing a particular
-memoized function.
+we will relax the no-side-effect constraint by placing, on the programmer, the
+burden of insuring that memoized functions will always return the same value as
+if the original function was called. The programmer is expected to maintain
+system invariants when supplying memoization methods.
 
 This particular functionality became necessary when trying to implement
 efficiently the JavaScript object model operations in Photon because they are
 reified as methods for openness. It became clear that using inline caches to
 memoize their optimized versions was desirable.
 
-The basic idea is to allow a method to inspect its arguments and receiver
-before the first call to specialize itself for subsequent calls. The first call
-is always performed by calling the original function while all subsequent calls
-will be made to the memoized function.
+The basic idea is to allow a method to inspect its arguments and receiver to
+specialize itself for subsequent calls. The first call is always performed by
+calling the original function while all subsequent calls will be made to the
+memoized function.
 
 There is an unfortunate interaction between memoization and the reification of
 the call protocol. A further refinement specifies that memoization can only
-occur if the call method of the function has not been redefined, otherwise it
-would change the identity of the function passed to the call method. We simply
-need to check if the call method of a function corresponds to the default call
-method, in which case the identity of the function is not important, only its
-behavior. If it is the case, then, we can store the memoized function in the
-cache. Otherwise, we call the original function through its redefined call
-method:
+occur if the call method of the function has not been redefined. Otherwise, the
+identity of the function passed to the call method would not be the same. To
+preserve identity while allowing memoization, the behavior of the cache can be
+different depending on the state of the {Function.prototype}'s \kw{call}
+method. If its value is the default one, the identity of the function is not
+important and memoization can be performed. Otherwise, memoization will be
+ignored:
 
 \jsfile{listings/memoized-send.js}
 
@@ -404,10 +405,10 @@ calls both as an optimized calling mecanism and as a dynamically specializable
 operation. They provide the same ability as code patching in assembly. On
 the current version of V8, when the number of arguments expected matches the
 number of arguments supplied, it opens the possibility of inlining the function
-at the call site. If later the global function is redefined, the call site will
-be deoptimized transparently. It is a really powerful mecanism because much of
-the complexity of run-time specialization is performed by the underlying host.
-We can simply piggy back on those optimizations.
+at the call site. If the global function is redefined at a later time, the call
+site will be deoptimized transparently. It is a really powerful mecanism
+because much of the complexity of run-time specialization is performed by the
+underlying host.  We can simply piggy back on those optimizations.
 
 Let's start with an example. Given the aforementioned semantic of message
 sending, sending the message \kw{msg} to an object \kw{obj} inside a \kw{foo}
@@ -416,10 +417,10 @@ function can be written this way:
 \jsfile{listings/send-example.js}
 
 The \kw{send} function is a global function. We can replace it with another
-global function that is garanteed to be unique, so it can be uniquely
-identified with the call site. In addition to the message to be sent, we can
-pass it a unique identifier that will be used to find the corresponding global
-function name, for later specialization of the call site:
+global function that is garanteed to be unique, so it can be identified with
+the call site. In addition to the message to be sent, we can pass it a unique
+identifier that will be used to find the corresponding global function name,
+for later specialization of the call site:
 
 \jsfile{listings/inline-cache-example.js}
 
@@ -430,17 +431,14 @@ conventions used for our function call protocol. Notice also that
 can use the array to store additional information.
 
 After an initial execution, the second time around, the cache will hold an
-optimized version of the operation. From now on, we will use the object
-representation we defined previously with a slight difference: we will assume
-the \kw{get} operation performs an implicit lookup through its prototype chain,
-as previously we stated that it would only lookup on the current object.
-Given this new definition, the cache state might be equivalent to:
+optimized version of the operation. Given this new definition, the cache state
+might be equivalent to:
 
 \jsfile{listings/inline-cache-optimized-example.js}
 
 Appart from the indirection of the global function call, this example is
 optimal with regard to the object representation definition we have. If the
-underlying runtime choose to inline the global function, the cost of the
+underlying runtime chooses to inline the global function, the cost of the
 indirection will be effectively eliminated.
 
 \subsubsection{Cache states and transitions}
@@ -451,7 +449,7 @@ various ways to do it with different performance and flexibility profiles. We
 have not exhaustively explored the possibilities, therefore there might be
 interesting configurations yet to be uncovered. Nonetheless, we still found a
 simple arrangement that allows reified operations to be specialized to their
-call sites with a small memory overhead in terms of tracking run-time
+call sites with a small memory overhead originating from tracking run-time
 invariants.  An enthousiastic reader should read the following not as the final
 word on the matter but as a point of departure, as we believe there are other
 interesting configurations to be found.
@@ -502,7 +500,7 @@ table~\ref{tb:CacheStates}.
 \end{table}
 
 
-Transitions between states happen on message send and object model operation
+Transitions between states happen on message sends and object model operation
 events.  An insight was to realize that we could under-approximate the tracking
 of invariants and invalidate conservatively more caches than what would
 minimally be required. As long as the operations triggering the invalidation of
@@ -517,7 +515,7 @@ usage for tracking information is proportional to the number of cache sites.
 
 There is no state associated with a redefined \kw{call} method. In that
 particular case, all caches will stay in the initial state and a regular
-message send will be performed (and not cached). Figure~\ref{fig:CacheStates}
+message send will be performed. Figure~\ref{fig:CacheStates}
 summarizes those elements in a state diagram. A more detailed explanation of
 every event and transition conditions are given in table~\ref{tb:CacheEvents}
 and table~\ref{tb:CacheTransitionConditions}.
@@ -703,7 +701,7 @@ object of the parent.~\footnote{For this particular reason, we would advocate
 for implementations to expose the prototype of an object through a method call
 instead of a property. We could still preserve backward compatibility for
 litteral object definitions but once the object is created, the prototype
-should not be accessible or modifiable through the \kw{__proto__} property.}.
+should not be accessible or modifiable through the \kw{__proto__} property.}
 
 \begin{table}[htb]
 \caption{Object representation operations and their interface}
@@ -821,13 +819,13 @@ in their inheritance chain, they do not mirror their properties. In fact, their
 properties can be fixed for the whole execution if one assumes that the
 semantic of object operations does not change. These facts are what allow
 proxies to adapt to dynamic circumstances by adding specialized methods at run
-time, first and foremost, for performance reasons. We will see how to exploit
-this fact, first to specialize operations to a fixed number of arguments and
-then to a constant argument type or value. Those two specializations are
-independant and can be combined for further performance gains. To avoid name
-clashing and ease reading we will adopt the convention that specialized methods
-share the same prefix as basic methods with the type or value information and
-or number of arguments following in the name.
+time, which can be used for performance gains. We will see how to exploit this
+fact, first to specialize operations to a fixed number of arguments and then to
+a constant argument type or value. Those two specializations are independant
+and can be combined for further performance gains. To avoid name clashing and
+ease reading we adopt the convention that specialized methods share the
+same prefix as basic methods with the type or value information and or number
+of arguments following in the name.
 
 \subsection{Fixed arguments number specialization}
 
@@ -894,16 +892,16 @@ the receiver object. We then create and initialize the \kw{bar} property of the
 chance to specialize the call site, both of the \kw{foo} call and the \kw{bar}
 property access inside the \kw{foo} method.
 
-We first see how compiling this example to translate object model operations to
-message sends uses the inline caching idiom. The compiled code has been
-interseeded with the original code in comments to allow the reader to follow
-easily:
+We first see how compiling this example to message sends uses the inline
+caching idiom. The compiled code has been weaved with the original code in
+comments to allow the reader to follow easily:
 
 \jsfile{listings/compilation-example-compiled.js}
 
 \newpage
 
-In addition to what has been discussed in the design chapter, the astute reader will have noticed the following things:
+In addition to what has been discussed in this chapter, the astute reader
+will have noticed the following things:
 \begin{itemize}
     \item \textit{Type information in data caches}: During compilation, known
     types which directly correspond to abstract syntax tree nodes as preserved.
@@ -930,10 +928,10 @@ correspond to the following behaviors:
 \jsfile{listings/compilation-example-compiled-specialized.js}
 
 In the last case, we can see that the \kw{call} method has been specialized for
-no arguments except the receiver, exploiting optimization opportunities offered
-by our object representation. This example therefore summarizes the unification
-of object model operations to message sends, their efficient implementation and
-a novel object representation that can dynamically adapt itself to information
+no arguments, exploiting optimization opportunities offered by our object
+representation. This example therefore summarizes the unification of object
+model operations to message sends, their efficient implementation and a novel
+object representation that can dynamically adapt itself to information
 available at runtime.
 
 The next chapter will show how we can use the added flexibility for
