@@ -302,6 +302,22 @@ an opportunity for \textit{performance}.
 
 \section{Function-calling Protocol}
 
+The function-calling protocol is a contract between a caller and a callee
+function and defines what operation each should perform before and after a
+call. For implementers, it usually usually refers to the way arguments are
+passed between the caller and the callee and who is responsible for clean-up of
+shared data structures such as the stack.
+
+In our system, there is no difference between the passing of arguments of the
+host VM and the layered VM. However, to react to function-calling events, there
+is a need to have a place to define operations to be executed before and after
+calls. We will therefore refer to the function-calling protocol as the
+operations that are performed before and after a call. 
+
+The \kw{call} method on functions in JS is already a form of reified calling
+protocol. Our design exploits it to change the behavior of \textit{all} function
+calls when it is modified, which is not the case in the current standard.
+
 \section{VM Paradigm vs Instrumentation}
 
 It can legitimately be asked what the difference is between a metacircular VM

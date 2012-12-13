@@ -15,7 +15,7 @@ it is, perharps, the end of the beginning.}
 In the preceding chapters we saw how a metacircular VM targeting its source
 language, based on a message-sending object model could provide flexible
 run-time instrumentation of the object model and function-calling protocol at a
-baseline performance competitive with a state-of-the-art interpreter, by
+baseline performance within a factor of two of a state-of-the-art interpreter, by
 harnessing a sophisticated run-time optimizer, without having to modify the
 underlying VM source code. The motivation for the work stems from our current
 inability to obtain longitudinal data on the behavior of JavaScript programs
@@ -66,12 +66,9 @@ little used names to minimize possible conflicts with existing code.
 
 \subsection{Setting the \kw{__proto__} property throws an exception}
 
-As far as we know, this limitation does not come from an impossibility in the
-design to accomodate the assignation of the \kw{__proto__} property but from
-carefulness from potentially unforeseen cases. 
-
-\textit{Note to Marc: I just need to think this through}. 
-
+This might be fixed by invalidating all caches should the prototype of an
+object changes. A more sophisticated mecanism could be devised if the operation
+is frequent.
 
 \subsection{Operations on \kw{null} or \kw{undefined} might throw a different exception}
 
@@ -107,9 +104,16 @@ raise proper exceptions.
 \subsection{Limited support for eval}
 
 Our compiler does not support accessing the local environment of a function
-from evaluated code.
+from evaluated code. This can be fixed by maintaining on functions the
+environment information. This environment can than be provided to our compiler,
+when it is called during and \kw{eval} operation.
 
 \subsection{Function calls implicitly made by the standard library are not intercepted}
+
+Functions passed to the standard library are wrapped to remove the extra
+arguments introduced by our compilation strategy. Should the need to intercept
+those calls arise, the wrappers could perform a message send instead of a
+direct call.
  
 \section{Future Work}
 
@@ -134,18 +138,24 @@ techniques for layered VMs should become worthy of research efforts since they
 have the potential to provide an efficient way of supporting numerous languages
 with limited efforts. This dissertation is a step in that direction.
 
-% Byte-code vs Text vs AST for layered VMs ??
-
-
 Also, there could be qualitative improvements if the performance was much
 better, by opening whole new possibilities of applications.  In the next
-sections, we first reflect about possible approaches to improve efficiency
-using known techniques. We then move on to interesting use cases and
-possibilities.
+sections, we reflect about possible approaches to improve efficiency
+using known techniques.
 
 \subsection{Improve compilation speed}
 
+Our OMeta-based compiler~\cite{Warth:2007} can be significantly slow during the
+parsing stage. If compilation speed becomes critical, it could be replaced with
+a different algorithm or the OMeta runtime and compiled code could be
+optimized.
+
 \subsection{Allow a finer-grained redefinition of meta-methods}
+
+Object-model operations can only be redefined on the root object, mostly to
+simplify the tracking mecanism. A more sophisticated tracking mecanism could
+allow object model operations to be redefined for subsets of all objects by
+redefining the operation at the appropriate place on the inheritance hierarchy.
 
 \subsection{Efficient instrumentation}
 
@@ -158,13 +168,20 @@ upon each of them.
 The easiest known technique that would be worth trying to replicate in a
 metacircular setting is the dynamic recompilation of the source code based on
 type-feedback obtained during execution. It would further allow the
-specialization of the code to the actual types occuring during execution.
+specialization of the code to the actual types occuring during execution and
+the removal of message-sending caches for operations that have not been
+redefined.
 
 Our current object representation makes it easy by wrapping the function being
 executed.  The function could be replaced at run time with a specialized
 version. This could eliminate type tests and specialize functions used as
 constructors. Our current inline cache design allows the accumulation of
-arbitrary information.
+arbitrary information which could be used for that purpose.
+
+The other technique to be tried is the object represention method
+specialization presented in the design section. Further gains could be had if
+both the lookup and the argument specialization were combined in a single
+method.
 
 \subsubsection{Provide mecanisms to optimize the instrumentation code}
 
@@ -181,51 +198,52 @@ level, we could avoid the instrumentation cost for a majority of objects. This
 could be done by implementing the equivalent of polymorphic inline caches and
 having a finer-grained tracking mecanism for cache states.
 
-\subsection{Real-time analysis of the behavior of JavaScript programs}
 
-A sufficient performance could allow a real-time analysis of the behavior of
-JavaScript programs. Compared to the log and analyse approach previously
-done~\cite{behavior_js}, this could provide a qualitatively different
-experience.
-
-This could be used by web developers to develop an intuition about the
-performance cost of various operations. This could also be used by the
-JavaScript committee to develop a better idea of what features are actually
-used accross the web and could allow the deprecation of features that are never
-used.
-
-\subsection{Simplification of production VMs}
-
-Some little-used features (or quirks!) of the JavaScript languages hold back
-the performance that could be achievable and are maintained for
-backward-compatibility reasons. Those features could be provided by a
-metacircular VM through newer and better performing features.  The
-metacircular VM could be loaded lazily only when the old features are actually
-invoked.
-
-\subsection{Server-side instrumentation}
-
-A server could dynamically choose to send an instrumented version of its
-JavaScript code to gather information about the actual usage made by users of
-the application. While executing, the instrumented library could "phone home"
-to send back profiling information. However, due to access restrictions in the
-browser, a server configuration is required to permit the direct communication
-of the instrumented code with the library developer server.
-
-\subsection{Library-based profiling}
-
-It is currently hard for library developers to know precisely what
-functionalities are actually used and in which context. It could be possible to
-provide a pre-instrumented library version, tailored to the questions the
-library developers would like to be answered that other web developers could
-use in their web pages. 
-
-\subsection{Server code instrumentation}
-
-The emergence of NodeJS as a server environment obviously allows the system to
-gather information about server-side code.
-
-\subsection{Security invariants monitoring}
-
-Instrumentation could be performed to enforce security invariants instead of
-only logging operations. 
+%\subsection{Real-time analysis of the behavior of JavaScript programs}
+%
+%A sufficient performance could allow a real-time analysis of the behavior of
+%JavaScript programs. Compared to the log and analyse approach previously
+%done~\cite{behavior_js}, this could provide a qualitatively different
+%experience.
+%
+%This could be used by web developers to develop an intuition about the
+%performance cost of various operations. This could also be used by the
+%JavaScript committee to develop a better idea of what features are actually
+%used accross the web and could allow the deprecation of features that are never
+%used.
+%
+%\subsection{Simplification of production VMs}
+%
+%Some little-used features (or quirks!) of the JavaScript languages hold back
+%the performance that could be achievable and are maintained for
+%backward-compatibility reasons. Those features could be provided by a
+%metacircular VM through newer and better performing features.  The
+%metacircular VM could be loaded lazily only when the old features are actually
+%invoked.
+%
+%\subsection{Server-side instrumentation}
+%
+%A server could dynamically choose to send an instrumented version of its
+%JavaScript code to gather information about the actual usage made by users of
+%the application. While executing, the instrumented library could "phone home"
+%to send back profiling information. However, due to access restrictions in the
+%browser, a server configuration is required to permit the direct communication
+%of the instrumented code with the library developer server.
+%
+%\subsection{Library-based profiling}
+%
+%It is currently hard for library developers to know precisely what
+%functionalities are actually used and in which context. It could be possible to
+%provide a pre-instrumented library version, tailored to the questions the
+%library developers would like to be answered that other web developers could
+%use in their web pages. 
+%
+%\subsection{Server code instrumentation}
+%
+%%The emergence of NodeJS as a server environment obviously allows the system to
+%gather information about server-side code.
+%
+%\subsection{Security invariants monitoring}
+%
+%Instrumentation could be performed to enforce security invariants instead of
+%only logging operations. 
