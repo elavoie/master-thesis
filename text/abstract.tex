@@ -3,6 +3,39 @@
 \textbf{\large Abstract}
 \end{center}
 
-
 \vspace{1cm}
 
+Recent research and development on Virtual Machines (VMs), especially for the
+JavaScript language, has focused on performance, to the expense of flexibility.
+Notably, it has hindered our understanding of the run-time behavior of programs
+by making instrumentation of existing VMs laborious. Past approaches required
+manual instrumentation of production interpreters, preventing the acquisition
+of longitudinal data because of the high cost of maintaining the interpreter
+up-to-date.
+			
+This dissertation shows that performance can be harnessed to provide flexible
+run-time instrumentation of the object model and function-calling protocol at a
+performance competitive with a state-of-the-art interpreter, without having to
+modify the VM source code. Our approach consists in running a metacircular VM
+targeting the source language, based on a message-sending object model, on top
+of another fast VM. To demonstrate the approach, we provide a reference VM for
+JavaScript, we show the possibility of instrumenting the object model
+operations and function calls and we finally compare the performance with and
+without instrumentation to the SpiderMonkey interpreter and V8 JIT-compiler
+based VM.
+			
+We believe our combination of simplicity, flexibility and efficiency is unique.
+As such, this dissertation contains three original contributions:
+
+\begin{itemize}
+    \item The unification of the reified object model operations and
+        function-calling protocol around a single message-sending primitive
+        while preserving compatibility with the current version of JavaScript
+    \item An efficient implementation of the message-sending primitive inspired
+          by inline cache optimizations
+    \item An object representation exploiting the underlying VM inline caches
+          and dynamic object model to provide efficient virtualized operations
+\end{itemize}
+
+Keywords: Metacircularity, Instrumentation, Dynamism, Object Model,
+Flexibility, Performance, Virtual Machine, JavaScript  

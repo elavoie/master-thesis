@@ -6,3 +6,36 @@
 
 
 \vspace{1cm}
+Les d\'eveloppements r\'ecents sur les machines virtuelles (MVs), en particulier
+pour le language JavaScript, ont mis l'emphase sur la performance au d\'etriment
+de la flexibilit\'e. Cela limite notre compr\'ehension du comportement dynamique
+des programmes en rendant laborieuse l'instrumentation de MVs existantes. Les
+approches pass\'ees consistaient \`a instrumenter manuellement un interpr\'eteur
+commercial, limitant l'acquisition de donn\'ees longitudinale, \`a cause du co\^ut
+\'elev\'e de maintenance de l'interpr\'eteur.
+			
+Ce m\'emoire montre que la flexibilit\'e peut \^etre r\'ecup\'er\'ee dans l'instrumentation
+dynamique du mod\`ele objet et des appels de fonctions, \`a un niveau de
+performance comp\'etitif avec un interpr\'eteur commercial r\'ecent, sans
+modification de son code source. Notre approche consiste \`a ex\'ecuter une MV
+m\'eta-circulaire, ciblant le langage source, sur une MV rapide. Pour \'evaluer
+l'approche, nous proposons une MV pour JavaScript, nous pr\'esentons des exemples
+d'instrumentation et nous comparons la performance, avec et sans
+instrumentation, \`a l'interpr\'eteur SpiderMonkey et la MV bas\'ee sur un JIT de V8.
+			
+Nous croyons que la combinaison de simplicit\'e, de flexibilit\'e et d'efficacit\'e
+de notre MV est unique. Elle est rendue possible par trois contributions:
+
+\begin{itemize}
+    \item L'unification des op\'erations r\'eifi\'ees du mod\`ele objet et des appels
+        de fonctions autour d'une primitive unique de passage de message,
+        compatible avec la derni\`ere version de JavaScript
+    \item Une impl\'ementation efficace de la primitive de passage de message
+        inspir\'ee par la m\'emoisation \textit{in situ}.
+    \item Une repr\'esentation objet qui exploite les optimisations de
+        m\'emoisation \textit{in situ} de la VM sous-jacente et le dynamisme du mod\'ele
+        objet pour obtenir des op\'erations virtualis\'ees efficaces 
+\end{itemize}
+
+Mots-cl\'es: M\'eta-circularit\'e, Instrumentation, Dynamisme, Mod\`ele Objet,
+Flexibilit\'e, Performance, Machine Virtuelle, JavaScript  

@@ -644,7 +644,11 @@ itself, this idea is not new. It has been advocated by Bracha and Ungar almost
 objects are also bound to appear in the next version of JavaScript and are
 currently supported by some major JS VMs.
 %~\footnote{Which ones???}. 
-However to the best of our knowledge, it has never been suggested that the prototype chain of proxy objects should follow the prototype chain of proxied objects. As we will see, it opens the possibility of specializing and optimizing the object representation operations at runtime by attaching specialized methods at the appropriate places on the proxy prototype chain.
+However to the best of our knowledge, it has never been suggested that the
+prototype chain of proxy objects should follow the prototype chain of proxied
+objects. As we will see, it opens the possibility of specializing and
+optimizing the object representation operations at runtime by attaching
+specialized methods at the appropriate places on the proxy prototype chain.
 
 The basic object representation will be presented for native object types. We
 will then see how we can specialize methods for the number of arguments found
