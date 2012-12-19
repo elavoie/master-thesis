@@ -90,7 +90,7 @@ operator semantics, dynamic storage allocation, data structure traversal and
 scheduling and synchronization as areas ripe to benefit from being opened.
 Compared to our focus on opening the object model operations and
 function-calling protocol, these elements are closer to the machine execution
-model than to the language's semantic. 
+model than to the language's semantics. 
 
 Smith worked concurrently on similar areas with a different approach. He
 first asked how a system could reason about its own inference processes. This
@@ -101,11 +101,11 @@ built to satisfy those notions. His work planted the seeds for an influential
 line of research. Compared to Shaw and Wulf work, it directly addressed the
 semantic implications of opening implementations while they merely suggested
 that some elements should not be bound early without giving any indication on
-how to define the semantic of a programming language to do so.  The notion of
+how to define the semantics of a programming language to do so.  The notion of
 reflection is also stronger because it implies the ability to modify the
 implementation from within the language itself. Among the notions Smith
 introduced, we use the \textit{causal connection} criteria to think about
-JavaScript semantic in section~\ref{sec:AugmentedFunctionCalling}. This
+JavaScript semantics in section~\ref{sec:AugmentedFunctionCalling}. This
 criteria says that a data structure is causally connected to the behavior of a
 system if changing the data structure changes the behavior of the system.
 
@@ -205,7 +205,7 @@ exploit these characteristics for dynamic instrumentation. In our work, the
 idea of using message-sending as a foundation was inspired by Smalltalk  and
 the dynamic nature of the instrumentation we perform owes a great deal to the
 behavioral reflection work. We will use reflection capabilities in
-chapter~\ref{chap:Flexibility} to show how to change the semantic of object
+chapter~\ref{chap:Flexibility} to show how to change the semantics of object
 model operations.
 
 \subsection{Performance}

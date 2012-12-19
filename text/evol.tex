@@ -206,14 +206,14 @@ dynamic call graph.
 \section{Enforcing run-time invariants}
 
 Instead of extending the behavior of operations to perform instrumentation, the
-next examples \textit{modify} the semantic of the original operation to provide
+next examples \textit{modify} the semantics of the original operation to provide
 a different behavior, with the goal of enforcing run-time invariants. This goes
 beyond our thesis to provide a glimpse of the usefulness of the system beyond
 instrumentation tasks.
 
 \subsection{Ensure that all accesses are made to existing properties}
 
-The default semantic of property access in JS specifies that accessing
+The default semantics of property access in JS specifies that accessing
 a non-existing property should return \kw{undefined}. It has the unfortunate
 consequence that the presence or absence of a property on an object is
 ambiguous: if an existing property has \kw{undefined} as a value, we cannot
@@ -222,7 +222,7 @@ access operation. Combined with the automatic conversion of values for most
 operations, an unintended missing property on an object might cause obscure
 bugs to crop up later in the program.
 
-We can provide a \textit{fail early} semantic to the property access operation
+We can provide a \textit{fail early} semantics to the property access operation
 by raising an exception if a property is not present. This can be done easily
 by replacing the \kw{\_\_get\_\_} operation on the root object. The following
 example uses the implementation language to have access to the object
@@ -243,7 +243,7 @@ dense to sparse.
 
 \subsection{Ensure that a constructor always returns the object it received}
 
-The semantic of object construction in JS can be surprising. When creating an
+The semantics of object construction in JS can be surprising. When creating an
 object with a call to a function with the \kw{new} operator, a new empty object
 is created behind the scene and the function will be called with a \kw{this}
 value bound to the created object. When the function returns, the return value type 
@@ -256,7 +256,7 @@ constructors to be written more succinctly by omitting the \kw{return}
 statement. However, it might also be a source of run-time errors if a
 constructor is later modified and an object is unintentionally returned.
 
-We can dynamically change the semantic of the construction operation to throw
+We can dynamically change the semantics of the construction operation to throw
 an error if an object different than the original object created is returned by
 the constructor, in the source language:
 
