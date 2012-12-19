@@ -10,10 +10,10 @@ learning material for the interested reader and demonstrating the originality
 of the work presented. In this chapter, all three will be addressed but this
 dissertation being a master thesis, the emphasis will be made on the first two. 
 
-In the course of this litterature review, it became clear that the
+In the course of this literature review, it became clear that the
 terminology around flexible computer systems is both varied and ill-defined.
 Synonyms to flexibility abound: \textit{malleability} brings images of
-amorpheous substrates, \textit{versatility} testifies for the universality of
+amorphous substrates, \textit{versatility} testifies for the universality of
 the artifact, \textit{plasticity} suggests a solid while reconfigurable medium
 and \textit{customizability} reminds of color options for mass-produced
 consumers goods. While nuanced in their suggestive tones, usage of these terms
@@ -35,7 +35,7 @@ However, this does not mean that we will fall prey to a "flexibility
 relativism". The four properties of \textit{openness}, \textit{extensibility},
 \textit{dynamism} and \textit{performance} will guide our review of previous
 work, by grounding our understanding of flexibility in a richer and recognized
-definition. Still, the exact meaning of those terms vary in the litterature but
+definition. Still, the exact meaning of those terms vary in the literature but
 we shall be careful in precising our usage.
 
 Flexibility applies to different components of a VM. To make the matter more
@@ -52,7 +52,7 @@ the terms, although precise definitions were not provided.
 The next section provides the historical roots of concepts belonging to each of
 the four properties. The next section suggests reading material for the reader
 for further independent study. This distinction is motivated by the fact that
-later accounts of ideas can additionaly present further developments, changes
+later accounts of ideas can additionally present further developments, changes
 in nomenclature and might be more approachable then the original papers.
 Finally, a comparison of our work to state-of-the-art systems related to
 JavaScript and instrumentation is made.
@@ -87,7 +87,7 @@ taken to define abstract data types should also be used to define the behavior
 of language operations, namely to separate the \textit{specification} from its
 \textit{implementation}. They identify storage layout, variable handling,
 operator semantics, dynamic storage allocation, data structure traversal and
-scheduling and synchronisation as areas ripe to benefit from being opened.
+scheduling and synchronization as areas ripe to benefit from being opened.
 Compared to our focus on opening the object model operations and
 function-calling protocol, these elements are closer to the machine execution
 model than to the language's semantic. 
@@ -114,7 +114,7 @@ bring reflection to object-oriented programming languages through meta-objects.
 These objects were shown to encapsulate various elements of the language
 implementation. Later in 1991, Ramano Rao introduced the open implementation
 term to replace the reflection architecture term that was previously in use to
-emphasive the fact that not only language implementations can be open but also
+emphasize the fact that not only language implementations can be open but also
 applications~\cite{Rao:1991}. Then, a methodology for designing open
 implementations was suggested by Maeda and al.~\cite{Maeda:1997}, first by
 taking an existing closed implementation and then by progressively opening all
@@ -136,7 +136,7 @@ A major breakthrough in structuring the definition of computer systems was the
 introduction of the notion of \textit{inheritance} in 1966 by Dahl, Myrhaug and
 Nygaard in the Simula 67 language~\cite{Dahl:1968}. The language had the notion
 of classes and objects and new classes could be defined in terms of existing
-classes through its inheritance mecanism. The language had a major influence on
+classes through its inheritance mechanism. The language had a major influence on
 the design of Smalltalk~\cite{Kay:1993} and C++~\cite{Stroustrup:2007}.
 
 Another major idea for extensibility was the notion of \textit{encapsulation},
@@ -146,7 +146,7 @@ systems by subroutines performed, they should be be decomposed such that modules
 encapsulate key design decisions, in a way that is as independent as possible
 from other decisions.  Later Dijkstra argue for a similar idea which he named
 \textit{separation of concerns} and applied it not only to system design but
-also problem-solving and general thinking. The first occurence of the term
+also problem-solving and general thinking. The first occurrence of the term
 seems to be found in 'A Discipline of Programming'~\cite{dijkstra:1976}. The
 object-oriented community finally adopted encapsulation to describe the idea,
 when applied to computer systems.
@@ -154,8 +154,8 @@ when applied to computer systems.
 In the object-oriented community, a class-based approach to object
 decomposition was favored until Lieberman proposed in
 1986~\cite{Lieberman:1986} to use a prototype-based approach to implement
-shared-behavior. This latter mecanism was shown to be more expressive since it
-could be used to implement an equivalent class-base mecanism but the opposite
+shared-behavior. This latter mechanism was shown to be more expressive since it
+could be used to implement an equivalent class-base mechanism but the opposite
 was not possible. This had a major influence on the design of
 Self~\cite{Ungar:1987} which later influenced the design of JavaScript.
 
@@ -212,7 +212,7 @@ model operations.
 
 Dynamic languages have had the reputation of being slow and inefficient. This
 is changing as mainstream languages incorporate more dynamic features and
-serious engineering efforts are targeted at improving their performance. Appart
+serious engineering efforts are targeted at improving their performance. Apart
 from optimizations deriving from idioms of a particular language, two historical
 papers provide the ground works we used.
 
@@ -244,7 +244,7 @@ and provide a richer context for the same ideas:
     \item \textit{Actor Model of Computation: Scalable Robust Information
         Systems}~\cite{DBLP:journals/corr/abs-1008-1459} is a work-in-progress
         article that provides an overview of the Actor model, relates it to
-        existing work and provide pointers to existing litterature on Actors 
+        existing work and provide pointers to existing literature on Actors 
 \end{itemize}
 
 \section{Instrumenting JavaScript Virtual Machines}

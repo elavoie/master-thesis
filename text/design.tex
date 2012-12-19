@@ -17,7 +17,7 @@ two" quotes have to be taken with a grain of salt.}~\cite{stroustrup}}}
 
 Programming languages that survived the wilderness of actual usage and
 evolution usually suffer from birth or acquired quirks, defects and
-idiosyncracies. JavaScript is no exception. In embarking on the journey of
+idiosyncrasies. JavaScript is no exception. In embarking on the journey of
 opening it for dynamic instrumentation, we faced the opposing goals of trying
 to be compatible with existing programs while keeping the design as simple as
 possible. This chapter explains our latest iteration, which runs existing
@@ -28,14 +28,14 @@ can be written in \input{/Users/erick/Recherche/photon-js/perf/loc.txt} lines
 of JavaScript code, satisfying our simplicity criteria.
 
 The aim of this chapter is not to provide an exhaustive explanation of how we
-handled every idiosyncracy of JavaScript. A reference implementation is
+handled every idiosyncrasy of JavaScript. A reference implementation is
 provided for that purpose. Its \textit{raison d'\^etre} is to provide a
 high-level overview of the core ideas behind the system, hopefully in a way
 that will ease generalization to other languages.
 
 Reification choices, namely the elements of the language we chose to open, are
 presented and their particular choice is justified. Then, the message-sending
-foundation is explained, both by seeing how the semantic of opened operation
+foundation is explained, both by seeing how the semantics of opened operation
 can be expressed on it and how it can be efficiently implemented in JavaScript.
 After, an object representation is presented. We believe this representation is
 original through its use of proxies that mirror the inheritance chain of the
@@ -77,7 +77,7 @@ an example of what could be interesting, possible and practical given our
 current circumstances. The field is evolving, so should our understanding and
 practices.
 
-Given our focus on instrumentating JavaScript, we left out the reification of
+Given our focus on instrumenting JavaScript, we left out the reification of
 the syntax. Our view is that a proper macro system would be ideal, but such a
 feature is not necessary to understand what current JavaScript programs are
 actually doing. Control-flow operators were left out, mostly for performance
@@ -112,7 +112,7 @@ speed.
 \section{Message-sending foundation}
 Simplicity is achieved when few abstractions can capture the essence of a whole
 class of phenomenons. In our design, the message-sending operation serves to
-unify all reified operations around a single mecanism. It facilitates the
+unify all reified operations around a single mechanism. It facilitates the
 achievement of correctness, and arguably, performance, because it allows its
 implementation to target the highest performing operations of the underlying
 system. It would be unreasonable to expect better performance than a hand-tuned
@@ -122,7 +122,7 @@ worse than a potentially equivalent other native functionality. It is my
 conjecture that as systems grow in complexity, such opportunities might be
 more common in the future.} However, this approach might give us a better
 performance than equivalent instrumentations that try to optimize every reified
-operations independently, without the support of a unified mecanism.
+operations independently, without the support of a unified mechanism.
 
 The particular choice of message-sending as a foundation was motivated by its
 tried and true application to Smalltalk and Self with success for the obtention
@@ -132,16 +132,16 @@ came from the Open, Extensible Object Models from Piumarta and
 Warth~\cite{Piumarta:2008}.
 
 % Open, Dynamic
-\subsection{Semantic}
+\subsection{Semantics}
 
-We will now see the chosen semantic for the message-sending operation, in
+We will now see the chosen semantics for the message-sending operation, in
 steps. We will first discuss the basic operation, that closely correspond to a
 method call in JavaScript. We will then reify the function call to allow its
 redefinition. We will then see how we can reify the memoization operation
 performed by inline caches to enable user-supplied functions to specify their
 cached behavior, potentially allowing algorithmic improvements in speed. A
 message send is always synchronous to another object in the same address space,
-which closely micmics the most common usage in recent object-oriented
+which corresponds to the most common usage in recent object-oriented
 languages.
 
 To present the message-sending operation, we need to make some assumptions
@@ -170,7 +170,7 @@ We will assume that the representation supports at least five methods:
     call. We use it here to advocate this particular usage.}
 \end{itemize}
 
-Unless specified, the pseudo-code follows the regular JavaScript semantic. We
+Unless specified, the pseudo-code follows the regular JavaScript semantics. We
 will take advantage of the expressivity of the rest and spread operators, bound
 to appear in the next revision. For presentation simplicity, primitive values,
 missing values and error handling are omitted.
@@ -180,7 +180,7 @@ missing values and error handling are omitted.
 The basic version essentially performs a regular lookup followed by a method
 call. The lookup operation is called \kw{bind} to emphasize the
 \textit{late-boundness} inherent in a method call, which is the source of
-dynamism. This is the semantic of a method call in JavaScript as well:
+dynamism. This is the semantics of a method call in JavaScript as well:
 
 \jsfile{listings/basic-send.js}
 
@@ -189,7 +189,7 @@ and cannot be modified. When trying to obtain a dynamic call graph, this is
 unfortunate, because it forces the rewriting of every call site at compile
 time, including method calls, to catch all \textit{call} events.
 
-We can do it dynamically with a slight modification of the semantic of the
+We can do it dynamically with a slight modification of the semantics of the
 operation.
 
 \subsubsection{Augmented function-calling flexibility}
@@ -197,7 +197,7 @@ operation.
 
 In JavaScript, the \kw{call} method on every function reifies the calling
 protocol and allows a program to call into a function at run time, as if it was
-done through the direct mecanisms. The exact behavior of a function call should be
+done through the direct mechanisms. The exact behavior of a function call should be
 the same, whether it is called directly or indirectly. However, there is no
 causal connection between the state of the \kw{call} method and the behavior
 of function calls. In other words, redefining the \kw{call} method on
@@ -208,7 +208,7 @@ send operation:
 
 \jsfile{listings/augmented-send.js}
 
-This semantic allows a particular function to be instrumented, simply be
+This semantics allows a particular function to be instrumented, simply be
 redefining its call method with proper support. We can also catch all functions
 calls, as long as these are mapped to message sends.
 
@@ -262,13 +262,13 @@ reified operations.
 \subsection{Translating reified operations to message-sending}
 
 The following two sections summarize the operations of JavaScript that we
-opened by converting them to message sends, according to the semantic presented
-precendently.
+opened by converting them to message sends, according to the semantics presented
+previously.
 
 \subsubsection{Function calls}
 
 Function calls in JavaScript happen in various operations. An explanation of
-each occurence as well as their equivalent message send are given in
+each occurrence as well as their equivalent message send are given in
 table~\ref{tb:CallTypes}.
 
 \begin{table}[htb]
@@ -396,28 +396,28 @@ equivalent message send are given in table~\ref{tb:ObjectModelOperations}.
 \subsection{Efficient implementation}
 \label{sec:EfficientImplementation}
 
-Now that the semantic and mapping have been established, we will address the
+Now that the semantics and mapping have been established, we will address the
 biggest hurdle that might prevent an approach based on a unified message
 sending foundation to be used, namely performance.
 
 The core insight behind our implementation comes from seeing global function
-calls both as an optimized calling mecanism and as a dynamically specializable
+calls both as an optimized calling mechanism and as a dynamically specializable
 operation. They provide the same ability as code patching in assembly. On
 the current version of V8, when the number of arguments expected matches the
 number of arguments supplied, it opens the possibility of inlining the function
 at the call site. If the global function is redefined at a later time, the call
-site will be deoptimized transparently. It is a really powerful mecanism
+site will be deoptimized transparently. It is a really powerful mechanism
 because much of the complexity of run-time specialization is performed by the
 underlying host.  We can simply piggy back on those optimizations.
 
-Let's start with an example. Given the aforementioned semantic of message
+Let's start with an example. Given the aforementioned semantics of message
 sending, sending the message \kw{msg} to an object \kw{obj} inside a \kw{foo}
 function can be written this way:
 
 \jsfile{listings/send-example.js}
 
 The \kw{send} function is a global function. We can replace it with another
-global function that is garanteed to be unique, so it can be identified with
+global function that is guaranteed to be unique, so it can be identified with
 the call site. In addition to the message to be sent, we can pass it a unique
 identifier that will be used to find the corresponding global function name,
 for later specialization of the call site:
@@ -436,7 +436,7 @@ might be equivalent to:
 
 \jsfile{listings/inline-cache-optimized-example.js}
 
-Appart from the indirection of the global function call, this example is
+Apart from the indirection of the global function call, this example is
 optimal with regard to the object representation definition we have. If the
 underlying runtime chooses to inline the global function, the cost of the
 indirection will be effectively eliminated.
@@ -450,7 +450,7 @@ have not exhaustively explored the possibilities, therefore there might be
 interesting configurations yet to be uncovered. Nonetheless, we still found a
 simple arrangement that allows reified operations to be specialized to their
 call sites with a small memory overhead originating from tracking run-time
-invariants.  An enthousiastic reader should read the following not as the final
+invariants.  An enthusiastic reader should read the following not as the final
 word on the matter but as a point of departure, as we believe there are other
 interesting configurations to be found.
 
@@ -604,15 +604,15 @@ explained by Peter Michaux, in which after the initial setup performed by a
 function, a new function without the initialization code can replace the
 original function to provide an efficient
 operation~\cite{michaux:LazyFunctionDefinitionPattern}. We believe this is the
-first time this pattern is used as an inline cache in the litterature.
+first time this pattern is used as an inline cache in the literature.
 
 For simplicity reasons, we did not try to aim for robustness in addition to
 flexibility and performance. It is therefore possible to break the system by
 supplying a memoized method that does not correctly maintain invariants. We
-decided to aim for maximum flexibility with a simple mecanism that could be
+decided to aim for maximum flexibility with a simple mechanism that could be
 used to specialize object model operations. The responsibility of supplying a
 correct method is left on the programmer. That being said, we believe it should
-be possible to further constrain this flexibility for robutness, within the
+be possible to further constrain this flexibility for robustness, within the
 same framework.
 
 \section{Object Representation}
@@ -677,7 +677,7 @@ allows the host VM to do lookup caching. It even works for reified root
 objects, in this example, by considering \kw{parent} the {Object.prototype} of
 all objects of the metacircular VM.
 
-However, it does not work well with native types that can be created litterally
+However, it does not work well with native types that can be created literally
 such as arrays, functions and regular expressions. These would require their
 prototype to be changed to another object at the creation site, ruining
 structural invariants assumed by the host VM. For those objects, the original
@@ -701,7 +701,7 @@ method, the proxied object will be returned instead of the expected proxy
 object of the parent.~\footnote{For this particular reason, we would advocate
 for implementations to expose the prototype of an object through a method call
 instead of a property. We could still preserve backward compatibility for
-litteral object definitions but once the object is created, the prototype
+literal object definitions but once the object is created, the prototype
 should not be accessible or modifiable through the \kw{__proto__} property.}
 
 \begin{table}[htb]
@@ -818,11 +818,11 @@ should not be accessible or modifiable through the \kw{__proto__} property.}
 The astute reader will have noticed that although proxies mirror native objects
 in their inheritance chain, they do not mirror their properties. In fact, their
 properties can be fixed for the whole execution if one assumes that the
-semantic of object operations does not change. These facts are what allow
+semantics of object operations does not change. These facts are what allow
 proxies to adapt to dynamic circumstances by adding specialized methods at run
 time, which can be used for performance gains. We will see how to exploit this
 fact, first to specialize operations to a fixed number of arguments and then to
-a constant argument type or value. Those two specializations are independant
+a constant argument type or value. Those two specializations are independent
 and can be combined for further performance gains. To avoid name clashing and
 ease reading we adopt the convention that specialized methods share the
 same prefix as basic methods with the type or value information and or number
@@ -844,7 +844,7 @@ Specializing one proxy operation requires to specialize \textit{all} objects
 for that particular operation to ensure that whatever receiver, function or
 object is called at a given site, a proper operation is supplied. Fortunately,
 the object-oriented nature of our chosen representation makes it easy. Only
-root proxys need to have an additional method and all other proxy will then
+root proxies need to have an additional method and all other proxy will then
 implement the specialized operation.
 
 \subsection{Type or value specialization}
@@ -918,7 +918,7 @@ will have noticed the following things:
     cache function behavior.
 \end{itemize}
 
-Appart from those additional details, the compilation conforms to the
+Apart from those additional details, the compilation conforms to the
 explanation given in this chapter. The environment is used as such, without
 reification, objects are proxied or created from object representation methods.
 

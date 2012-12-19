@@ -51,7 +51,7 @@ their runtime, such as Google Caja to enforce security
 invariants~\cite{Caja:2012}, Google Traceur to support the next version of
 JavaScript on existing VMs~\cite{Traceur:2012} and JSBench to record execution
 traces for automatic benchmark generation~\cite{Richards:2011}, we believe our
-system is unique in its combinaison of design choices that makes it simple,
+system is unique in its combination of design choices that makes it simple,
 flexible and sufficiently efficient for data gathering of dynamic behavior. As
 such, this dissertation contains three original contributions: 
 \begin{itemize}
@@ -90,7 +90,7 @@ considered flexible if it exhibits the four following properties:
     \item \textit{Extensible}: Its components can be independently modified or
         replaced and they support incremental definitions. 
     \item \textit{Dynamic}: Its components can be modified at run time.
-    \item \textit{Performant}: The resulting system is fast enough for the task
+    \item \textit{Efficient}: The resulting system is fast enough for the task
         at hand and allows prompt feedback about the modification.
 \end{itemize}
 
@@ -98,7 +98,7 @@ This definition serves both as a design goal for the resulting system and a way
 to compare different systems. The notions of \textit{openness},
 \textit{extensibility}, \textit{dynamism} and \textit{performance} appear
 throughout this dissertation and are used to situate our work against the
-litterature and other systems.
+literature and other systems.
 
 \section{Virtual machine}
 
@@ -136,7 +136,7 @@ Prolog, can now execute efficiently on general purpose processors making VMs
 practical for application development.
 
 % scope
-In this dissertation, our focus will be directed torward VMs constructed to
+In this dissertation, our focus will be directed toward VMs constructed to
 support programming languages on top of existing VMs. The virtualization of
 operating systems, the management of physical resources as well as most of the
 low-level details required to execute directly on processors will be ignored.
@@ -162,7 +162,7 @@ manage the internal data structures of a VM can be shared with the source
 language runtime. Uniformity allows optimizations written for the source
 language to also apply to the implementation language. In the context of an
 open system, source language code can replace implementation language code to
-modify the behavior of the VM. In the litterature, \textit{self-hosting} is
+modify the behavior of the VM. In the literature, \textit{self-hosting} is
 also used to describe metacircular systems. I'll restrict this latter term for
 describing a system that is \textit{actually} used to produce new versions of
 itself.  A metacircular VM needing special extensions or performance that it
@@ -185,14 +185,14 @@ targets its source language is possibly one of the simplest that can be built
 that mostly preserve performance characteristic of unmodified source elements.
 In fact, it amounts to a \textit{differential} implementation, in which only
 the elements of interest in the language are acted upon. Optimizations for the
-new functionalities can target existing optimisations of the source language to
-efficiently implement them, without having to specify low-level mecanims.
+new functionalities can target existing optimizations of the source language to
+efficiently implement them, without having to specify low-level mechanism.
 There is even the possibility of faster-than-native performance if some
 features can be translated to equivalent features with better performance
 characteristics. For these reasons, a metacircular implementation that targets
 its source language was chosen.
 
-A metric can be suggested to evaluate the cost of providing fonctionalities or
+A metric can be suggested to evaluate the cost of providing functionalities or
 properties that are not available in the original source language: the overhead
 of executing an original source program on the VM compared to bare execution on
 the reference machine. This metric will be used to evaluate the performance
@@ -257,7 +257,7 @@ time}, when a program is being compiled or \textit{edit time}, when a program's
 source code is being modified. An object model structures programs to obtain
 properties on the resulting system such as security, extensibility or
 performance. Most object models for programming languages provide an
-inheritance mecanism to facilitate \textit{extensibility} by allowing an object
+inheritance mechanism to facilitate \textit{extensibility} by allowing an object
 to be incrementally defined in terms of an existing object.
 
 Different languages have different object models. \textit{Class-based}
@@ -269,7 +269,7 @@ verified at compile time. Java use run-time objects to represent classes and
 allow new classes to be added at run time.  Classes cannot be modified at run
 time unless their new definition is reloaded through the debugger API. Ruby
 class objects exist at run time and new properties can be added also at run
-time. \textit{Prototype-based} object-oriented languages forego the difference
+time. \textit{Prototype-based} object-oriented languages forgo the difference
 between class and instance objects. Objects and their inheritance chain is
 defined directly on objects. Self and JavaScript object properties can be
 added or removed at run time. 
@@ -289,8 +289,8 @@ implementation strategy where the implementation is a function, the method name
 is a compile-time symbol and the method call is a lookup followed by a
 synchronous function call in the same address space. We will use the
 message-sending terminology because it is more abstract and would easily
-accomodate an asynchronous calling mecanism that could happen between different
-address spaces (i.e. machines). 
+accommodate an asynchronous calling mechanism that could happen between different
+address spaces, i.e., machines. 
 
 A message-sending object model is an object model that takes message sending as
 its primitive operation. It defines every other operation in terms of message
@@ -326,7 +326,7 @@ source-to-source translation at run time. This difference is mostly conceptual
 and users of these systems need not know the difference. However, there seems
 to be a fundamental difference that governs the range of implementation
 techniques available to the implementer: what assumption is made about the
-possibility of source code unadvertently interfering with implementation code.
+possibility of source code inadvertently interfering with implementation code.
 In other words, does the system makes an \textit{open-world} assumption or a
 \textit{closed-world} assumption.
 
@@ -335,7 +335,7 @@ source code. In the second case, we will say that the system can be considered
 a virtual machine, running on top of another virtual machine. 
 
 Our system makes a closed-world assumption to use the JavaScript global object
-for optimizations of implementation mecanisms.
+for optimizations of implementation mechanisms.
 
 \section{Outline}
 

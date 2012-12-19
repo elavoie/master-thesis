@@ -84,7 +84,7 @@ run-time optimizations and analyses of source code.
 Context-insensitive call graphs do not encode the calling context of a call,
 while context-sensitive call graphs do. For context-insensitive call graphs, we
 might represent functions as nodes and calling relationships as edges.
-Context-sentitive call graphs could represent functions as multiple nodes,
+Context-sensitive call graphs could represent functions as multiple nodes,
 depending on their respective callers. For the sake of simplicity, we will
 consider a context-insensitive call graph for the remainder of this example. 
 
@@ -104,7 +104,7 @@ above. Four different functions are declared and two are initially called:
 By inspection, we can see that \kw{a} calls \kw{b}, that \kw{b} calls no other
 function, that \kw{c} recursively calls itself but no other function and \kw{d}
 is not called nor calls another function. We would expect a call graph like the
-one shown in Figure~\ref{fig:CallGraph} to modelize those relationships.
+one shown in Figure~\ref{fig:CallGraph} to model those relationships.
 
 \begin{figure}[htb]
 \begin{center}
@@ -116,7 +116,7 @@ one shown in Figure~\ref{fig:CallGraph} to modelize those relationships.
 A context-insensitive analysis requires a single node by function. Therefore,
 we can store the profiling information directly on the functions themselves.
 This way it avoids the complexity associated with maintaining separate data
-structures and maintaining a correspondance between functions and those data
+structures and maintaining a correspondence between functions and those data
 structures.
 
 \subsection{Protecting the profiling code in a critical section} 
@@ -143,13 +143,13 @@ When profiling JS function calls, we need to be cautious about the different
 ways the flow of control can be manipulated by the callee. In JS, a function
 can return either normally through its explicit or implicit return statement or
 by raising an exception. Fortunately, JS provides a \kw{finally} construct that
-garantees that however the flow of control leaves a try block, the \kw{finally}
+guarantees that however the flow of control leaves a try block, the \kw{finally}
 block will always be executed. We can therefore perform pre-call operations in
 a \kw{try} block and perform post-call operations in a corresponding
 \kw{finally} block.
 
 The next requirement is to be able to intercept every function call in the
-program. Our design makes it easy by reducing every occurance of function calls
+program. Our design makes it easy by reducing every occurrence of function calls
 to sending the message \kw{call} or \kw{apply} to the called function, whether
 it is global, local or is a method. We can further implement \kw{call} in terms
 of \kw{apply}, which gives us a single point of instrumentation for the whole
@@ -252,12 +252,12 @@ returned object. However, if it is a primitive value, the \kw{new} expression
 will yield the object created before the call to the function.
 
 This behavior guarantees that an object will always be returned and allows
-constructors to be written more succintly by omitting the \kw{return}
+constructors to be written more succinctly by omitting the \kw{return}
 statement. However, it might also be a source of run-time errors if a
-constructor is later modified and an object is unintentionnally returned.
+constructor is later modified and an object is unintentionally returned.
 
 We can dynamically change the semantic of the construction operation to throw
-an error if an object different than the orignal object created is returned by
+an error if an object different than the original object created is returned by
 the constructor, in the source language:
 
 \jsfile{listings/constructorcheck.js}

@@ -8,7 +8,7 @@ Of pain and pleasure}
 {Jiddu Krishnamurti}
 
 \funnyquote{Now this is not the end. It is not even the beginning of the end. But
-it is, perharps, the end of the beginning.}
+it is, perhaps, the end of the beginning.}
 {Winston Churchill}
 
 
@@ -34,7 +34,7 @@ be broadly applied by improving upon our current results.
 
 \section{Limitations}
 
-The limitiations of our current prototype come from JavaScript peculiarities
+The limitations of our current prototype come from JavaScript peculiarities
 that could easily be eliminated if the next versions of the standard were
 allowed to relax strict backward compatibility. Another option would be
 to perform run-time checks to ensure they never arise.  However, we conjecture
@@ -67,7 +67,7 @@ little used names to minimize possible conflicts with existing code.
 \subsection{Setting the \kw{__proto__} property throws an exception}
 
 This might be fixed by invalidating all caches should the prototype of an
-object changes. A more sophisticated mecanism could be devised if the operation
+object changes. A more sophisticated mechanism could be devised if the operation
 is frequent.
 
 \subsection{Operations on \kw{null} or \kw{undefined} might throw a different exception}
@@ -83,7 +83,7 @@ called.
 
 This problem actually only happens when instrumenting incorrect programs. It
 might not be a problem at all when browsing the web. Otherwise, it would be
-possible to test for \kw{null} or \kw{undefiend} on every operations, at a
+possible to test for \kw{null} or \kw{undefined} on every operations, at a
 substantial run-time cost.
 
 Another option would be to change the exception being raised by adding test and
@@ -153,7 +153,7 @@ optimized.
 \subsection{Allow a finer-grained redefinition of meta-methods}
 
 Object-model operations can only be redefined on the root object, mostly to
-simplify the tracking mecanism. A more sophisticated tracking mecanism could
+simplify the tracking mechanism. A more sophisticated tracking mechanism could
 allow object model operations to be redefined for subsets of all objects by
 redefining the operation at the appropriate place on the inheritance hierarchy.
 
@@ -168,7 +168,7 @@ upon each of them.
 The easiest known technique that would be worth trying to replicate in a
 metacircular setting is the dynamic recompilation of the source code based on
 type-feedback obtained during execution. It would further allow the
-specialization of the code to the actual types occuring during execution and
+specialization of the code to the actual types occurring during execution and
 the removal of message-sending caches for operations that have not been
 redefined.
 
@@ -178,15 +178,15 @@ version. This could eliminate type tests and specialize functions used as
 constructors. Our current inline cache design allows the accumulation of
 arbitrary information which could be used for that purpose.
 
-The other technique to be tried is the object represention method
+The other technique to be tried is the object representation method
 specialization presented in the design section. Further gains could be had if
 both the lookup and the argument specialization were combined in a single
 method.
 
-\subsubsection{Provide mecanisms to optimize the instrumentation code}
+\subsubsection{Provide mechanisms to optimize the instrumentation code}
 
 First, the system internals currently use a memoization protocol to specialize base
-operations. By exposing the mecanism to user code, this would allow analyses to
+operations. By exposing the mechanism to user code, this would allow analyses to
 specialize their behavior based on previous executions. This could notably be
 used to avoid performing operations in expensive data structures the second
 time.
@@ -196,20 +196,20 @@ Currently, instrumenting a base operation applies to all objects. However, if
 we could target only a subset of objects and handle that subset at the cache
 level, we could avoid the instrumentation cost for a majority of objects. This
 could be done by implementing the equivalent of polymorphic inline caches and
-having a finer-grained tracking mecanism for cache states.
+having a finer-grained tracking mechanism for cache states.
 
 
 %\subsection{Real-time analysis of the behavior of JavaScript programs}
 %
 %A sufficient performance could allow a real-time analysis of the behavior of
-%JavaScript programs. Compared to the log and analyse approach previously
+%JavaScript programs. Compared to the log and analyze approach previously
 %done~\cite{behavior_js}, this could provide a qualitatively different
 %experience.
 %
 %This could be used by web developers to develop an intuition about the
 %performance cost of various operations. This could also be used by the
 %JavaScript committee to develop a better idea of what features are actually
-%used accross the web and could allow the deprecation of features that are never
+%used across the web and could allow the deprecation of features that are never
 %used.
 %
 %\subsection{Simplification of production VMs}

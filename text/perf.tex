@@ -12,7 +12,7 @@ be tempting but it won't get us very far.}
 The last section has shown how the additional flexibility provided by the
 system could be used to instrument the VM and modify the semantic of some of
 its operations. We now evaluate the actual run-time and memory-usage overhead
-incured by the additional flexibility. The actual figures presented will allow
+incurred by the additional flexibility. The actual figures presented will allow
 the reader to evaluate if this approach could be applied to scenarios other
 than instrumentation tasks.
 
@@ -21,7 +21,7 @@ instrumentation) is around two times slower than the SpiderMonkey interpreter
 both on V8 and SunSpider benchmarks and the baseline memory usage is in most
 cases, around twice that of V8. A basic instrumentation slows the system by an
 additional factor of three but has almost no effect on memory usage, while the
-same instrumentation optimized for speed can have negigible impact both on
+same instrumentation optimized for speed can have negligible impact both on
 run-time performance and memory usage compared to the baseline.
 
 The next section explains the methodology used to evaluate the performance of
@@ -45,7 +45,7 @@ to do function inlining, on-stack-replacement and the presence of fast garbage
 collectors. Other VMs are catching up on features and the current focus seems
 to be on method-based Just-In-Time compilers so we anticipate that in the near
 future they could probably be used interchangeably. We compare Photon to V8 to
-quantify the performance cost incured by our approach.  We finally compare to a
+quantify the performance cost incurred by our approach.  We finally compare to a
 popular state-of-the-art interpreter, SpiderMonkey, to argue that our approach
 can be used wherever a manual instrumentation of that interpreter could have
 been performed. 
@@ -79,7 +79,7 @@ However, the date benchmarks from SunSpider were omitted because they relied on
 using \kw{eval} to access local variables, which is not supported by our
 current compiler.  Since Photon's local environment use the underlying VM's
 local environment (it is not reified), we believe that supporting this feature
-in the future will not affect significatively the performance results presented
+in the future will not affect significantly the performance results presented
 here.
 
 We focus on two metrics, running time and the maximum heap size to respectively
@@ -113,7 +113,7 @@ used to reproduce the object read, write or delete proportion figure
 from~\cite{behavior_js}).
 
 All results were obtained on a MacBook Pro running OS X version 10.7.5 with a
-2.2 Ghz Intel Core i7 processor and 8 GB of 1333 MHz DDR3 Ram. We used V8
+2.2 GHz Intel Core i7 processor and 8 GB of 1333 MHz DDR3 Ram. We used V8
 revision 12808 and SpiderMonkey version 1.8.5+ 2011-04-16. The results are
 intended to give an order of performance for the approach. Therefore, it was
 not deemed necessary to provide confidence intervals and means of multiple
@@ -145,7 +145,7 @@ faster, except for the Splay benchmarks where it is 13 times faster.
 This last case seems to be a pathological case for the basic optimizations
 performed on property access, assignation and update. As will be seen in
 Table~\ref{tb:InstrumentedPerformanceV8}, for this particular benchmark, the
-instrumented version of Photon is five times faster than the uninstrumented
+instrumented version of Photon is five times faster than the non-instrumented
 version. This can be explained by the fact that the instrumented version
 \textit{removes} the optimizations attempted. However, removing the same
 optimizations for all benchmarks gives an overall score 30\% inferior with some
@@ -226,7 +226,7 @@ corresponds to the straight-forward implementation:
 
 \jsfile{/Users/erick/Recherche/photon-js/perf/instrumentation.js}
 
-The fast version inlines the instrumentation operation throught the optimized
+The fast version inlines the instrumentation operation inside the optimized
 version of object operations for speed:
 
 \newpage
@@ -236,8 +236,8 @@ version of object operations for speed:
 
 \jsfile{listings/object-model-instrumentation-fast-3.js}
 
-The first version is intended to mesure what performance can be expected from a
-quickly developed instrumentation while the second one is intended to mesure
+The first version is intended to measure what performance can be expected from a
+quickly developed instrumentation while the second one is intended to measure
 the performance impact of the instrumentation operations alone. This is
 therefore a low-barrier high-ceiling example and illustrate the flexibility
 that can be gained when the choice of aiming for performance is left to users
