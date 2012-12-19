@@ -105,9 +105,11 @@ inline caches, global function inlining and calling protocol.
 Finally, the function-calling protocol was reified to facilitate the
 construction of dynamic call graphs. It was possible because we can globally
 transform all functions for support. Our protocol was designed to avoid
-reliance on \kw{call} and \kw{apply} native methods and to default to the
-native calling protocol as long as they are not modified, in the interest of
-speed.
+reliance on \kw{call}~\footnote{When referring to the call method of a
+function, code typesetting will be used. When referring to function calls in
+general, normal typesetting will apply} and \kw{apply} native methods and to
+default to the native calling protocol as long as they are not modified, in the
+interest of speed.
 
 \section{Message-sending foundation}
 Simplicity is achieved when few abstractions can capture the essence of a whole
@@ -208,7 +210,7 @@ send operation:
 
 \jsfile{listings/augmented-send.js}
 
-This semantics allows a particular function to be instrumented, simply be
+This semantics allows a particular function to be instrumented, simply by
 redefining its call method with proper support. We can also catch all functions
 calls, as long as these are mapped to message sends.
 

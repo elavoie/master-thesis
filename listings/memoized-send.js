@@ -1,11 +1,15 @@
-function bind(rcv, msg) {...}
+var defaultCallFun = root.function.get("call");
+
+function bind(rcv, msg) {
+    return rcv.get(msg);
+}
 
 function send(rcv, msg, ..args) {
     var m = bind(rcv, msg);
     var callFn = bind(m, "call");
 
     if (callFn === defaultCallFn) {
-        var memFn = send(m, "memoize", rcv, args);
+        var memFn = m.get("memoize").call(rcv, ..args);
 
         if (memFn !== null) {
             // Store memFn in cache
