@@ -1,9 +1,5 @@
-function bind(rcv, msg) {
-    return rcv.get(msg);
-}
-
 function send(rcv, msg, ..args) {
-    var m = bind(rcv, msg);
-    var callFn = bind(m, "call");
+    var m = rcv.get(msg);
+    var callFn = m.get("call");
     return callFn.call(m, rcv, ..args);
 }

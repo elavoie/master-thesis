@@ -18,24 +18,23 @@ A \textit{virtual machine} (VM) is a program that simulates the behavior of a
 computing machine.  The simulated machine might exhibit properties that do not
 have physical equivalents. For example, by using a garbage collection
 component, it can provide the illusion of infinite allocatable memory. Programs
-executing on VMs inherit their properties and constraints, therefore making
-them prime research objects to provide properties to an important number of
-programs.
+inherit the properties and constraints of the VMs on which they run, therefore
+making them prime research objects to provide properties to an important number
+of programs.
 
 Recent research and development on VMs, especially for the JavaScript
-language~\cite{js_spec}, has focused on performance, to the expense of
+language~\cite{js_spec}, has focused on performance, at the expense of
 flexibility. Notably, it has hindered our understanding of the run-time
 behavior of real-world programs by making instrumentation of existing VMs
-laborious. The last published attempt at gathering empirical data for
-JavaScript was a one-time effort, where researchers manually instrumented a
-production interpreter to obtain execution traces~\cite{behavior_js}. However
-this approach prevents the acquisition of longitudinal data because the burden
-of maintaining the instrumented interpreter up-to-date is too demanding for any
-research team to shoulder.
+laborious and hard to maintain. As an example, three years ago some researchers
+manually instrumented a production interpreter to obtain execution
+traces~\cite{behavior_js}. At the time of writing this dissertation, the
+instrumentation work that was done cannot not be used because the
+interpreter that was modified is not part of the code base anymore.
 
 Fortunately, the very same gains in performance can be used to regain
-flexibility, even on a rigid production VM. This dissertation shows that a
-sophisticated run-time optimizer can be harnessed to provide flexible run-time
+flexibility, even on a rigid production VM. This dissertation shows that an
+efficient run-time optimizer can be harnessed to provide flexible run-time
 instrumentation of the object model and function-calling protocol at a
 performance competitive with a state-of-the-art interpreter, without having to
 modify the VM source code. Our approach consists in running a metacircular VM
@@ -46,43 +45,47 @@ instrumenting the object model operations and function calls and we finally
 compare the performance with and without instrumentation to the SpiderMonkey
 interpreter and V8 JIT-compiler based VM. 
 
-Although there are existing systems for JavaScript targeting JavaScript as
-their runtime, such as Google Caja to enforce security
-invariants~\cite{Caja:2012}, Google Traceur to support the next version of
-JavaScript on existing VMs~\cite{Traceur:2012} and JSBench to record execution
-traces for automatic benchmark generation~\cite{Richards:2011}, we believe our
-system is unique in its combination of design choices that makes it simple,
-flexible and sufficiently efficient for data gathering of dynamic behavior. As
-such, this dissertation contains three original contributions: 
+We believe our system, Photon, is unique in its combination of design choices
+that makes it simple, flexible and sufficiently efficient for data gathering of
+dynamic behavior for applications that can run acceptably fast on a modern
+interpreter.  Previous systems for JavaScript targeting JavaScript as their
+runtime, such as Google Caja to enforce security invariants~\cite{Caja:2012},
+Google Traceur to support the next version of JavaScript on existing
+VMs~\cite{Traceur:2012} and JSBench to record execution traces for automatic
+benchmark generation~\cite{Richards:2011}, use a source-to-source translation
+strategy as Photon do. However, the level of performance achieved by Photon,
+while isolating the application from the implementation of Photon is worth
+noticing.  As such, this dissertation contains three original contributions:
 \begin{itemize}
     \item The unification of the reified object model operations and
         function-calling protocol around a single message-sending primitive
-        while preserving compatibility with the current version of JavaScript
+        while preserving compatibility with the current version of JavaScript;
     \item An efficient implementation of the message-sending primitive inspired
-          by inline cache optimizations
+          by inline cache optimizations;
     \item An object representation exploiting the underlying VM inline caches
-          and dynamic object model to provide efficient virtualized operations
+          and dynamic object model to provide efficient virtualized operations.
 \end{itemize}
 
 In addition to supporting the thesis above, we hope (1) to encourage future
 language designs to provide features facilitating an efficient layered approach
-to obtain flexibility and (2) the object representation will be used by other
+to obtain flexibility and (2) that the object representation will be used by other
 language implementations seeking efficiency while targeting existing JS VMs.
+
 
 \section{Flexibility}
 
-Defining and evaluating flexibility is no easy task. The usage of the term
-above appeal to the intuitive notion of a system easy to tailor to one's
+Defining and evaluating flexibility is not an easy task. The usage of the term
+above appeals to the intuitive notion of a system easy to tailor to one's
 particular usage by modifying, removing or replacing its components. Easy might
-mean that there is few lines of code to modify to use a preconfigured option,
-that there is few manipulations to perform in a user interface or that unplanned
-extensions could be developed in a limited time.
+mean that there are few lines of code to modify to use a preconfigured option,
+that there are few manipulations to perform in a user interface or that unplanned
+extensions could be developed in a short time.
 
 While intuitive, this definition is not sufficiently objective to compare
 different systems. It is tied to a subjective interpretation of efforts
 required to perform modifications. For the remainder of this dissertation, a
 more restricted definition of flexibility will be used. A system will be
-considered flexible if it exhibits the four following properties:
+considered flexible if it exhibits the following four properties:
 
 \begin{itemize}
     \item \textit{Open}: Its component behaviors can be modified by first-class
@@ -136,10 +139,10 @@ Prolog, can now execute efficiently on general purpose processors making VMs
 practical for application development.
 
 % scope
-In this dissertation, our focus will be directed toward VMs constructed to
+In this dissertation, our focus is directed toward VMs constructed to
 support programming languages on top of existing VMs. The virtualization of
 operating systems, the management of physical resources as well as most of the
-low-level details required to execute directly on processors will be ignored.
+low-level details required to execute directly on processors is ignored.
 
 \section{Metacircularity}
 
@@ -162,17 +165,16 @@ manage the internal data structures of a VM can be shared with the source
 language runtime. Uniformity allows optimizations written for the source
 language to also apply to the implementation language. In the context of an
 open system, source language code can replace implementation language code to
-modify the behavior of the VM. In the literature, \textit{self-hosting} is
-also used to describe metacircular systems. I'll restrict this latter term for
+modify the behavior of the VM. In the literature, \textit{self-hosting} is also
+used to describe metacircular systems. We will restrict this latter term for
 describing a system that is \textit{actually} used to produce new versions of
-itself.  A metacircular VM needing special extensions or performance that it
-cannot provide still depends on an external machine to produce a different
-version of itself and is not self-hosting.  Self-hosting is therefore a
-stricter definition.  Self-hosting enables a faster evolution of the system by
-allowing functionalities developed for the source language to apply to the
-implementation language. It frees a system from the limitations of other
-available systems that would be needed otherwise. The VM presented in this
-dissertation is not self-hosting.
+itself.  A metacircular VM needing special extensions still depends on an
+external machine to produce a different version of itself and is not
+self-hosting.  Self-hosting is therefore a stricter definition.  Self-hosting
+enables a faster evolution of the system by allowing functionalities developed
+for the source language to apply to the implementation language. It frees a
+system from the limitations of other available systems that would be needed
+otherwise. The VM presented in this dissertation is not self-hosting.
 
 VMs can be implemented as interpreters when the behavior of
 programs is directly specified in the implementation language.  However, VMs
@@ -180,13 +182,13 @@ can also incorporate a compiler that performs translation of the programs to
 the language on which the VM is executing, while the program is executing. We
 say such a VM incorporates a Just-In-Time (JIT) Compiler. 
 
-We argued that a VM which incorporates a JIT compiler that
+We argue that a VM which incorporates a JIT compiler that
 targets its source language is possibly one of the simplest that can be built
-that mostly preserve performance characteristic of unmodified source elements.
+that mostly preserves performance characteristic of unmodified source elements.
 In fact, it amounts to a \textit{differential} implementation, in which only
 the elements of interest in the language are acted upon. Optimizations for the
 new functionalities can target existing optimizations of the source language to
-efficiently implement them, without having to specify low-level mechanism.
+efficiently implement them, without having to specify low-level mechanisms.
 There is even the possibility of faster-than-native performance if some
 features can be translated to equivalent features with better performance
 characteristics. For these reasons, a metacircular implementation that targets
@@ -235,8 +237,8 @@ modules, and many other features.
 
 Initially, our research initiative chose JS as a research object because it is
 widely used to write web applications and there is a performance gap between
-benchmarks executing on the fastest implementations and compiled with C/C++
-compilers, suggesting there are techniques to be found to close the gap.
+benchmarks executing on the fastest implementations of JS and compiled with
+C/C++ compilers, suggesting there are techniques to be found to close the gap.
 During exploration of VM implementation techniques, the dynamic nature of the
 language was found to be particularly well-suited to base a flexible design
 around it and initiated the work presented here. Notably, the ability to use
@@ -245,7 +247,7 @@ constructor function also enables the \textit{differential} implementation of a
 JIT compiler by adding preliminary phases to the compilation of the source
 programs.
 
-\section{Object Model}
+\section{Object model}
 
 An object model is a set of object kinds, their supported operations and the
 time at which those operations can be performed.  Examples of object kinds are
@@ -265,12 +267,12 @@ object-oriented languages use \textit{class} objects to describe the properties
 and the inheritance chain of \textit{instance} objects. For example, C++ class
 objects exist only at compile time. Property values can be updated at run time.
 Properties can only be added or removed at edit time and all their accesses are
-verified at compile time. Java use run-time objects to represent classes and
-allow new classes to be added at run time.  Classes cannot be modified at run
+verified at compile time. Java uses run-time objects to represent classes and
+allows new classes to be added at run time.  Classes cannot be modified at run
 time unless their new definition is reloaded through the debugger API. Ruby
 class objects exist at run time and new properties can be added also at run
 time. \textit{Prototype-based} object-oriented languages forgo the difference
-between class and instance objects. Objects and their inheritance chain is
+between class and instance objects. Objects and their inheritance chain are
 defined directly on objects. Self and JavaScript object properties can be
 added or removed at run time. 
 
@@ -282,29 +284,27 @@ implementation by adding a level of indirection between the invocation and the
 execution of a given behavior. This indirection allows the behavior to change
 during a program's execution. Therefore, it is a source of \textit{dynamism}.
 
-Some languages call the program associated to a message, a \textit{method
+Some languages call the program associated with a message, a \textit{method
 implementation}, the message, a \textit{method name} and the act of sending a
 message, \textit{method calling}. This terminology is closely tied to an
 implementation strategy where the implementation is a function, the method name
 is a compile-time symbol and the method call is a lookup followed by a
-synchronous function call in the same address space. We will use the
-message-sending terminology because it is more abstract and would easily
-accommodate an asynchronous calling mechanism that could happen between different
-address spaces, i.e., machines. 
+synchronous function call. We will use the message-sending terminology because
+it is more abstract. 
 
 A message-sending object model is an object model that takes message sending as
 its primitive operation. It defines every other operation in terms of message
-sends. By doing so, every other operation of the object model becomes dynamic,
-i.e. it can change at run time. By being based on a single message sending
+sends. By doing so, all other operations of the object model become dynamic,
+i.e. they can change at run time. By being based on a single message sending
 primitive, the optimization effort can be focused on this primitive and
 run-time information can be used to specialize the behavior invoked, providing
 an opportunity for \textit{performance}. 
 
-\section{Function-calling Protocol}
+\section{Function-calling protocol}
 
 The function-calling protocol is a contract between a caller and a callee
 function and defines what operation each should perform before and after a
-call. For implementers, it usually usually refers to the way arguments are
+call. For implementers, it usually refers to the way arguments are
 passed between the caller and the callee and who is responsible for clean-up of
 shared data structures such as the stack.
 
@@ -318,7 +318,7 @@ The \kw{call} method on functions in JS is already a form of reified calling
 protocol. Our design exploits it to change the behavior of \textit{all} function
 calls when it is modified, which is not the case in the current standard.
 
-\section{VM Paradigm vs Instrumentation}
+\section{VM paradigm vs instrumentation}
 
 It can legitimately be asked what the difference is between a metacircular VM
 executing on top of an existing VM and a system that would perform
@@ -327,7 +327,7 @@ and users of these systems need not know the difference. However, there seems
 to be a fundamental difference that governs the range of implementation
 techniques available to the implementer: what assumption is made about the
 possibility of source code inadvertently interfering with implementation code.
-In other words, does the system makes an \textit{open-world} assumption or a
+In other words, does the system make an \textit{open-world} assumption or a
 \textit{closed-world} assumption.
 
 In the first case, we will say that the system performs instrumentation of the
@@ -339,8 +339,7 @@ for optimizations of implementation mechanisms.
 
 \section{Outline}
 
-Now that the conceptual underpinnings of our work have been established, we can
-turn our attention to the actual dissertation: 
+The remainder of this dissertation covers the following subjects: 
 \begin{itemize}
     \item Chapter~\ref{chap:PreviousWork} presents previous work on flexible computer systems.
     \item Chapter~\ref{chap:Design} explains the design of the VM with a
@@ -349,11 +348,11 @@ turn our attention to the actual dissertation:
     \item Chapter~\ref{chap:Flexibility} presents use cases in modifying the VM
         that are either difficult or impossible to do with existing JS
         implementations.
-    \item Chapter~\ref{chap:Performance} compares my implementation with a
+    \item Chapter~\ref{chap:Performance} compares our implementation with a
         state-of-the-art implementation to establish the overhead of providing
         the flexibility and show suitability to replace existing instrumented
         interpreters.
-    \item Finally, the conclusion in chapter~\ref{chap:Conclusion} explains the
+    \item Finally, the conclusion in Chapter~\ref{chap:Conclusion} explains the
         current limitations of the system and sketches ideas for further work
         using our current results
 \end{itemize}

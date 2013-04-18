@@ -30,7 +30,7 @@
         print(e);
     }
 
-    print("Restauring the old behavior");
+    print("Restoring the old behavior");
     Function.prototype.__ctor__ = ctor;
 
     print("Testing the old behavior");

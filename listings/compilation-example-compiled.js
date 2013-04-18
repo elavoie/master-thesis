@@ -38,11 +38,6 @@
             // o.foo(); 
             (codeCache5(o, dataCache5));
         }
-
-        // Not part of the original code, 
-        // added to inspect the runtime after execution!
-        print(codeCache1);
-        print(codeCache5);
     }))
 // })();
 )), dataCache7, root.global));

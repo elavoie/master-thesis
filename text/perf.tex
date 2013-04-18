@@ -12,17 +12,8 @@ be tempting but it won't get us very far.}
 The last section has shown how the additional flexibility provided by the
 system could be used to instrument the VM and modify the semantics of some of
 its operations. We now evaluate the actual run-time and memory-usage overhead
-incurred by the additional flexibility. The actual figures presented will allow
-the reader to evaluate if this approach could be applied to scenarios other
-than instrumentation tasks.
-
-Our current results show that the baseline performance (without
-instrumentation) is around two times slower than the SpiderMonkey interpreter
-both on V8 and SunSpider benchmarks and the baseline memory usage is in most
-cases, around twice that of V8. A basic instrumentation slows the system by an
-additional factor of three but has almost no effect on memory usage, while the
-same instrumentation optimized for speed can have negligible impact both on
-run-time performance and memory usage compared to the baseline.
+incurred by the additional flexibility. The actual figures presented serve to
+evaluate the applicability of the approach to tasks other than instrumentation.
 
 The next section explains the methodology used to evaluate the performance of
 the system. We then present the baseline performance and memory overhead
@@ -40,15 +31,16 @@ We compare three different systems:
 \end{itemize}
 
 V8 was chosen to host Photon because preliminary tests showed the system to be
-faster on it. The additional speed is attributed to the ability of the runtime
-to do function inlining, on-stack-replacement and the presence of fast garbage
-collectors. Other VMs are catching up on features and the current focus seems
-to be on method-based Just-In-Time compilers so we anticipate that in the near
-future they could probably be used interchangeably. We compare Photon to V8 to
-quantify the performance cost incurred by our approach.  We finally compare to a
-popular state-of-the-art interpreter, SpiderMonkey, to argue that our approach
-can be used wherever a manual instrumentation of that interpreter could have
-been performed. 
+faster on it and V8 is known to be one of the fastest JS VMs. The additional
+speed is attributed to the ability of the runtime to do function inlining,
+on-stack-replacement and the presence of fast garbage collectors. Other VMs are
+catching up on features and the current focus seems to be on method-based
+Just-In-Time compilers so we anticipate that in the near future they could
+probably be used interchangeably. We compare Photon to V8 to quantify the
+performance cost incurred by our approach.  We finally compare to a popular
+state-of-the-art interpreter, SpiderMonkey used in Firefox, to argue that our
+approach can be used wherever a manual instrumentation of that interpreter
+could have been performed. 
 
 In choosing the systems to compare, we eliminated a few current alternatives.
 We assume that when faced with the task of instrumenting production code to
@@ -77,9 +69,9 @@ methodology of each benchmark suite to make our results comparable to other
 published results for other systems. All the benchmarks were run unmodified.
 However, the date benchmarks from SunSpider were omitted because they relied on
 using \kw{eval} to access local variables, which is not supported by our
-current compiler.  Since Photon's local environment use the underlying VM's
+current compiler.  Since Photon's local environment uses the underlying VM's
 local environment (it is not reified), we believe that supporting this feature
-in the future will not affect significantly the performance results presented
+in the future will not significantly affect the performance results presented
 here.
 
 We focus on two metrics, running time and the maximum heap size to respectively
@@ -88,8 +80,8 @@ directly, in the case of SunSpider's benchmarks or indirectly through a score,
 in the case of V8's benchmarks. For V8's benchmarks, higher scores mean a
 faster system (less execution time). For SunSpider benchmarks, its the
 opposite, lower scores mean a faster system.  Memory usage is used to estimate
-the overhead of Photon compared to V8, but not attempt was not to evaluate the
-memory usage of the SunSpider interpreter.
+the overhead of Photon compared to V8, but it was not measured for the
+SunSpider interpreter because the information was hard to obtain.
 
 We present results in two different groups, the baseline performance and the
 instrumented performance.  The baseline performance is used to measure the
@@ -98,10 +90,10 @@ of other characteristics.  The instrumented performance is used to measure the
 impact of instrumentation on the baseline performance. It is common knowledge
 that instrumenting an interpreter has little impact over its overall
 performance (this was verified by Richards and al. when they instrumented
-JavaScriptCore~\cite{behavior_js}).  However, our approach is more sensible to
+JavaScriptCore~\cite{behavior_js}).  However, our approach is more sensitive to
 instrumentation. We therefore quantify its impact. 
 
-The instrumentation chosen counts the number of occurrence at run time of each
+The instrumentation chosen counts the number of occurrences at run time of each
 reified object-model operation, in the same spirit as the example given in
 section~\ref{sec:ObjectModelInstrumentation}. The original operation is inlined
 in the replacement method instead of being called. The actual code is given in
@@ -115,14 +107,14 @@ from~\cite{behavior_js}).
 All results were obtained on a MacBook Pro running OS X version 10.7.5 with a
 2.2 GHz Intel Core i7 processor and 8 GB of 1333 MHz DDR3 Ram. We used V8
 revision 12808 and SpiderMonkey version 1.8.5+ 2011-04-16. The results are
-intended to give an order of performance for the approach. Therefore, it was
-not deemed necessary to provide confidence intervals and means of multiple
-runs, given that each test harness already do it. Although some variations
-between runs were noticed, they were sufficiently stable to not affect our
-argument.
+intended to give an approximation of performance for the approach. Therefore,
+it was not deemed necessary to provide confidence intervals and averages of
+multiple runs, given that each test harness already did so. Although some
+variations between runs were noticed, they were sufficiently stable to not
+affect our argument.
 
-For conciseness, abbreviations are used in tables. They are listed in order of 
-appearance:
+For conciseness, abbreviations are used in the tables. They are listed in order
+of appearance:
 \begin{itemize}
     \item Pn: Photon
     \item SM: SpiderMonkey
@@ -131,19 +123,19 @@ appearance:
     \item Pn-fast: Photon with an equivalent instrumentation optimized for speed
 \end{itemize}
 
-\section{Baseline Performance}
+\section{Baseline performance}
 
-\subsection{Running Times}
+\subsection{Running times}
 
-The baseline performance for V8 benchmarks shown, in
-Table~\ref{tb:BaselinePerformanceV8}, is pretty good compared to the
+The baseline performance for V8 benchmarks is shown in
+Table~\ref{tb:BaselinePerformanceV8}. It is pretty good compared to the
 SpiderMonkey interpreter for an overall score within a factor of 2. On three of
-the eight benchmarks Photon is faster and in two cases by almost of factor of
+the eight benchmarks Photon is faster and in two cases by almost a factor of
 two. In other cases, the SpiderMonkey interpreter is between 2 and 3.5 times
-faster, except for the Splay benchmarks where it is 13 times faster. 
+faster, except for the Splay benchmark where it is 13 times faster. 
 
 This last case seems to be a pathological case for the basic optimizations
-performed on property access, assignation and update. As will be seen in
+performed on property access, assignment and update. As will be seen in
 Table~\ref{tb:InstrumentedPerformanceV8}, for this particular benchmark, the
 instrumented version of Photon is five times faster than the non-instrumented
 version. This can be explained by the fact that the instrumented version
@@ -161,19 +153,19 @@ times slower which is comparable to the other results.
 \end{table}
 
 The baseline performance for SunSpider benchmarks, shown in
-Table~\ref{tb:BaselinePerformanceSunSpider} is also pretty good for an overall
+Table~\ref{tb:BaselinePerformanceSunSpider} gives an overall
 score 1.6 times the SpiderMonkey interpreter. In this case, we use the
 geometric mean of the ratios because some pathological cases might give a wrong
 picture of the actual performance of the system if we were to simply use the
 total of all the running times to compute the overall ratios.  10 of 24
 benchmarks are faster on Photon than on SpiderMonkey, with some as much as 5
 times faster. This can be attributed to faster basic operations as compiled by
-V8 JIT Compiler compared to the interpreted operations of SpiderMonkey. The
+the V8 JIT Compiler compared to the interpreted operations of SpiderMonkey. The
 slowest times are obtained on all string manipulation benchmarks such as
-crypto-* and string-*. One notable slow case is the string tagcloud benchmark,
+crypto-* and string-*. One notable slow case is the string-tagcloud benchmark,
 which uses \kw{eval} for JSON parsing, that calls into our compiler.  The
-bottleneck seems to be the parsing stage of our OMeta-based compiler~\ref{Warth:2007}.
-Experiences with other compilation techniques, still using JavaScript as an
+bottleneck seems to be the parsing stage of our OMeta-based compiler~\cite{Warth:2007}.
+Experiments with other compilation techniques, still using JavaScript as an
 implementation language, were made in our lab with performance results than
 would make the compilation time negligible. For the rest, it seems that
 auto-boxing of strings and the wrapping of functions passed to the
@@ -187,7 +179,7 @@ standard-library functions would be responsible for most of the slowdown.
 \label{tb:BaselinePerformanceSunSpider}
 \end{table}
 
-\subsection{Memory Usage}
+\subsection{Memory usage}
 The heap size is measured from garbage collection traces. When no garbage
 collection has been done, a result of '--' is given, which appears in some of V8
 benchmark runs.
@@ -195,8 +187,8 @@ benchmark runs.
 Memory usage for both benchmark suite in Table~\ref{tb:BaselineMemoryV8} and
 Table~\ref{tb:BaselineMemorySunSpider} look good given that every run-time
 object has an associated proxy with most cases using less than a factor of two
-in memory and two worst cases of around 6.5 and 10. The high memory usage in
-EarlyBoyer case might be explained by the memory overhead of every inline cache
+in memory and two worst cases of 6.5 and 10. The high memory usage in
+EarlyBoyer might be explained by the memory overhead of every inline cache
 site having an associated array. In the case of string-unpack-code, the
 overhead might be explained by string and regexp proxies.
 
@@ -215,7 +207,7 @@ overhead might be explained by string and regexp proxies.
 \end{table}
 
 \newpage
-\section{Instrumented Performance}
+\section{Instrumented performance}
 \label{sec:InstrumentedPerformance}
 
 The instrumentation used for performance evaluation is a variation of the
@@ -239,15 +231,15 @@ version of object operations for speed:
 The first version is intended to measure what performance can be expected from a
 quickly developed instrumentation while the second one is intended to measure
 the performance impact of the instrumentation operations alone. This is
-therefore a low-barrier high-ceiling example and illustrate the flexibility
+therefore a low-barrier high-ceiling example and illustrates the flexibility
 that can be gained when the choice of aiming for performance is left to users
 of the system.
 
-\subsection{Running Times}
+\subsection{Running times}
 
 Table~\ref{tb:InstrumentedPerformanceV8} and
 Table~\ref{tb:InstrumentedPerformanceSunSpider} show the impact of
-instrumentation on the baseline performance. In both case, the fast version has
+instrumentation on the baseline performance. In both cases, the fast version has
 negligible impact with some results slightly faster, mostly due to natural
 variation of results.  However, the simple version can be as much as 30 times
 slower on some benchmarks.
@@ -267,15 +259,15 @@ slower on some benchmarks.
 \label{tb:InstrumentedPerformanceSunSpider}
 \end{table}
 
-\subsection{Memory Usage}
+\subsection{Memory usage}
 
 Table~\ref{tb:InstrumentedMemoryV8} and
 Table~\ref{tb:InstrumentedMemorySunSpider} show that on V8 and SunSpider
-benchmarks, the simple and fast of the instrumentation have no impact on memory
-usage, to the exception of the Splay benchmark in the simple case.  This might
+benchmarks, the simple and fast instrumentations have no impact on memory
+usage, with the exception of the Splay benchmark in the simple case.  This might
 be caused by our tracking strategy that has an entry for every cached regular
 method call. This might be removed not tracking certain method names such as
-\kw{__get__}, \kw{__set__} and \kw{__delete__} and conservatively invalidate
+\kw{__get__}, \kw{__set__} and \kw{__delete__} and conservatively invalidating
 all caches when they are redefined.
 
 \begin{table}[htb]
@@ -295,6 +287,14 @@ all caches when they are redefined.
 
 \section{Interpretation}
 
+%Our current results show that the baseline performance (without
+%instrumentation) is around two times slower than the SpiderMonkey interpreter
+%both on V8 and SunSpider benchmarks and the baseline memory usage is in most
+%cases, around twice that of V8. A basic instrumentation slows the system by an
+%additional factor of three but has almost no effect on memory usage, while the
+%same instrumentation optimized for speed can have negligible impact both on
+%run-time performance and memory usage compared to the baseline.
+
 A conclusion can be made that our current optimizations are not sufficiently
 stable across benchmark results and a better predictor of whether to optimize
 or not would give more even results, especially for V8's Splay benchmark. We
@@ -302,7 +302,7 @@ believe this can be done within the framework presented. Further, the memory
 overhead seems acceptable for instrumentation tasks given our multi-gigabytes
 of RAM in today's machines. Instrumentation can have a negligible impact both
 on performance and memory usage, as long as the operations instrumented are
-optimized enough. Otherwise, the choice of trading performance of a faster
+optimized enough. Otherwise, the choice of trading performance for a faster
 development time can still be made with an impact on performance that can be
 reasonable in most cases.
 
@@ -311,7 +311,7 @@ bringing flexibility to JS and as explained in the design chapter, some known
 optimizations can still be applied for further possible gains that are yet to
 be quantified. We therefore argue that the performance obtainable by our
 approach is \textit{at least} what we present here but the upper bound is still
-to be found and will be the object of further research. We will see in the
-conclusion promising ideas for improving both the baseline performance and
-instrumented performance.
+to be found and will be the object of further research. The conclusion presents
+promising ideas for improving both the baseline performance and instrumented
+performance.
 

@@ -3,7 +3,7 @@
     print("Retrieving original operation");
     var get = root.object.get("__get__");
 
-    print("Replacing the semantic of the operation");
+    print("Replacing the semantics of the operation");
     root.object.set("__get__", clos(function ($this, $closure, name) {
         var obj = $this;
 
@@ -17,7 +17,7 @@
         throw new Error("ReferenceError: property '" + name + "' not found");
     }));
 
-    print("Testing the semantic of the operation");
+    print("Testing the semantics of the operation");
     try {
         send(root.object.create(), "__get__", "bar");        
         print("Should not be reached");
@@ -25,7 +25,7 @@
         print(e);
     }
 
-    print("Restauring the original behavior");
+    print("Restoring the original behavior");
     root.object.set("__get__", get);
     print(send(root.object.create(), "__get__", "bar"));
 })();

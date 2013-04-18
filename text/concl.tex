@@ -1,29 +1,26 @@
 \chapter{Conclusion}
 \label{chap:Conclusion}
 
-\funnyquote{The end is the beginning of all things,\\
-Suppressed and hidden,\\
-Awaiting to be released through the rhythm\\
-Of pain and pleasure}
-{Jiddu Krishnamurti}
+%\funnyquote{The end is the beginning of all things,\\
+%Suppressed and hidden,\\
+%Awaiting to be released through the rhythm\\
+%Of pain and pleasure}
+%{Jiddu Krishnamurti}
 
 \funnyquote{Now this is not the end. It is not even the beginning of the end. But
 it is, perhaps, the end of the beginning.}
 {Winston Churchill}
 
 
-In the preceding chapters we saw how a metacircular VM targeting its source
+The preceding chapters explained how a metacircular VM targeting its source
 language, based on a message-sending object model could provide flexible
 run-time instrumentation of the object model and function-calling protocol at a
-baseline performance within a factor of two of a state-of-the-art interpreter, by
-harnessing a sophisticated run-time optimizer, without having to modify the
-underlying VM source code. The motivation for the work stems from our current
-inability to obtain longitudinal data on the behavior of JavaScript programs
-because of the effort involved with the current approach, namely to manually
-instrument a production interpreter and maintain it up-to-date. This
-dissertation explained how to solve the core technical issue behind this state
-of affairs, by harnessing the performance gains obtained in recent years for
-flexibility.
+baseline performance within a factor of two of a state-of-the-art interpreter,
+by harnessing a sophisticated run-time optimizer, without having to modify the
+underlying VM source code. The motivation for the work stems from the effort
+involved with the current approach, namely to manually instrument a production
+interpreter and maintain it up-to-date. This dissertation explained how to
+solve the core technical issue behind this state of affairs. 
 
 However, there is still some work to be performed to \textit{actually} use
 those results to gather empirical data about JavaScript programs. At the same
@@ -35,14 +32,14 @@ be broadly applied by improving upon our current results.
 \section{Limitations}
 
 The limitations of our current prototype come from JavaScript peculiarities
-that could easily be eliminated if the next versions of the standard were
+that might be eliminated if the next versions of the standard were
 allowed to relax strict backward compatibility. Another option would be
 to perform run-time checks to ensure they never arise.  However, we conjecture
 that the resulting system is more useful by relaxing the strict adherence to
 the behavior expected from current VMs for substantial performance gains.  In
 the face of numerous quirks and warts in the design of the JavaScript language,
 it is more important to provide a useful and powerful system, but potentially
-incorrect, than an unuseful but correct one.
+incorrect, than an irremediably slow but correct one.
 
 \subsection{Accessing the \kw{__proto__} property leaks the internal representation}
 
@@ -55,26 +52,26 @@ meta-level with base-level information.
 The problem can be mitigated with no run-time penalty by detecting, at
 compile-time, accesses to the \kw{__proto__} property and calling the object
 representation \kw{getProtype} method instead. However, the possibility of
-dynamically generating the \kw{__proto__} name render it unsound. It
+dynamically generating the \kw{__proto__} name renders it unsound. It
 is yet to be seen if this actually happens in the wild.
 
 \subsection{Meta-methods can conflict with regular methods if they have the same name}
 
 This limitation will be solved in the next version of the standard, when
 unforgeable names will be available in user space.  Until then, we can rely on
-little used names to minimize possible conflicts with existing code.
+seldom used names to minimize possible conflicts with existing code.
 
 \subsection{Setting the \kw{__proto__} property throws an exception}
 
 This might be fixed by invalidating all caches should the prototype of an
-object changes. A more sophisticated mechanism could be devised if the operation
+object change. A more sophisticated mechanism could be devised if the operation
 is frequent.
 
 \subsection{Operations on \kw{null} or \kw{undefined} might throw a different exception}
 
 When trying to access a property or call a method on the \kw{null} or
 \kw{undefined} value, VMs for JS throw an exception telling the user that the
-property or the method does not exist on the object. Our current design reify
+property or the method does not exist on the object. Our current design reifies
 property accesses as a call to the \kw{get} method on the object representation
 and calls as a call to the \kw{call} method, \textit{once the object operation
 has been cached}. If the receiver is \kw{null} or \kw{undefined} the exception
@@ -105,8 +102,8 @@ raise proper exceptions.
 
 Our compiler does not support accessing the local environment of a function
 from evaluated code. This can be fixed by maintaining on functions the
-environment information. This environment can than be provided to our compiler,
-when it is called during and \kw{eval} operation.
+environment information. This environment can then be provided to our compiler,
+when it is called during an \kw{eval} operation.
 
 \subsection{Function calls implicitly made by the standard library are not intercepted}
 
@@ -115,7 +112,7 @@ arguments introduced by our compilation strategy. Should the need to intercept
 those calls arise, the wrappers could perform a message send instead of a
 direct call.
  
-\section{Future Work}
+\section{Future work}
 
 The obvious short term work would be to package the system in a browser
 extension for Firefox or Chrome and use it to try to replicate the results
@@ -126,7 +123,7 @@ only the object model operations and function calls but also the binary, unary,
 control-flow and reflexive operations.
 
 We believe there is much more potential to the current approach. The
-biggest open question is how close can we come to native performance while
+biggest open question is how close we can come to native performance while
 providing flexibility unavailable in the vanilla implementation. We compared
 ourselves to a state-of-the-art interpreter because this is what is being used
 for instrumentation nowadays. Similar performance is therefore enough for

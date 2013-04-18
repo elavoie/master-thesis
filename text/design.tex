@@ -1,15 +1,15 @@
 \chapter{Design}
 \label{chap:Design}
-\funnyquote{Il semble que la perfection soit atteinte non quand il n'y a plus
-rien \`a ajouter, mais quand il n'y a plus rien \`a retrancher.}
-{Antoine de Saint-Exup\'ery}
-
-\funnyquote{It can scarcely be denied that the supreme goal of all theory is to
-make the irreducible basic elements as simple and as few as possible without
-having to surrender the adequate representation of a single datum of
-experience.}
-{Albert Einstein}
-
+%\funnyquote{Il semble que la perfection soit atteinte non quand il n'y a plus
+%rien \`a ajouter, mais quand il n'y a plus rien \`a retrancher.}
+%{Antoine de Saint-Exup\'ery}
+%
+%\funnyquote{It can scarcely be denied that the supreme goal of all theory is to
+%make the irreducible basic elements as simple and as few as possible without
+%having to surrender the adequate representation of a single datum of
+%experience.}
+%{Albert Einstein}
+%
 \funnyquote{There are only two kinds of languages: the ones people complain
 about and the ones nobody uses.}
 {Bjarne Stroustrup~\footnote{\textit{Of course, all "there are only
@@ -58,7 +58,7 @@ limited to):
     languages that have distinct primitive and object values (ex: \kw{+} in
     JavaScript) 
     \item \textit{Object representation}: How objects are constructed from
-    basic elements (ex: Dictionary-based representation, Fixed-memory blocks, etc.)
+    basic elements (ex: dictionary-based representation, fixed-memory blocks, etc.)
     \item \textit{Object model operations}: What operations the objects
     support, what behavior they perform and how they affect their
     representation (ex: accessing a property, deleting a property, changing the
@@ -68,9 +68,9 @@ limited to):
 \end{itemize}
 
 Our choice of which elements to reify has been influenced by past empirical
-studies choices of data to gather, by the availability of language features
-that support the reification and by the optimizations performed by the
-underlying runtime. Developments in any of those area will further influence
+studies and their choices of data to gather, by the availability of language
+features that support the reification and by the optimizations performed by the
+underlying runtime. Developments in any of those areas will further influence
 what elements are interesting, possible and practical to reify, therefore we
 urge the reader not to consider this work as the end of the road but instead as
 an example of what could be interesting, possible and practical given our
@@ -98,7 +98,7 @@ reification was possible because the primitive operations are extensible
 through the \kw{toString} and \kw{valueOf} methods to support proxy
 objects.~\footnote{It was a welcomed feature. It actually made our VM faster by
 permitting us to directly use the native primitive operators instead of also
-having to reify primitive operation to dispatch to our custom objects.} The
+having to reify primitive operations to dispatch to our custom objects.} The
 object representation and object model were designed to exploit the host's
 inline caches, global function inlining and calling protocol.  
 
@@ -107,7 +107,7 @@ construction of dynamic call graphs. It was possible because we can globally
 transform all functions for support. Our protocol was designed to avoid
 reliance on \kw{call}~\footnote{When referring to the call method of a
 function, code typesetting will be used. When referring to function calls in
-general, normal typesetting will apply} and \kw{apply} native methods and to
+general, normal typesetting will apply.} and \kw{apply} native methods and to
 default to the native calling protocol as long as they are not modified, in the
 interest of speed.
 
@@ -137,7 +137,7 @@ Warth~\cite{Piumarta:2008}.
 \subsection{Semantics}
 
 We will now see the chosen semantics for the message-sending operation, in
-steps. We will first discuss the basic operation, that closely correspond to a
+steps. We will first discuss the basic operation, that closely corresponds to a
 method call in JavaScript. We will then reify the function call to allow its
 redefinition. We will then see how we can reify the memoization operation
 performed by inline caches to enable user-supplied functions to specify their
@@ -161,8 +161,8 @@ We will assume that the representation supports at least five methods:
     \kw{rcv} receiver and \kw{args} arguments and returns its return value
     \item \kw{get(name)}: returns the value of the \kw{name} property on
     this object and implicitly performs a lookup through the prototype chain
-    \item \kw{has(name)}: returns true if the \kw{name}
-    property is present on the object itself
+    \item \kw{has(name)}: returns true if the \kw{name} property is present on
+        the object itself, without a lookup of the prototype chain
     \item \kw{set(name, value)}: create a new \kw{name} property if not already
     present, and set or update its value to \kw{value} 
     \item \kw{getPrototype()}: returns the prototype of an
@@ -174,15 +174,13 @@ We will assume that the representation supports at least five methods:
 
 Unless specified, the pseudo-code follows the regular JavaScript semantics. We
 will take advantage of the expressivity of the rest and spread operators, bound
-to appear in the next revision. For presentation simplicity, primitive values,
-missing values and error handling are omitted.
+to appear in the next revision~\cite{ECMAScript6}. For presentation simplicity,
+primitive values, missing values and error handling are omitted.
 
 \subsubsection{Basic}
 
 The basic version essentially performs a regular lookup followed by a method
-call. The lookup operation is called \kw{bind} to emphasize the
-\textit{late-boundness} inherent in a method call, which is the source of
-dynamism. This is the semantics of a method call in JavaScript as well:
+call. This is the semantics of a method call in JavaScript as well:
 
 \jsfile{listings/basic-send.js}
 
@@ -215,7 +213,7 @@ redefining its call method with proper support. We can also catch all functions
 calls, as long as these are mapped to message sends.
 
 Performance \textit{aficionados} might cringe at the idea of adding a level of
-indirection to every function call. Before we address performance issue of the
+indirection to every function call. Before we address performance issues of the
 message-sending protocol itself, we first look at a bigger opportunity of
 performance gains, namely memoizing the function behavior and see how we can
 support it.
@@ -266,8 +264,6 @@ reified operations.
 The following two sections summarize the operations of JavaScript that we
 opened by converting them to message sends, according to the semantics presented
 previously.
-
-\subsubsection{Function calls}
 
 Function calls in JavaScript happen in various operations. An explanation of
 each occurrence as well as their equivalent message send are given in
@@ -326,9 +322,6 @@ table~\ref{tb:CallTypes}.
 \label{tb:CallTypes}
 \end{table}
 
-
-\subsubsection{Object model operations}
-
 An explanation of each opened object model operation as well as their
 equivalent message send are given in table~\ref{tb:ObjectModelOperations}.
 
@@ -336,7 +329,7 @@ equivalent message send are given in table~\ref{tb:ObjectModelOperations}.
 \caption{Object model operations and their equivalent message sends}
 \centering
 
-\begin{tabular}{|p{.25\textwidth}|p{.33\textwidth}|p{.33\textwidth}|}
+\begin{tabular}{|p{.25\textwidth}|p{.32\textwidth}|p{.35\textwidth}|}
   \hline
   Object Model Operation & Explanation & Equivalent Message Send \\
   \hline \hline
@@ -462,7 +455,7 @@ between those behaviors. In our formalism, due to the nature of synchronous
 message sends, a state transition occurs before the event has been fully
 processed. However the processing of the event is not influenced by it.  
 
-To simplify invariants tracking, we decided to always perform lookups for
+To simplify the tracking of invariants, we decided to always perform lookups for
 regular method calls. By making the lookup operation as close as possible to
 the native operation of JavaScript, it allows the underlying VM to optimize it.
 In our design, the idea is to delegate the regular method call to the object
@@ -503,11 +496,11 @@ table~\ref{tb:CacheStates}.
 
 
 Transitions between states happen on message sends and object model operation
-events.  An insight was to realize that we could under-approximate the tracking
-of invariants and invalidate conservatively more caches than what would
+events.  An insight was to realize that we could underapproximate the tracking
+of invariants and conservatively invalidate more caches than what would
 minimally be required. As long as the operations triggering the invalidation of
 caches are infrequent, the performance impact should be minimal. We therefore
-track method values cached in memoized states by name without consideration of
+track method values cached in memoized states by name without consideration for
 the receiver object. If a method with the same name is updated on any object,
 all caches with a given message name will be invalidated. Also, if the
 \kw{call} method on the \kw{Function.prototype} object or any method with the
@@ -557,9 +550,9 @@ and table~\ref{tb:CacheTransitionConditions}.
     A run-time invariant has been violated.
     } \\
   \hline
-  \tbbox{Method redefinition} & 
+  \tbbox{Method update} & 
     \tbbox{
-    An object with a method with the same name has his method being updated.
+    An object's method is being updated.
     } \\
   \hline
 \end{tabular}
@@ -613,11 +606,11 @@ flexibility and performance. It is therefore possible to break the system by
 supplying a memoized method that does not correctly maintain invariants. We
 decided to aim for maximum flexibility with a simple mechanism that could be
 used to specialize object model operations. The responsibility of supplying a
-correct method is left on the programmer. That being said, we believe it should
+correct method is left to the programmer. That being said, we believe it should
 be possible to further constrain this flexibility for robustness, within the
 same framework.
 
-\section{Object Representation}
+\section{Object representation}
 \label{sec:ObjectRepresentation}
 
 The object representation in a virtual machine is a core aspect that has a
@@ -638,7 +631,7 @@ operations as method calls on objects whose internal representation is as close
 as possible to the host object being implemented. It can be achieved by
 structuring the object representation as proxies to native objects with a
 particular constraint, which we think has never been exploited before:
-\textit{the proxies prototype chain should mirror the native objects' chain}.
+\textit{the proxy prototype chain should mirror the native objects' chain}.
 
 The core idea is to associate a proxy object to every object in the system. In
 itself, this idea is not new. It has been advocated by Bracha and Ungar almost
@@ -657,7 +650,7 @@ will then see how we can specialize methods for the number of arguments found
 at their call site.  After, we will see how we can specialize operations for
 constant arguments values or specific object types.
 
-\subsection{Basic Representation}
+\subsection{Basic representation}
 
 The first and simplest object type in JavaScript is the object. It has
 properties and a prototype. A proxy object has a reference to the native object
@@ -846,13 +839,13 @@ Specializing one proxy operation requires to specialize \textit{all} objects
 for that particular operation to ensure that whatever receiver, function or
 object is called at a given site, a proper operation is supplied. Fortunately,
 the object-oriented nature of our chosen representation makes it easy. Only
-root proxies need to have an additional method and all other proxy will then
+root proxies need to have an additional method and all other proxies will then
 implement the specialized operation.
 
 \subsection{Type or value specialization}
 
 In the same way, we can specialize an operation for a known value. For
-example, suppose we would like an optimized operation that accesses a stable
+example, suppose we would like an optimized operation that accesses a constant 
 property name. A proper specialized method could be written:
 
 \jsfile{listings/proxy-operation-specialization.js}
@@ -878,7 +871,7 @@ specialization for the \kw{call} method is performed but not the
 object-representation operation specialization. An exhaustive empirical study
 should be the focus of a subsequent publication.
 
-\section{Compilation Example}
+\section{Compilation example}
 
 To wrap up and see how those different elements work together in practice,
 let's finish with a brief compilation example. We will use the following example:
@@ -907,7 +900,7 @@ In addition to what has been discussed in this chapter, the astute reader
 will have noticed the following things:
 \begin{itemize}
     \item \textit{Type information in data caches}: During compilation, known
-    types which directly correspond to abstract syntax tree nodes as preserved.
+    types which directly correspond to abstract syntax tree nodes are preserved.
     It allows the runtime to exploit stable information. For example, in
     \kw{dataCache1}, the \kw{"string"} type allows the runtime to know the
     property access is to a constant string name.    

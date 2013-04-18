@@ -4,10 +4,11 @@ var callstack = ["global"];
 
 function beforeApply(fn) {
     if (fn.__id__ !== undefined) {
-        var node = callgraph[callstack[callstack.length - 1]];
+        var caller = callstack.length - 1; 
+        var node = callgraph[callstack[caller]];
         if (node === undefined) {
             node = {};
-            callgraph[callstack[callstack.length - 1]] = node;
+            callgraph[callstack[caller]] = node;
         }
         callstack.push(fn.__id__);
     }
