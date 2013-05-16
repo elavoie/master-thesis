@@ -4,61 +4,21 @@
 \funnyquote{Those who cannot remember the past are condemned to repeat it.} 
 {George Santayana, $1863-1952$}
 
-Turning our attention to previous work can serve a number of purposes such as
-establishing the origin of fundamental concepts behind an idea, collecting
-learning material for the interested reader and demonstrating the originality
-of the work presented. In this chapter, all three will be addressed but this
-dissertation will emphasize the first two. 
-
-The terminology around flexible computer systems is both varied and vague.
-Synonyms to flexibility abound: \textit{malleability} brings images of
-amorphous substrates, \textit{versatility} testifies for the universality of
-the artifact, \textit{plasticity} suggests a solid while reconfigurable medium
-and \textit{customizability} reminds of color options for mass-produced
-consumers goods. While nuanced in their suggestive tones, usage of these terms
-share the unfortunate characteristic of lacking a precise definition which
-might serve as a basis for expectations toward the system they describe.
-
-The consequence is that comparison between different systems built around
-different organizing principles is difficult and becomes almost impossible when
-the systems belong to different sub-disciplines, such as operating systems and
-virtual machine construction. Asserting that a system is flexible amounts to
-little more than a wish by the authors that a system will be easy for others or
-themselves to use for needs beyond the documented cases.  
-
-Untangling the issue of characterizing existing flexible systems according to
-the same framework is beyond the scope of this dissertation, since first and
-foremost, we are trying to show that performance can be used to gain
-flexibility. A taxonomy of existing systems would not help with the endeavor.
-However, this does not mean that we will fall prey to a "flexibility
-relativism". The four properties of \textit{openness}, \textit{extensibility},
-\textit{dynamism} and \textit{performance} will guide our review of previous
-work, by grounding our understanding of flexibility in a richer and recognized
-definition. Still, the exact meaning of those terms vary in the literature but
-we shall be careful in precising our usage.
-
-Flexibility applies to different components of a VM. To make the matter more
-manageable and to support the thesis without undue detour, this review will be
-restricted to issues pertaining to the object model and function-calling
-protocol. 
-
 The work described in this dissertation started as an exploration of the
 possibilities offered by an object model based on the open, extensible object
-model by Piumarta and Warth~\cite{Piumarta:2008}. The idea of characterizing a
-system in terms of four properties was also heavily inspired by their usage of
-the terms, although precise definitions were not provided.
-
-The next section provides the historical roots of concepts belonging to each of
-the four properties. Finally, a comparison of our work to state-of-the-art
-systems related to JavaScript and instrumentation is made.
+model by Piumarta and Warth~\cite{Piumarta:2008}. In this chapter, we first
+trace back the original sources of core ideas that eventually influenced our
+implementation by organizing them around four themes, \textit{openness},
+\textit{extensibility}, \textit{dynamism} and \textit{performance} and by
+focusing on issues pertaining to the object model and function-calling
+protocol. We finally review other existing systems that perform dynamic
+instrumentation of JavaScript and compare them to Photon.
 
 \section{Historical roots}
 
-For each property of flexibility, the previous work will be presented in
-chronological order to provide a sense of evolution and temporal distance to
-the reader. As some of the work originates from the sixties, it should be clear
-to the reader that these ideas are not new. Throughout the exposition, we make
-explicit the elements that inspired our work and contrast the elements that are
+The previous work is presented in chronological order to provide a sense of
+evolution and temporal distance. Throughout the exposition, we make explicit
+the elements that inspired our work and we contrast the elements that are
 different.
 
 \subsection{Openness}
@@ -69,12 +29,12 @@ representation, or source code, that was used to produce the system.
 Accessibility of the source code and development tools allows a motivated
 person to modify the text representation and generate a new version of the
 system incorporating the change. However, it says nothing about the nature and
-the number of changes that will be required to obtain a desired behavior.
+the number of changes that are be required to obtain a desired behavior.
 
-We will use the term open as an implementation qualifier. It therefore means that
-the behavior of the system can be modified by first-class data structures. The
-range of behavior modifications allowed by an implementation characterize the
-degree of openness.
+We use the term open as an implementation qualifier. It therefore means that
+the behavior of the system can be modified by first-class data structures, e.g.
+closures. The range of behavior modifications allowed by an implementation
+characterizes the degree of openness.
 
 The earliest account of the need for open implementations seems to be made by
 Shaw and Wulf in 1980~\cite{Shaw:1980}. In it, they argue that the approach
@@ -104,12 +64,12 @@ JavaScript semantics in section~\ref{sec:AugmentedFunctionCalling}. This
 criteria says that a data structure is causally connected to the behavior of a
 system if changing the data structure changes the behavior of the system.
 
-In a landmark OOPSLA paper in 1987~\cite{Maes:1987}, Maes showed how to
-bring reflection to object-oriented programming languages through meta-objects.
+In a landmark OOPSLA paper in 1987~\cite{Maes:1987}, Maes showed how to bring
+reflection to object-oriented programming languages through meta-objects.
 These objects were shown to encapsulate various elements of the language
 implementation. Later in 1991, Ramano Rao introduced the open implementation
 term to replace the reflection architecture term that was previously in use to
-emphasize the fact that not only language implementations can be open but also
+emphasize that not only language implementations can be open but also
 applications~\cite{Rao:1991}. Then, a methodology for designing open
 implementations was suggested by Maeda and al.~\cite{Maeda:1997}, first by
 taking an existing closed implementation and then by progressively opening all
@@ -199,7 +159,7 @@ JavaScript uses dynamic strong typing and prototype-based inheritance.  We
 exploit these characteristics for dynamic instrumentation. In our work, the
 idea of using message-sending as a foundation was inspired by Smalltalk  and
 the dynamic nature of the instrumentation we perform owes a great deal to the
-behavioral reflection work. We will use reflection capabilities in
+behavioral reflection work. We use reflection capabilities in
 chapter~\ref{chap:Flexibility} to show how to change the semantics of object
 model operations.
 
@@ -224,30 +184,30 @@ Both of these techniques were inspirations for the optimizations we explain in
 section~\ref{sec:EfficientImplementation}.
 
 \section{Instrumenting JavaScript VMs}
-The last years have seen increasing interest from the research community toward
-JavaScript and web applications. Most relevant to our work here are empirical
-evaluations of JavaScript dynamic behavior. Ratanaworabhan and
-al.~\cite{jsmeter} as well as Richards and al.~\cite{behavior_js} have
-respectively shown that benchmarks do not correspond to the behavior of real
-Web applications and that JavaScript applications are more dynamic than what
-was previously thought. Both papers are sources of experiments to perform on
-JavaScript VMs and serve as a starting point in thinking about the capabilities
-required for a VM aiming for instrumentation. We replicate a part of the object
-model instrumentation from the second paper in our performance evaluation in
-section~\ref{sec:InstrumentedPerformance}.
+%The last years have seen increasing interest from the research community toward
+%JavaScript and web applications. Most relevant to our work here are empirical
+%evaluations of JavaScript dynamic behavior. Ratanaworabhan and
+%al.~\cite{jsmeter} as well as Richards and al.~\cite{behavior_js} have
+%respectively shown that benchmarks do not correspond to the behavior of real
+%Web applications and that JavaScript applications are more dynamic than what
+%was previously thought. Both papers are sources of experiments to perform on
+%JavaScript VMs and serve as a starting point in thinking about the capabilities
+%required for a VM aiming for instrumentation. We replicate a part of the object
+%model instrumentation from the second paper in our performance evaluation in
+%Chapter~\ref{chap:Performance}.
 
-Richards and al. have also proposed another system, JSBench to record execution
-traces of JavaScript execution on websites, that can be replayed as standalone
-benchmarks~\cite{Richards:2011}. Their system performs a source-to-source
-translation of JavaScript source code and proxies some operations of the
-language to record traces. Although they claimed the overhead introduced by
-their system for the benchmarks presented was less than 10\% and depended on
-the number of proxy objects created, no comprehensive evaluation of the
-performance of their instrumentation strategy was done. It is therefore
-impossible to compare the performance overhead of our approach with theirs from
-the evaluation results they published. Further investigation would be required
-to see if our approach could be practical to record execution traces in the
-same manner.
+%Richards and al. have also proposed another system, JSBench to record execution
+%traces of JavaScript execution on websites, that can be replayed as standalone
+%benchmarks~\cite{Richards:2011}. Their system performs a source-to-source
+%translation of JavaScript source code and proxies some operations of the
+%language to record traces. Although they claimed the overhead introduced by
+%their system for the benchmarks presented was less than 10\% and depended on
+%the number of proxy objects created, no comprehensive evaluation of the
+%performance of their instrumentation strategy was done. It is therefore
+%impossible to compare the performance overhead of our approach with theirs from
+%the evaluation results they published. Further investigation would be required
+%to see if our approach could be practical to record execution traces in the
+%same manner.
 
 %\section{Virtual Machines running on top of JavaScript Virtual Machines}
 %Various virtual machines have been built
@@ -256,3 +216,118 @@ same manner.
 %    \item Mozilla Shumway
 %    \item Google Caja
 %\end{itemize}
+
+Kikuchi et al. reported on the real-world applicability of instrumenting
+JS to enforce security policies~\cite{Kikuchi:2008}. They discuss
+instrumentation of web applications  by intercepting and rewriting incoming
+JS code in web pages by a proxy server operating in-between a client
+browser and a web server. Their work is complementary to ours.
+Their rewriting strategy could be adjusted to use Photon's execution model and
+applied to other problems than security policy application.  Their rewriting
+strategy also targeted object model operations and function calls and they
+reported an impact of less than a factor of two in execution time on web
+applications, such as GMail. However, these results were obtained in 2008, at
+the beginning of JIT compilation strategy adoption in web browsers. Given our
+performance evaluation, a higher ratio would be expected on modern VMs. 
+
+Sandboxing frameworks for JS, such as Google Caja~\cite{Caja:2012},
+BrowserShield~\cite{Reis:2007} and ADSafe~\cite{ADSafe:2013} guarantee that
+guest JS code cannot modify the host JS environment outside of
+a permitted policy. We focus here on Google Caja as a representative candidate.
+The Caja sandbox provides a different global object to the guest code and
+performs a source-to-source translation to ensure that all operations on host
+objects are mediated by proxies enforcing a user-defined security policy.
+Photon also provides a different global object to the running application and
+performs a source-to-source translation to mediate object operations through
+proxies. However, it is done to simplify reasoning about instrumentations while
+providing an acceptable level of performance. Our sandboxing strategy does not
+need to be as stringent, therefore we deem acceptable the possibility of
+leaking the native objects by accessing the \kw{__proto__} property.
+Documentation of the run-time performance penalty of their approach is sparse.
+However, the authors do report a \~{ }\factor{17} slowdown on EarleyBoyer when
+running over Rhino
+1.6.7\footnote{https://code.google.com/p/google-caja/wiki/Performance}, a
+somewhat slower JS VM than the Firefox interpreter (in comparison, Photon has a
+\factor{9.53} slowdown for EarleyBoyer on the Firefox interpreter).
+
+JSBench~\cite{Richards:2011} performs instrumentation of object operations and
+function calls for recording execution traces of web applications that can be
+replayed as stand-alone benchmarks. Instrumented operations then call global
+functions, in a way similar to the esprof prototype we built
+(Section~\ref{sec:esprof}). Its authors report an impact on performance that is
+``barely noticeable on most sites'' even when running in interpreter mode on
+Safari. JSBench instrumentation is specially tailored to the task of recording
+benchmarks while Photon aims to be a general instrumentation framework.
+
+ The idea of using aspect-oriented programming for profiling tasks has
+been successfully used in the past, although some limitations of the model
+have been identified (e.g., \cite{BinderEtAl:CPE11}).
+AspectScript~\cite{Toledo:2010} has similar aims as Photon, namely providing
+for JS a general interface for dynamic instrumentation of object operations
+and function calls.  It uses a source-to-source translation scheme with a
+single \textit{reifier} primitive which is analogous to our
+\textit{message-sending} primitive. They document a scoping strategy that
+allows targeting a single object or function, instead of all objects
+globally, which is more flexible than Photon's current strategy. We believe
+that Photon could be extended similarly.  Compared to our instrumentation
+interface, they use the dynamic weaving of aspect formalism instead of our
+``operations as methods'' approach. Because of the use of the aspects
+formalism, their approach provides better encapsulation of the instrumentation
+strategy at the expense of flexibility and performance. We executed the latest
+version of AspectScript against the V8 benchmarks, and found it to be between
+\factor{10} and \factor{454} slower than Photon on Safari. Additionally, only
+four of the benchmarks ran without errors.
+
+Js.js~\cite{Terrace:2012} is a JS port of the Firefox interpreter
+compiled using the Emscriptem C++ to JS compiler.  It is intended for sandboxing web applications. The
+resulting JS interpreter then runs in the browser on top of an existing VM.
+However, this is a heavy-weight approach with a significant performance overhead.
+The authors report slowdowns between \factor{100} and \factor{200} for most cases with worst cases of
+\factor{600} on SunSpider benchmarks. The large slowdown can be attributed to the
+full simulation of a native interpreter in JS. Photon avoids
+reimplementing features of the language outside object operations and function
+calls. The resulting implementation is both faster and simpler to instrument.
+
+Other approaches target the host VM for efficiency reasons.
+JSProbes~\cite{jsprobes:2012} is a series of patches to the Firefox interpreter
+that allow instrumentations to be written in JS and target pre-defined probe
+points, such as object creation, function calls and implementation events such
+as garbage collector start and stop events. JSProbes provides much of the same
+properties as Photon at a much lower execution overhead and with additional
+information about implementation events that are inaccessible to Photon. It is
+however less flexible since for the same language operations, JSProbes is
+limited to a fixed set of predefined events while Photon allows the semantics
+of operations to be changed. Unfortunately, targeting a VM implementation
+requires maintenance to follow the upstream modifications. At the time of
+writing, maintenance of JSProbes has stopped, making the approach unavailable
+in practice.  In a different setting, Lerner et al. explored the requirement
+for implementing aspect support in an experimental
+JIT-compiler~\cite{Lerner:2010}. They reported a simpler and more efficient
+implementation than other aspect-oriented approaches. Their work was intended
+to inform possible ways to open native implementations to instrumentation with
+an aspect formalism. So far, no production VM implements aspects, which makes
+this approach unavailable in practice. Photon does not require modifications to
+the host VM. It therefore does not add to the maintenance cost of production
+VMs to be usable in practice. 
+
+Recently a new low-level implementation of the JavaScriptCore
+interpreter optimized for performance became available.  In our tests
+on the V8 benchmark suite, the new interpreter is roughly \factor{3}
+faster than the Firefox interpreter.  The performance gains are
+attributable to using an assembly language.  As this new interpreter
+matures its complexity will likely increase, negating most of the
+simplicity usually attributed to interpreters.  This makes the task of
+instrumenting the new JavaScriptCore interpreter much harder to
+achieve and maintain, and consequently, the Firefox interpreter is
+currently the only JS interpreter that is reasonably fast and
+sufficiently easy to instrument.  
+
+The Narcissus JS in JS interpreter implementation by Mozilla reifies all the
+language operations of the language. It could be instrumented by inserting
+hooks in the corresponding case statements of the main interpretation loop.
+However, compared to Photon, Narcissus is much slower. Unfortunately, none of
+the V8 benchmarks could be executed. However, on a micro-benchmark stressing
+the function calling protocol, it was two orders of magnitude slower than
+Photon. The overhead can be attributed to the reification of activation records
+for function calls. In contrast, Photon uses the execution environment of the
+host VM to provide better performance.

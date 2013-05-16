@@ -5,10 +5,10 @@ function send(rcv, msg, ..args) {
     var callFn = m.get("call");
 
     if (callFn === defaultCallFn) {
-        var memFn = m.get("memoize").call(rcv, ..args);
+        var memFn = m.get("__memoize__").call(m, rcv, ..args);
 
         if (memFn !== null) {
-            // Store memFn in cache
+            ...Store memFn in cache
         }
 
         return m.call(rcv, ..args);

@@ -2,6 +2,7 @@
 \usepackage{thesis}
 \usepackage{url}
 \usepackage{listings}
+\usepackage{placeins}
 
 \usepackage[T1]{fontenc}
 \usepackage[scaled]{DejaVuSansMono}
@@ -52,6 +53,9 @@
 %  morestring=[b]"
 %}
 
+\def\factor#1{{#1}{\footnotesize$\times$}}
+
+
 
 
 \begin{document}
@@ -88,14 +92,13 @@
 \ \\
 \newpage
 \titrememoire
-    {Harnessing performance for flexibility in instrumenting a virtual machine
-    for JavaScript through metacircularity}
+    {A layered JavaScript virtual machine supporting dynamic instrumentation}
 	{Erick Lavoie}
 	{Ma\^itre \`es sciences (M.Sc.) en informatique}
 	{D\'epartement d'informatique et de recherche op\'erationelle\\
     Facult\'e des arts et des sciences}
-	{D\'ecembre}
-    {2012}
+	{Avril}
+    {2013}
 
 \include{text/abstract_fr}
 
@@ -104,7 +107,7 @@
 %\include{text/abstract_non_technical}
 \include{text/acronyms}
 %\include{text/dedication}
-%\include{text/ack}
+\include{text/ack}
 \include{text/contents}
 \include{text/tables}
 \include{text/figures}
@@ -115,7 +118,7 @@
 \include{text/design}
 \include{text/evol}
 %\include{text/opt}
-\include{text/perf}
+\include{text/perf2}
 \include{text/concl}
 
 \include{text/bib}

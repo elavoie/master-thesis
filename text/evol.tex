@@ -7,27 +7,48 @@ bottle. When you pour water in a teapot, it becomes the teapot. Water can drip
 and it can crash. Become like water my friend.}
 {Bruce Lee}
 
-Any system exhibits particular compromises between opposing goals. Some
-constraints derive from the nature of the problem a particular system is trying
-to solve. Different problems might have conflicting constraints. It follows
-that to assert the flexibility of a system, we need to choose particular use
-cases and leave out others. This chapter presents the uses cases we chose to
-support and how they can be implemented using our design.
-
-%TODO: Explain that for most examples, we will directly use the implementation
-%      language, while it could also have been possible to expose some primitive
-%      operations to the source language
+In this section, we explore how to use Photon for modifications that would be
+difficult or impossible to do using the standard semantics of JS and that might
+be complicated if we tried to modify the host VM. Our first motivation was to
+facilitate the dynamic instrumentation of JS programs. We will also see some
+modifications that go beyond instrumentation tasks to illustrate that the added
+flexibility can be used for more general tasks.
 
 We will see different examples modifying the base system to adapt it to
-particular use cases. The examples are written either in the implementation
-language of the VM, which has a direct access to the object representation and
-the execution environment or in the source language, which does not and
-correspond to the execution environment of user-supplied code. In other words,
-the implementation language is executed directly on the host VM and the source
-language is first translated to execute in a virtualized environment like
-regular source code. A comment line at the beginning of each example explicitly
-states if the example is written in the implementation language or the source
-language.
+particular use cases. Most of the modifications are written in the
+implementation language of the VM, which has a direct access to the object
+representation and the execution environment. We illustrate the impact of these
+modifications on small programs written the source language. The last
+modification example is written in the source language to show that it could be
+possible to change the semantics of the system without having to modify the
+implementation. Figure~\ref{fig:ModificationChannels} illustrates conceptually
+the two possible channels of modification.  Since it can be difficult to
+differentiate between the implementation language and the source language, a
+comment line at the beginning of each example explicitly states to which case
+they belong.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics{figures/modificationChannels}
+\caption{\label{fig:ModificationChannels} Modification Channels}
+\end{center}
+\end{figure}
+
+Note that in the current version of the system, an application that is aware it
+is running on Photon can modify the semantics of some operations, there is
+therefore no distinction between a modification written in the source language
+and an application that would use the features of Photon. Note also that
+instrumentations written in the implementation language are not interpreted or
+validated by Photon. They simply use abstractions provided by the systems in
+the form of proxy objects and methods.
+
+In both cases, the examples testify that the chosen abstractions encapsulate
+implementation details required for performance. The most common use case
+anticipated is for a researcher or developer to write an instrumentation or
+modification in the implementation language using the abstractions provided for
+gathering data about a running program. An end-user could then load Photon in a
+web browser extension and activate and deactivate an instrumentation from a
+library, while the program is running.
 
 We first explore how to obtain object model operation information by redefining
 their corresponding methods.  We then see how to obtain a dynamic call graph by
@@ -227,16 +248,15 @@ representation methods directly:
 
 \jsfile{listings/failearlyget.js}
 
-The next example performs the same operation but shows that this modification 
-can be expressed in the source language instead:
+%The next example performs the same operation but shows that this modification 
+%can be expressed in the source language instead:
 
-\jsfile{listings/failearlyget-source.js}
+%\jsfile{listings/failearlyget-source.js}
 
-In both examples, having separate cases for the presence of a property with an
-\kw{undefined} value and an absent property, an exception can be thrown only in
-the second case. A similar method could be used to check arrays for
-out-of-bounds accesses or deletions that could migrate the representation from
-dense to sparse.
+Having separate cases for the presence of a property with an \kw{undefined}
+value and an absent property, an exception can be thrown only in the second
+case. A similar method could be used to check arrays for out-of-bounds accesses
+or deletions that could migrate the representation from dense to sparse.
 
 \subsection{Ensure that a constructor always returns the object it receives}
 
@@ -259,10 +279,10 @@ the constructor, in the source language:
 
 \jsfile{listings/constructorcheck.js}
 
-The two examples show the power of opening an implementation, beyond mere
-instrumentation. The fact they could both be written in the source language
-with a minimal amount of knowledge of the implementation brings the
-possibilities of modifying the language semantics to non-implementers.
+The two previous examples show the flexibility of our implementation beyond mere
+instrumentation tasks. The fact they could both be written with a minimal
+amount of knowledge of the implementation brings the possibilities of modifying
+the language semantics to non-implementers.
 
 Now that we have seen what we gained from a flexible implementation, we will
 investigate the performance.
