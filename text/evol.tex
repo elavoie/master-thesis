@@ -18,7 +18,7 @@ We will see different examples modifying the base system to adapt it to
 particular use cases. Most of the modifications are written in the
 implementation language of the VM, which has a direct access to the object
 representation and the execution environment. We illustrate the impact of these
-modifications on small programs written the source language. The last
+modifications on small programs written in the source language. The last
 modification example is written in the source language to show that it could be
 possible to change the semantics of the system without having to modify the
 implementation. Figure~\ref{fig:ModificationChannels} illustrates conceptually
@@ -39,16 +39,17 @@ is running on Photon can modify the semantics of some operations, there is
 therefore no distinction between a modification written in the source language
 and an application that would use the features of Photon. Note also that
 instrumentations written in the implementation language are not interpreted or
-validated by Photon. They simply use abstractions provided by the systems in
+validated by Photon. They simply use abstractions provided by the system in
 the form of proxy objects and methods.
 
 In both cases, the examples testify that the chosen abstractions encapsulate
 implementation details required for performance. The most common use case
 anticipated is for a researcher or developer to write an instrumentation or
 modification in the implementation language using the abstractions provided for
-gathering data about a running program. An end-user could then load Photon in a
-web browser extension and activate and deactivate an instrumentation from a
-library, while the program is running.
+gathering data about a running program. Once the instrumentation has been
+shared as part of a library, an end-user could load Photon in a web browser
+extension and activate and deactivate the instrumentation, while the program is
+running.
 
 We first explore how to obtain object model operation information by redefining
 their corresponding methods.  We then see how to obtain a dynamic call graph by
@@ -67,7 +68,7 @@ property accesses and object creation, we might be interested in estimating the
 performance of an application by computing the number of run-time occurrences of
 each of these operations.
 
-The design of the system makes it easy to do this by wrapping the method
+The design of the system makes it easy to do by wrapping the method
 implementing the semantic operation with a function incrementing a counter.  In
 the following example, we do it for property accesses, property assignments
 and property deletions. The following example shows an example of
@@ -275,7 +276,10 @@ constructor is later modified and an object is unintentionally returned.
 
 We can dynamically change the semantics of the construction operation to throw
 an error if an object different than the original object created is returned by
-the constructor, in the source language:
+the constructor. For this last example, the modification is done in the source
+language to show that by exposing the semantics of operations as methods, some
+modifications can be done without having to think in terms of the
+implementation language:
 
 \jsfile{listings/constructorcheck.js}
 
@@ -285,4 +289,4 @@ amount of knowledge of the implementation brings the possibilities of modifying
 the language semantics to non-implementers.
 
 Now that we have seen what we gained from a flexible implementation, we will
-investigate the performance.
+investigate the performance of the resulting system.

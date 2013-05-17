@@ -291,10 +291,9 @@ initial state of the cache:
 
 \jsfile{listings/inline-cache-example.js}
 
-This mechanism requires an extra argument compared to the previous
-specialization example to provide the \kw{dataCache} array. Executing the code
-will eventually replace \kw{codeCache0} with the expected method, corresponding
-to the second return statement in the \kw{initState} function.
+Executing the code will eventually replace \kw{codeCache0} with the expected
+method, corresponding to the second return statement in the \kw{initState}
+function.
 
 \subsubsection{Cache states and transitions}
 
@@ -355,9 +354,9 @@ minimally be required. As long as the operations triggering the invalidation of
 caches are infrequent, the performance impact should be minimal. We therefore
 track method values cached in memoized states by name without consideration for
 the receiver object. If a method with the same name is updated on any object,
-all caches with a given message name  be invalidated. Also, if the
+all caches with a given message name are invalidated. Also, if the
 \kw{call} method on the \kw{Function.prototype} object or any method with the
-\kw{__memoize__} name is updated, \textit{all} caches  be invalidated. This
+\kw{__memoize__} name is updated, \textit{all} caches are invalidated. This
 way, we can only track caches associated with names. The upper bound on memory
 usage for tracking information is proportional to the number of cache sites.
 
@@ -453,7 +452,7 @@ and table~\ref{tb:CacheTransitionConditions}.
 The object representation in a virtual machine is a core aspect that has a
 major influence on its flexibility and performance. The following object
 representation has been designed to encapsulate the invariants of our
-implementation while enabling piggy backing on the underlying VM inline caches
+implementation while enabling piggybacking on the underlying VM inline caches
 for performance. We believe that our particular usage of the underlying object
 model dynamism is new and could serve as a basis for other language
 implementations seeking performance on modern JS VMs.

@@ -1,7 +1,7 @@
-var codeCache0 = function (rcv) {
+var codeCache0 = function (rcv, x0) {
     return rcv.get("bar").call(rcv);
 };
 
 function foo(obj) {
-    codeCache0(obj);
+    codeCache0(obj, "bar");
 }

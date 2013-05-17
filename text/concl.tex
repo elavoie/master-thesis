@@ -14,13 +14,13 @@ it is, perhaps, the end of the beginning.}
 
 The preceding chapters explained how a metacircular VM targeting its source
 language, based on a message-sending object model could provide flexible
-run-time instrumentation of the object model and function-calling protocol at a
-baseline performance within a factor of two of a state-of-the-art interpreter,
-by harnessing a sophisticated run-time optimizer, without having to modify the
-underlying VM source code. The motivation for the work stems from the effort
-involved with the current approach, namely to manually instrument a production
-interpreter and maintain it up-to-date. This dissertation explained how to
-solve the core technical issue behind this state of affairs. 
+run-time instrumentation of the object model and function-calling protocol with
+an inherent overhead within the performance of a state-of-the-art interpreter,
+without having to modify the underlying VM source code. The motivation for the
+work stems from the effort involved with the current approach, namely to
+manually instrument a production interpreter and maintain it up-to-date. This
+dissertation explained how to solve the core technical issue behind this state
+of affairs. 
 
 However, there is still some work to be performed to \textit{actually} use
 those results to gather empirical data about JavaScript programs. At the same
@@ -101,9 +101,9 @@ raise proper exceptions.
 \subsection{Limited support for eval}
 
 Our compiler does not support accessing the local environment of a function
-from evaluated code. This can be fixed by maintaining on functions the
-environment information. This environment can then be provided to our compiler,
-when it is called during an \kw{eval} operation.
+from evaluated code. This can be fixed by maintaining the environment
+information on functions. This environment can then be provided to our
+compiler, when it is called during an \kw{eval} operation.
 
 \subsection{Function calls implicitly made by the standard library are not intercepted}
 
@@ -156,11 +156,11 @@ redefining the operation at the appropriate place on the inheritance hierarchy.
 
 \subsection{Efficient instrumentation}
 
-There are two major areas for optimizations: the baseline performance of the
+There are two major areas for optimizations: the inherent overhead of the
 system and the performance while the code is instrumented. We briefly touch
 upon each of them. 
 
-\subsubsection{Improve the baseline performance}
+\subsubsection{Improve the inherent overhead}
 
 The easiest known technique that would be worth trying to replicate in a
 metacircular setting is the dynamic recompilation of the source code based on
@@ -174,11 +174,6 @@ executed.  The function could be replaced at run time with a specialized
 version. This could eliminate type tests and specialize functions used as
 constructors. Our current inline cache design allows the accumulation of
 arbitrary information which could be used for that purpose.
-
-The other technique to be tried is the object representation method
-specialization presented in the design section. Further gains could be had if
-both the lookup and the argument specialization were combined in a single
-method.
 
 \subsubsection{Provide mechanisms to optimize the instrumentation code}
 
