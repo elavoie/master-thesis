@@ -96,7 +96,17 @@ specialize the operations that they redefine in order to improve performance.
 
 This dissertation therefore shows that \emph{virtual machine layering} is a
 competitive alternative approach to VM instrumentation for run-time monitoring
-of object operations and function calls.
+of object operations and function calls. It makes the following contributions:
+\begin{itemize}
+    \item An object representation that allows a dynamic specialization of its
+        behavior by relying on the method caching behavior of the underlying
+        host VM~(Section~\ref{sec:ObjectRepresentation});
+    \item A message-sending optimization that specializes a reified operation
+        to its call site by using the underlying host VM fast global function
+        calls~(Section~\ref{sec:EfficientImplementation});
+    \item A prototype JavaScript implementation, Photon, comprising both a runtime
+        library (around 1700 lines of code) and JavaScript-to-JavaScript compiler.
+\end{itemize}
 
 \section{Overview}
 
