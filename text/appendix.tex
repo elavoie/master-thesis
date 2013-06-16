@@ -1,0 +1,46 @@
+\chapter{Performance results}
+\label{apdx:PerformanceResults}
+
+\def\shrink#1{\hspace*{-1ex}#1\hspace*{-1ex}}
+
+\begin{table*}[htbp]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|l|rrr|rrr|rrr|rrr|}
+\hline
+          & \multicolumn{3}{c|}{Safari JIT}
+          & \multicolumn{3}{c|}{Chrome JIT}
+          & \multicolumn{3}{c|}{Firefox JIT}
+          & \multicolumn{3}{c|}{Firefox interpreter}                         \\
+
+          & \multicolumn{1}{c}{\shrink{\small without}} & \multicolumn{1}{c}{\shrink{\small with}}   &       
+          & \multicolumn{1}{c}{\shrink{\small without}} & \multicolumn{1}{c}{\shrink{\small with}}   &       
+          & \multicolumn{1}{c}{\shrink{\small without}} & \multicolumn{1}{c}{\shrink{\small with}}   &       
+          & \multicolumn{1}{c}{\shrink{\small without}} & \multicolumn{1}{c}{\shrink{\small with}}   &       \\
+
+Benchmark & \multicolumn{1}{c}{\shrink{\small Photon}}  & \multicolumn{1}{c}{\shrink{\small Photon}} & {\small Ratio}
+          & \multicolumn{1}{c}{\shrink{\small Photon}}  & \multicolumn{1}{c}{\shrink{\small Photon}} & {\small Ratio}
+          & \multicolumn{1}{c}{\shrink{\small Photon}}  & \multicolumn{1}{c}{\shrink{\small Photon}} & {\small Ratio}
+          & \multicolumn{1}{c}{\shrink{\small Photon}}  & \multicolumn{1}{c}{\shrink{\small Photon}} & {\small Ratio} \\
+\hline
+Richards     &   11033 &     137 &\factor{ 80.77}  &   16024 &     106 &\factor{150.86}  &   12267 &      67 &\factor{182.11}  &     195 &      14 &\factor{ 13.71}\\
+RayTrace     &    9866 &     214 &\factor{ 46.06}  &   20889 &     144 &\factor{144.66}  &    9725 &     100 &\factor{ 97.34}  &     549 &      39 &\factor{ 14.02}\\
+DeltaBlue    &    7153 &     179 &\factor{ 40.05}  &   20389 &     150 &\factor{136.11}  &   12884 &      67 &\factor{191.15}  &     224 &      21 &\factor{ 10.88}\\
+EarleyBoyer  &   10632 &     657 &\factor{ 16.18}  &   36279 &     664 &\factor{ 54.64}  &   16637 &     243 &\factor{ 68.58}  &     679 &      71 &\factor{  9.53}\\
+Crypto       &   19866 &    1233 &\factor{ 16.11}  &   21073 &    1175 &\factor{ 17.93}  &   14045 &     230 &\factor{ 61.01}  &     168 &      40 &\factor{  4.15}\\
+Splay        &   10506 &     973 &\factor{ 10.80}  &    6252 &    1328 &\factor{  4.71}  &   12253 &     587 &\factor{ 20.86}  &    1326 &     135 &\factor{  9.79}\\
+NavierStokes &   15511 &    2265 &\factor{  6.85}  &   24043 &    2562 &\factor{  9.39}  &   25519 &     654 &\factor{ 39.00}  &     327 &      53 &\factor{  6.17}\\
+RegExp       &    3813 &     568 &\factor{  6.71}  &    4151 &     545 &\factor{  7.62}  &    2128 &     245 &\factor{  8.70}  &     838 &      90 &\factor{  9.30}\\
+\hline
+{\it Geom.~mean} & {\it 10027} & {\it  519} & \factor{\it 19.30}
+                 & {\it 15456} & {\it  490} & \factor{\it 31.54}
+                 & {\it 11150} & {\it  198} & \factor{\it 56.26}
+                 & {\it  421}  & {\it   46} & \factor{\it  9.09} \\ \hline
+\end{tabular}
+}
+\caption[Inherent overhead of Photon]{Inherent overhead of Photon on the V8 benchmark suite on each JS VM.
+A measure of the execution speed, the {\it V8 score}, is given for the benchmark
+executed without and with Photon, as well as the ratio of the scores.}
+\label{tb:inherent-overhead-v8-benchmarks}
+\end{table*}
+
