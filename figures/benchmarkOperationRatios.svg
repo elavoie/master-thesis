@@ -1,0 +1,3892 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1000"
+   height="850"
+   version="1.1"
+   id="svg13270"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="pies.svg">
+  <metadata
+     id="metadata15166">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs15164">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 600 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="2100 : 600 : 1"
+       inkscape:persp3d-origin="1050 : 400 : 1"
+       id="perspective15168" />
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1887"
+     inkscape:window-height="1098"
+     id="namedview15162"
+     showgrid="false"
+     inkscape:zoom="0.57982756"
+     inkscape:cx="908.23119"
+     inkscape:cy="245"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg13270" />
+  <g
+     transform="translate(121.19581,146.37675)"
+     class="pie"
+     id="g13272">
+    <text
+       transform="translate(0,-120)"
+       font-size="16"
+       id="text13274"
+       style="font-size:16px;text-anchor:middle;font-family:sans-serif">Richards</text>
+    <g
+       class="slice"
+       id="g13276">
+      <path
+         d="M 0,-100 A 100,100 0 0 1 99.996423,0.8457535 L 0,0 z"
+         category="ThisExpression"
+         transform="translate(7.1009068,-7.0411024)"
+         id="path13278"
+         style="fill:#ffbb78;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13280">
+      <path
+         d="M 99.996423,0.8457535 A 100,100 0 0 1 12.007908,99.276433 L 0,0 z"
+         category="ObjectGetExpression"
+         id="path13282"
+         style="fill:#aec7e8;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13284">
+      <path
+         d="M 12.007908,99.276433 A 100,100 0 0 1 -63.833475,76.975889 L 0,0 z"
+         category="BinaryExpression"
+         id="path13286"
+         style="fill:#1f77b4;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13288">
+      <path
+         d="M -63.833475,76.975889 A 100,100 0 0 1 -94.392704,33.015412 L 0,0 z"
+         category="Literal"
+         id="path13290"
+         style="fill:#ff7f0e;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13292">
+      <path
+         d="m -94.392704,33.015412 a 100,100 0 0 1 -5.19029,-42.138307 L 0,0 z"
+         category="IfStatement"
+         id="path13294"
+         style="fill:#9467bd;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13296">
+      <path
+         d="m -99.582994,-9.122895 a 100,100 0 0 1 12.244355,-39.579898 L 0,0 z"
+         category="ObjectSetExpression"
+         id="path13298"
+         style="fill:#ff9896;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13300">
+      <path
+         d="m -87.338639,-48.702793 a 100,100 0 0 1 23.031483,-27.877816 L 0,0 z"
+         category="MethodCallExpression"
+         id="path13302"
+         style="fill:#8c564b;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13304">
+      <path
+         d="M -64.307156,-76.580609 A 100,100 0 0 1 -37.69633,-92.62282 L 0,0 z"
+         category="ReturnStatement"
+         id="path13306"
+         style="fill:#c5b0d5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13308">
+      <path
+         d="m -37.69633,-92.62282 a 100,100 0 0 1 13.762692,-4.470851 L 0,0 z"
+         category="VariableDeclaration"
+         id="path13310"
+         style="fill:#2ca02c;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13312">
+      <path
+         d="m -23.933638,-97.093671 a 100,100 0 0 1 9.406637,-1.845534 L 0,0 z"
+         category="LogicalExpression"
+         id="path13314"
+         style="fill:#dbdb8d;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13316">
+      <path
+         d="m -14.527001,-98.939205 a 100,100 0 0 1 7.8841741,-0.839915 L 0,0 z"
+         category="AssignmentExpression"
+         id="path13318"
+         style="fill:#d62728;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13320">
+      <path
+         d="m -6.6428269,-99.77912 a 100,100 0 0 1 4.6552704,-0.201126 L 0,0 z"
+         category="ObjectUpdateExpression"
+         id="path13322"
+         style="fill:#9edae5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13324">
+      <path
+         d="m -1.9875565,-99.980246 a 100,100 0 0 1 0.9092527,-0.01394 L 0,0 z"
+         category="WhileStatement"
+         id="path13326"
+         style="fill:#c7c7c7;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13328">
+      <path
+         d="m -1.0783038,-99.994186 a 100,100 0 0 1 0.84105002,-0.0055 L 0,0 z"
+         category="UpdateExpression"
+         id="path13330"
+         style="fill:#98df8a;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13332">
+      <path
+         d="m -0.23725378,-99.999719 a 100,100 0 0 1 0.21026744,-2.77e-4 L 0,0 z"
+         category="ForStatement"
+         id="path13334"
+         style="fill:#17becf;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13336">
+      <path
+         d="M -0.02698634,-99.999996 A 100,100 0 0 1 -2.7563797e-5,-100 L 0,0 z"
+         category="NewExpression"
+         id="path13338"
+         style="fill:#7f7f7f;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13340">
+      <path
+         d="m -2.7563797e-5,-100 a 100,100 0 0 1 2.06728477e-5,0 L 0,0 z"
+         category="FunctionExpression"
+         id="path13342"
+         style="fill:#1f77b4;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13344">
+      <path
+         d="m -6.8909493e-6,-100 a 100,100 0 0 1 5.5127594e-6,0 L 0,0 z"
+         category="FunctionDeclaration"
+         id="path13346"
+         style="fill:#98df8a;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13348">
+      <path
+         d="m -1.3781899e-6,-100 a 100,100 0 0 1 6.8909488e-7,0 L 0,0 z"
+         category="ArrayExpression"
+         id="path13350"
+         style="fill:#ff7f0e;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13352">
+      <path
+         d="M -6.8909502e-7,-100 A 100,100 0 0 1 0,-100 L 0,0 z"
+         category="UnaryExpression"
+         id="path13354"
+         style="fill:#f7b6d2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13356">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="LabeledStatement"
+         id="path13358"
+         style="fill:#7f7f7f;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13360">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ContinueStatement"
+         id="path13362"
+         style="fill:#ff9896;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13364">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="MemberExpression"
+         id="path13366"
+         style="fill:#c5b0d5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13368">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="EmptyStatement"
+         id="path13370"
+         style="fill:#c49c94;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13372">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ObjectExpression"
+         id="path13374"
+         style="fill:#aec7e8;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13376">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="Program"
+         id="path13378"
+         style="fill:#ffbb78;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13380">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="Property"
+         id="path13382"
+         style="fill:#2ca02c;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13384">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ConditionalExpression"
+         id="path13386"
+         style="fill:#e377c2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13388">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ExpressionStatement"
+         id="path13390"
+         style="fill:#9467bd;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13392">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="SwitchStatement"
+         id="path13394"
+         style="fill:#2ca02c;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13396">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="SwitchCase"
+         id="path13398"
+         style="fill:#8c564b;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13400">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="CatchClause"
+         id="path13402"
+         style="fill:#98df8a;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13404">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ThrowStatement"
+         id="path13406"
+         style="fill:#e377c2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13408">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="TryStatement"
+         id="path13410"
+         style="fill:#f7b6d2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13412">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ForInStatement"
+         id="path13414"
+         style="fill:#d62728;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13416">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="Identifier"
+         id="path13418"
+         style="fill:#c7c7c7;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13420">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="CallExpression"
+         id="path13422"
+         style="fill:#bcbd22;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13424">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="VariableDeclarator"
+         id="path13426"
+         style="fill:#dbdb8d;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13428">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="DebuggerStatement"
+         id="path13430"
+         style="fill:#17becf;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13432">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="WithStatement"
+         id="path13434"
+         style="fill:#9edae5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13436">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="BreakStatement"
+         id="path13438"
+         style="fill:#1f77b4;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13440">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="BlockStatement"
+         id="path13442"
+         style="fill:#aec7e8;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13444">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ObjectDeleteExpression"
+         id="path13446"
+         style="fill:#ff7f0e;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13448">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="DoWhileStatement"
+         id="path13450"
+         style="fill:#ffbb78;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13452">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="FunctionCallExpression"
+         id="path13454"
+         style="fill:#c49c94;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13456">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="SequenceExpression"
+         id="path13458"
+         style="fill:#bcbd22;stroke:#ffffff;stroke-width:1" />
+    </g>
+  </g>
+  <g
+     transform="translate(371.19581,146.37675)"
+     class="pie"
+     id="g13460">
+    <text
+       transform="translate(0,-120)"
+       font-size="16"
+       id="text13462"
+       style="font-size:16px;text-anchor:middle;font-family:sans-serif">RayTrace</text>
+    <g
+       class="slice"
+       id="g13464">
+      <path
+         d="M 0,-100 A 100,100 0 0 1 98.467932,17.437499 L 0,0 z"
+         category="ObjectGetExpression"
+         id="path13466"
+         style="fill:#aec7e8;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13468">
+      <path
+         d="M 98.467932,17.437499 A 100,100 0 0 1 34.060515,94.020643 L 0,0 z"
+         category="ThisExpression"
+         transform="translate(7.6532292,6.4364653)"
+         id="path13470"
+         style="fill:#ffbb78;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13472">
+      <path
+         d="M 34.060515,94.020643 A 100,100 0 0 1 -35.190912,93.603417 L 0,0 z"
+         category="BinaryExpression"
+         id="path13474"
+         style="fill:#1f77b4;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13476">
+      <path
+         d="M -35.190912,93.603417 A 100,100 0 0 1 -75.648862,65.400686 L 0,0 z"
+         category="ObjectSetExpression"
+         id="path13478"
+         style="fill:#ff9896;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13480">
+      <path
+         d="M -75.648862,65.400686 A 100,100 0 0 1 -96.093679,27.676794 L 0,0 z"
+         category="Literal"
+         id="path13482"
+         style="fill:#ff7f0e;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13484">
+      <path
+         d="M -96.093679,27.676794 A 100,100 0 0 1 -99.844476,-5.5749992 L 0,0 z"
+         category="MethodCallExpression"
+         id="path13486"
+         style="fill:#8c564b;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13488">
+      <path
+         d="m -99.844476,-5.5749992 a 100,100 0 0 1 5.280222,-26.9457918 L 0,0 z"
+         category="IfStatement"
+         id="path13490"
+         style="fill:#9467bd;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13492">
+      <path
+         d="m -94.564254,-32.520791 a 100,100 0 0 1 9.953495,-20.780424 L 0,0 z"
+         category="UnaryExpression"
+         id="path13494"
+         style="fill:#f7b6d2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13496">
+      <path
+         d="m -84.610759,-53.301215 a 100,100 0 0 1 14.34033,-17.846988 L 0,0 z"
+         category="VariableDeclaration"
+         id="path13498"
+         style="fill:#2ca02c;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13500">
+      <path
+         d="m -70.270429,-71.148203 a 100,100 0 0 1 13.958487,-11.48935 L 0,0 z"
+         category="AssignmentExpression"
+         id="path13502"
+         style="fill:#d62728;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13504">
+      <path
+         d="m -56.311942,-82.637553 a 100,100 0 0 1 15.53235,-8.669757 L 0,0 z"
+         category="ConditionalExpression"
+         id="path13506"
+         style="fill:#e377c2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13508">
+      <path
+         d="m -40.779592,-91.30731 a 100,100 0 0 1 16.046099,-5.585695 L 0,0 z"
+         category="ReturnStatement"
+         id="path13510"
+         style="fill:#c5b0d5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13512">
+      <path
+         d="m -24.733493,-96.893005 a 100,100 0 0 1 13.846804,-2.512629 L 0,0 z"
+         category="NewExpression"
+         id="path13514"
+         style="fill:#7f7f7f;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13516">
+      <path
+         d="M -10.886689,-99.405634 A 100,100 0 0 1 -3.599405,-99.9352 L 0,0 z"
+         category="LogicalExpression"
+         id="path13518"
+         style="fill:#dbdb8d;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13520">
+      <path
+         d="m -3.599405,-99.9352 a 100,100 0 0 1 2.72875668,-0.06101 L 0,0 z"
+         category="UpdateExpression"
+         id="path13522"
+         style="fill:#98df8a;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13524">
+      <path
+         d="M -0.87064832,-99.99621 A 100,100 0 0 1 -7.903144e-4,-100 L 0,0 z"
+         category="ForStatement"
+         id="path13526"
+         style="fill:#17becf;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13528">
+      <path
+         d="m -7.903144e-4,-100 a 100,100 0 0 1 4.531984e-4,0 L 0,0 z"
+         category="ObjectExpression"
+         id="path13530"
+         style="fill:#aec7e8;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13532">
+      <path
+         d="m -3.37116e-4,-100 a 100,100 0 0 1 2.1467292e-4,0 L 0,0 z"
+         category="ForInStatement"
+         id="path13534"
+         style="fill:#d62728;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13536">
+      <path
+         d="m -1.2244308e-4,-100 a 100,100 0 0 1 1.160824006e-4,0 L 0,0 z"
+         category="FunctionExpression"
+         id="path13538"
+         style="fill:#1f77b4;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13540">
+      <path
+         d="m -6.3606794e-6,-100 a 100,100 0 0 1 4.7705095e-6,0 L 0,0 z"
+         category="ArrayExpression"
+         id="path13542"
+         style="fill:#ff7f0e;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13544">
+      <path
+         d="M -1.5901699e-6,-100 A 100,100 0 0 1 0,-100 L 0,0 z"
+         category="FunctionDeclaration"
+         id="path13546"
+         style="fill:#98df8a;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13548">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="DebuggerStatement"
+         id="path13550"
+         style="fill:#17becf;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13552">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="MemberExpression"
+         id="path13554"
+         style="fill:#c5b0d5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13556">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ExpressionStatement"
+         id="path13558"
+         style="fill:#9467bd;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13560">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="Identifier"
+         id="path13562"
+         style="fill:#c7c7c7;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13564">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="Program"
+         id="path13566"
+         style="fill:#ffbb78;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13568">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="Property"
+         id="path13570"
+         style="fill:#2ca02c;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13572">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="DoWhileStatement"
+         id="path13574"
+         style="fill:#ffbb78;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13576">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="EmptyStatement"
+         id="path13578"
+         style="fill:#c49c94;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13580">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="SwitchStatement"
+         id="path13582"
+         style="fill:#2ca02c;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13584">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="SwitchCase"
+         id="path13586"
+         style="fill:#8c564b;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13588">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ContinueStatement"
+         id="path13590"
+         style="fill:#ff9896;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13592">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ThrowStatement"
+         id="path13594"
+         style="fill:#e377c2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13596">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="TryStatement"
+         id="path13598"
+         style="fill:#f7b6d2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13600">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="CatchClause"
+         id="path13602"
+         style="fill:#98df8a;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13604">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="LabeledStatement"
+         id="path13606"
+         style="fill:#7f7f7f;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13608">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="CallExpression"
+         id="path13610"
+         style="fill:#bcbd22;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13612">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="VariableDeclarator"
+         id="path13614"
+         style="fill:#dbdb8d;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13616">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="WhileStatement"
+         id="path13618"
+         style="fill:#c7c7c7;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13620">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="WithStatement"
+         id="path13622"
+         style="fill:#9edae5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13624">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="BreakStatement"
+         id="path13626"
+         style="fill:#1f77b4;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13628">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="BlockStatement"
+         id="path13630"
+         style="fill:#aec7e8;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13632">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ObjectDeleteExpression"
+         id="path13634"
+         style="fill:#ff7f0e;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13636">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ObjectUpdateExpression"
+         id="path13638"
+         style="fill:#9edae5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13640">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="FunctionCallExpression"
+         id="path13642"
+         style="fill:#c49c94;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13644">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="SequenceExpression"
+         id="path13646"
+         style="fill:#bcbd22;stroke:#ffffff;stroke-width:1" />
+    </g>
+  </g>
+  <g
+     transform="translate(621.19581,146.37675)"
+     class="pie"
+     id="g13648">
+    <text
+       transform="translate(0,-120)"
+       font-size="16"
+       id="text13650"
+       style="font-size:16px;text-anchor:middle;font-family:sans-serif">DeltaBlue</text>
+    <g
+       class="slice"
+       id="g13652">
+      <path
+         d="M 0,-100 A 100,100 0 0 1 97.395267,22.675138 L 0,0 z"
+         category="ObjectGetExpression"
+         id="path13654"
+         style="fill:#aec7e8;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13656">
+      <path
+         d="M 97.395267,22.675138 A 100,100 0 0 1 -16.228879,98.67433 L 0,0 z"
+         category="ThisExpression"
+         transform="translate(5.5596447,8.3120604)"
+         id="path13658"
+         style="fill:#ffbb78;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13660">
+      <path
+         d="M -16.228879,98.67433 A 100,100 0 0 1 -86.922819,49.441113 L 0,0 z"
+         category="MethodCallExpression"
+         id="path13662"
+         style="fill:#8c564b;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13664">
+      <path
+         d="m -86.922819,49.441113 a 100,100 0 0 1 -11.412902,-67.60938 L 0,0 z"
+         category="ReturnStatement"
+         id="path13666"
+         style="fill:#c5b0d5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13668">
+      <path
+         d="m -98.335721,-18.168267 a 100,100 0 0 1 19.45566,-43.296649 L 0,0 z"
+         category="BinaryExpression"
+         id="path13670"
+         style="fill:#1f77b4;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13672">
+      <path
+         d="m -78.880061,-61.464916 a 100,100 0 0 1 14.317139,-14.900188 L 0,0 z"
+         category="ConditionalExpression"
+         id="path13674"
+         style="fill:#e377c2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13676">
+      <path
+         d="m -64.562922,-76.365104 a 100,100 0 0 1 14.81273,-10.381183 L 0,0 z"
+         category="VariableDeclaration"
+         id="path13678"
+         style="fill:#2ca02c;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13680">
+      <path
+         d="m -49.750192,-86.746287 a 100,100 0 0 1 15.537105,-7.218944 L 0,0 z"
+         category="ObjectSetExpression"
+         id="path13682"
+         style="fill:#ff9896;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13684">
+      <path
+         d="m -34.213087,-93.965231 a 100,100 0 0 1 11.583494,-3.440629 L 0,0 z"
+         category="UpdateExpression"
+         id="path13686"
+         style="fill:#98df8a;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13688">
+      <path
+         d="m -22.629593,-97.40586 a 100,100 0 0 1 7.843053,-1.494889 L 0,0 z"
+         category="IfStatement"
+         id="path13690"
+         style="fill:#9467bd;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13692">
+      <path
+         d="m -14.78654,-98.900749 a 100,100 0 0 1 5.7415537,-0.689352 L 0,0 z"
+         category="Literal"
+         id="path13694"
+         style="fill:#ff7f0e;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13696">
+      <path
+         d="m -9.0449863,-99.590101 a 100,100 0 0 1 3.5957991,-0.26132 L 0,0 z"
+         category="LogicalExpression"
+         id="path13698"
+         style="fill:#dbdb8d;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13700">
+      <path
+         d="m -5.4491872,-99.851421 a 100,100 0 0 1 1.7603817,-0.08052 L 0,0 z"
+         category="NewExpression"
+         id="path13702"
+         style="fill:#7f7f7f;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13704">
+      <path
+         d="m -3.6888055,-99.93194 a 100,100 0 0 1 1.2284986,-0.03779 L 0,0 z"
+         category="ForStatement"
+         id="path13706"
+         style="fill:#17becf;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13708">
+      <path
+         d="M -2.4603069,-99.96973 A 100,100 0 0 1 -1.28004,-99.99181 L 0,0 z"
+         category="UnaryExpression"
+         id="path13710"
+         style="fill:#f7b6d2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13712">
+      <path
+         d="m -1.28004,-99.991807 a 100,100 0 0 1 0.6341879,-0.0061 L 0,0 z"
+         category="WhileStatement"
+         id="path13714"
+         style="fill:#c7c7c7;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13716">
+      <path
+         d="m -0.6458521,-99.997914 a 100,100 0 0 1 0.39503202,-0.0018 L 0,0 z"
+         category="AssignmentExpression"
+         id="path13718"
+         style="fill:#d62728;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13720">
+      <path
+         d="m -0.25082008,-99.999685 a 100,100 0 0 1 0.2399534,-3.14e-4 L 0,0 z"
+         category="ObjectUpdateExpression"
+         id="path13722"
+         style="fill:#9edae5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13724">
+      <path
+         d="M -0.01086668,-99.999999 A 100,100 0 0 1 -0.00623735,-100 L 0,0 z"
+         category="FunctionCallExpression"
+         id="path13726"
+         style="fill:#c49c94;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13728">
+      <path
+         d="m -0.00623735,-100 a 100,100 0 0 1 0.00308622,0 L 0,0 z"
+         category="SwitchStatement"
+         id="path13730"
+         style="fill:#2ca02c;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13732">
+      <path
+         d="m -0.00315113,-100 a 100,100 0 0 1 0.0030862253,0 L 0,0 z"
+         category="DoWhileStatement"
+         id="path13734"
+         style="fill:#ffbb78;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13736">
+      <path
+         d="m -6.4904747e-5,-100 a 100,100 0 0 1 4.6244632e-5,0 L 0,0 z"
+         category="FunctionExpression"
+         id="path13738"
+         style="fill:#1f77b4;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13740">
+      <path
+         d="m -1.8660115e-5,-100 a 100,100 0 0 1 1.784880565e-5,0 L 0,0 z"
+         category="FunctionDeclaration"
+         id="path13742"
+         style="fill:#98df8a;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13744">
+      <path
+         d="M -8.1130935e-7,-100 A 100,100 0 0 1 0,-100 L 0,0 z"
+         category="ArrayExpression"
+         id="path13746"
+         style="fill:#ff7f0e;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13748">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ObjectExpression"
+         id="path13750"
+         style="fill:#aec7e8;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13752">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="Program"
+         id="path13754"
+         style="fill:#ffbb78;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13756">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="Property"
+         id="path13758"
+         style="fill:#2ca02c;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13760">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="EmptyStatement"
+         id="path13762"
+         style="fill:#c49c94;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13764">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="SequenceExpression"
+         id="path13766"
+         style="fill:#bcbd22;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13768">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ForInStatement"
+         id="path13770"
+         style="fill:#d62728;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13772">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="SwitchCase"
+         id="path13774"
+         style="fill:#8c564b;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13776">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ExpressionStatement"
+         id="path13778"
+         style="fill:#9467bd;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13780">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ThrowStatement"
+         id="path13782"
+         style="fill:#e377c2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13784">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="TryStatement"
+         id="path13786"
+         style="fill:#f7b6d2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13788">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="LabeledStatement"
+         id="path13790"
+         style="fill:#7f7f7f;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13792">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="CatchClause"
+         id="path13794"
+         style="fill:#98df8a;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13796">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="CallExpression"
+         id="path13798"
+         style="fill:#bcbd22;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13800">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="VariableDeclarator"
+         id="path13802"
+         style="fill:#dbdb8d;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13804">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="DebuggerStatement"
+         id="path13806"
+         style="fill:#17becf;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13808">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="WithStatement"
+         id="path13810"
+         style="fill:#9edae5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13812">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="BreakStatement"
+         id="path13814"
+         style="fill:#1f77b4;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13816">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="BlockStatement"
+         id="path13818"
+         style="fill:#aec7e8;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13820">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ObjectDeleteExpression"
+         id="path13822"
+         style="fill:#ff7f0e;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13824">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="MemberExpression"
+         id="path13826"
+         style="fill:#c5b0d5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13828">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="Identifier"
+         id="path13830"
+         style="fill:#c7c7c7;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13832">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ContinueStatement"
+         id="path13834"
+         style="fill:#ff9896;stroke:#ffffff;stroke-width:1" />
+    </g>
+  </g>
+  <g
+     transform="translate(121.19581,396.37675)"
+     class="pie"
+     id="g13836">
+    <text
+       transform="translate(0,-120)"
+       font-size="16"
+       id="text13838"
+       style="font-size:16px;text-anchor:middle;font-family:sans-serif">EarleyBoyer</text>
+    <g
+       class="slice"
+       id="g13840">
+      <path
+         d="m 0,-100 a 100,100 0 0 1 80.031445,40.041949 L 0,0 z"
+         category="Literal"
+         id="path13842"
+         style="fill:#ff7f0e;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13844">
+      <path
+         d="M 80.031445,-59.958051 A 100,100 0 0 1 97.010194,24.269781 L 0,0 z"
+         category="BinaryExpression"
+         id="path13846"
+         style="fill:#1f77b4;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13848">
+      <path
+         d="M 97.010194,24.269781 A 100,100 0 0 1 45.885559,88.851086 L 0,0 z"
+         category="ObjectGetExpression"
+         id="path13850"
+         style="fill:#aec7e8;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13852">
+      <path
+         d="m 45.885559,88.851086 a 100,100 0 0 1 -74.323711,7.020033 L 0,0 z"
+         category="VariableDeclaration"
+         id="path13854"
+         style="fill:#2ca02c;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13856">
+      <path
+         d="M -28.438152,95.871119 A 100,100 0 0 1 -74.637329,66.552755 L 0,0 z"
+         category="AssignmentExpression"
+         id="path13858"
+         style="fill:#d62728;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13860">
+      <path
+         d="M -74.637329,66.552755 A 100,100 0 0 1 -97.456773,22.409314 L 0,0 z"
+         category="IfStatement"
+         id="path13862"
+         style="fill:#9467bd;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13864">
+      <path
+         d="M -97.456773,22.409314 A 100,100 0 0 1 -99.891057,-4.6665624 L 0,0 z"
+         category="FunctionCallExpression"
+         id="path13866"
+         style="fill:#c49c94;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13868">
+      <path
+         d="m -99.891057,-4.6665624 a 100,100 0 0 1 4.92922,-26.6742976 L 0,0 z"
+         category="ReturnStatement"
+         id="path13870"
+         style="fill:#c5b0d5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13872">
+      <path
+         d="m -94.961837,-31.34086 a 100,100 0 0 1 11.420025,-23.620633 L 0,0 z"
+         category="ObjectSetExpression"
+         id="path13874"
+         style="fill:#ff9896;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13876">
+      <path
+         d="m -83.541812,-54.961493 a 100,100 0 0 1 15.216855,-18.056999 L 0,0 z"
+         category="ThisExpression"
+         transform="translate(-7.6468248,-6.4440727)"
+         id="path13878"
+         style="fill:#ffbb78;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13880">
+      <path
+         d="m -68.324957,-73.018492 a 100,100 0 0 1 11.105065,-8.992994 L 0,0 z"
+         category="UnaryExpression"
+         id="path13882"
+         style="fill:#f7b6d2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13884">
+      <path
+         d="m -57.219892,-82.011486 a 100,100 0 0 1 11.102045,-6.719254 L 0,0 z"
+         category="SequenceExpression"
+         id="path13886"
+         style="fill:#bcbd22;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13888">
+      <path
+         d="m -46.117847,-88.73074 a 100,100 0 0 1 10.98463,-4.894348 L 0,0 z"
+         category="WhileStatement"
+         id="path13890"
+         style="fill:#c7c7c7;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13892">
+      <path
+         d="m -35.133217,-93.625088 a 100,100 0 0 1 11.357285,-3.507322 L 0,0 z"
+         category="NewExpression"
+         id="path13894"
+         style="fill:#7f7f7f;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13896">
+      <path
+         d="m -23.775932,-97.13241 a 100,100 0 0 1 9.067438,-1.779977 L 0,0 z"
+         category="ConditionalExpression"
+         id="path13898"
+         style="fill:#e377c2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13900">
+      <path
+         d="m -14.708494,-98.912387 a 100,100 0 0 1 6.6753491,-0.764434 L 0,0 z"
+         category="UpdateExpression"
+         id="path13902"
+         style="fill:#98df8a;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13904">
+      <path
+         d="m -8.0331449,-99.676821 a 100,100 0 0 1 3.2475977,-0.208606 L 0,0 z"
+         category="ForStatement"
+         id="path13906"
+         style="fill:#17becf;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13908">
+      <path
+         d="m -4.7855472,-99.885427 a 100,100 0 0 1 2.54449,-0.08946 L 0,0 z"
+         category="LogicalExpression"
+         id="path13910"
+         style="fill:#dbdb8d;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13912">
+      <path
+         d="m -2.2410572,-99.974885 a 100,100 0 0 1 2.23057565,-0.02511 L 0,0 z"
+         category="FunctionExpression"
+         id="path13914"
+         style="fill:#1f77b4;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13916">
+      <path
+         d="M -0.01048155,-99.999999 A 100,100 0 0 1 -0.00366785,-100 L 0,0 z"
+         category="MethodCallExpression"
+         id="path13918"
+         style="fill:#8c564b;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13920">
+      <path
+         d="m -0.00366785,-100 a 100,100 0 0 1 0.00351992,0 L 0,0 z"
+         category="ArrayExpression"
+         id="path13922"
+         style="fill:#ff7f0e;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13924">
+      <path
+         d="m -1.4792997e-4,-100 a 100,100 0 0 1 1.19559839e-4,0 L 0,0 z"
+         category="FunctionDeclaration"
+         id="path13926"
+         style="fill:#98df8a;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13928">
+      <path
+         d="m -2.8370131e-5,-100 a 100,100 0 0 1 2.755955582e-5,0 L 0,0 z"
+         category="SwitchStatement"
+         id="path13930"
+         style="fill:#2ca02c;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13932">
+      <path
+         d="M -8.1057518e-7,-100 A 100,100 0 0 1 0,-100 L 0,0 z"
+         category="ObjectExpression"
+         id="path13934"
+         style="fill:#aec7e8;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13936">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ExpressionStatement"
+         id="path13938"
+         style="fill:#9467bd;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13940">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="Program"
+         id="path13942"
+         style="fill:#ffbb78;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13944">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="Property"
+         id="path13946"
+         style="fill:#2ca02c;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13948">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="EmptyStatement"
+         id="path13950"
+         style="fill:#c49c94;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13952">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="DebuggerStatement"
+         id="path13954"
+         style="fill:#17becf;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13956">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="LabeledStatement"
+         id="path13958"
+         style="fill:#7f7f7f;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13960">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="Identifier"
+         id="path13962"
+         style="fill:#c7c7c7;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13964">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="DoWhileStatement"
+         id="path13966"
+         style="fill:#ffbb78;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13968">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ThrowStatement"
+         id="path13970"
+         style="fill:#e377c2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13972">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="TryStatement"
+         id="path13974"
+         style="fill:#f7b6d2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13976">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ContinueStatement"
+         id="path13978"
+         style="fill:#ff9896;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13980">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="MemberExpression"
+         id="path13982"
+         style="fill:#c5b0d5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13984">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ForInStatement"
+         id="path13986"
+         style="fill:#d62728;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13988">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="VariableDeclarator"
+         id="path13990"
+         style="fill:#dbdb8d;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13992">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="CatchClause"
+         id="path13994"
+         style="fill:#98df8a;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g13996">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="WithStatement"
+         id="path13998"
+         style="fill:#9edae5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14000">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="CallExpression"
+         id="path14002"
+         style="fill:#bcbd22;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14004">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="BreakStatement"
+         id="path14006"
+         style="fill:#1f77b4;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14008">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ObjectDeleteExpression"
+         id="path14010"
+         style="fill:#ff7f0e;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14012">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ObjectUpdateExpression"
+         id="path14014"
+         style="fill:#9edae5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14016">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="BlockStatement"
+         id="path14018"
+         style="fill:#aec7e8;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14020">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="SwitchCase"
+         id="path14022"
+         style="fill:#8c564b;stroke:#ffffff;stroke-width:1" />
+    </g>
+  </g>
+  <g
+     transform="translate(371.19581,396.37675)"
+     class="pie"
+     id="g14024">
+    <text
+       transform="translate(0,-120)"
+       font-size="16"
+       id="text14026"
+       style="font-size:16px;text-anchor:middle;font-family:sans-serif">Crypto</text>
+    <g
+       class="slice"
+       id="g14028">
+      <path
+         d="M 0,-100 A 100,100 0 0 1 30.329419,95.289697 L 0,0 z"
+         category="BinaryExpression"
+         id="path14030"
+         style="fill:#1f77b4;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14032">
+      <path
+         d="M 30.329419,95.289697 A 100,100 0 0 1 -84.045433,54.188238 L 0,0 z"
+         category="Literal"
+         id="path14034"
+         style="fill:#ff7f0e;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14036">
+      <path
+         d="M -84.045433,54.188238 A 100,100 0 0 1 -99.99416,1.0806975 L 0,0 z"
+         category="ObjectGetExpression"
+         id="path14038"
+         style="fill:#aec7e8;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14040">
+      <path
+         d="M -99.99416,1.0806975 A 100,100 0 0 1 -88.475936,-46.604815 L 0,0 z"
+         category="VariableDeclaration"
+         id="path14042"
+         style="fill:#2ca02c;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14044">
+      <path
+         d="m -88.475936,-46.604815 a 100,100 0 0 1 31.310679,-35.444764 L 0,0 z"
+         category="UpdateExpression"
+         id="path14046"
+         style="fill:#98df8a;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14048">
+      <path
+         d="m -57.165257,-82.049579 a 100,100 0 0 1 27.584995,-13.475329 L 0,0 z"
+         category="AssignmentExpression"
+         id="path14050"
+         style="fill:#d62728;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14052">
+      <path
+         d="m -29.580262,-95.524908 a 100,100 0 0 1 16.764046,-3.650415 L 0,0 z"
+         category="ObjectSetExpression"
+         id="path14054"
+         style="fill:#ff9896;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14056">
+      <path
+         d="m -12.816216,-99.175323 a 100,100 0 0 1 5.4821209,-0.55537 L 0,0 z"
+         category="ThisExpression"
+         transform="translate(-1.0078982,-9.9490776)"
+         id="path14058"
+         style="fill:#ffbb78;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14060">
+      <path
+         d="m -7.3340951,-99.730693 a 100,100 0 0 1 1.6308797,-0.106541 L 0,0 z"
+         category="IfStatement"
+         id="path14062"
+         style="fill:#9467bd;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14064">
+      <path
+         d="m -5.7032154,-99.837234 a 100,100 0 0 1 1.5848014,-0.07792 L 0,0 z"
+         category="WhileStatement"
+         id="path14066"
+         style="fill:#c7c7c7;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14068">
+      <path
+         d="m -4.118414,-99.915157 a 100,100 0 0 1 1.5795799,-0.05261 L 0,0 z"
+         category="MethodCallExpression"
+         id="path14070"
+         style="fill:#8c564b;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14072">
+      <path
+         d="m -2.5388341,-99.967766 a 100,100 0 0 1 1.4264788,-0.02605 L 0,0 z"
+         category="ReturnStatement"
+         id="path14074"
+         style="fill:#c5b0d5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14076">
+      <path
+         d="m -1.1123553,-99.993813 a 100,100 0 0 1 0.53494119,-0.0045 L 0,0 z"
+         category="ConditionalExpression"
+         id="path14078"
+         style="fill:#e377c2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14080">
+      <path
+         d="m -0.57741411,-99.998333 a 100,100 0 0 1 0.28957337,-0.0013 L 0,0 z"
+         category="FunctionCallExpression"
+         id="path14082"
+         style="fill:#c49c94;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14084">
+      <path
+         d="m -0.28784074,-99.999586 a 100,100 0 0 1 0.11589905,-2.66e-4 L 0,0 z"
+         category="ObjectUpdateExpression"
+         id="path14086"
+         style="fill:#9edae5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14088">
+      <path
+         d="m -0.17194169,-99.999852 a 100,100 0 0 1 0.10429203,-1.25e-4 L 0,0 z"
+         category="LogicalExpression"
+         id="path14090"
+         style="fill:#dbdb8d;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14092">
+      <path
+         d="M -0.06764966,-99.999977 A 100,100 0 0 1 -0.00952018,-100 L 0,0 z"
+         category="ForStatement"
+         id="path14094"
+         style="fill:#17becf;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14096">
+      <path
+         d="m -0.00952018,-100 a 100,100 0 0 1 0.00725084,0 L 0,0 z"
+         category="NewExpression"
+         id="path14098"
+         style="fill:#7f7f7f;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14100">
+      <path
+         d="m -0.00226934,-100 a 100,100 0 0 1 0.0022393714,0 L 0,0 z"
+         category="UnaryExpression"
+         id="path14102"
+         style="fill:#f7b6d2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14104">
+      <path
+         d="m -2.9968612e-5,-100 a 100,100 0 0 1 2.929767268e-5,0 L 0,0 z"
+         category="FunctionDeclaration"
+         id="path14106"
+         style="fill:#98df8a;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14108">
+      <path
+         d="m -6.7093932e-7,-100 a 100,100 0 0 1 4.4729269e-7,0 L 0,0 z"
+         category="ArrayExpression"
+         id="path14110"
+         style="fill:#ff7f0e;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14112">
+      <path
+         d="M -2.2364663e-7,-100 A 100,100 0 0 1 0,-100 L 0,0 z"
+         category="FunctionExpression"
+         id="path14114"
+         style="fill:#1f77b4;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14116">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="MemberExpression"
+         id="path14118"
+         style="fill:#c5b0d5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14120">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ForInStatement"
+         id="path14122"
+         style="fill:#d62728;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14124">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ObjectExpression"
+         id="path14126"
+         style="fill:#aec7e8;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14128">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="Program"
+         id="path14130"
+         style="fill:#ffbb78;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14132">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="Property"
+         id="path14134"
+         style="fill:#2ca02c;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14136">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="Identifier"
+         id="path14138"
+         style="fill:#c7c7c7;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14140">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ExpressionStatement"
+         id="path14142"
+         style="fill:#9467bd;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14144">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="SwitchStatement"
+         id="path14146"
+         style="fill:#2ca02c;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14148">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="SwitchCase"
+         id="path14150"
+         style="fill:#8c564b;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14152">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ContinueStatement"
+         id="path14154"
+         style="fill:#ff9896;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14156">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ThrowStatement"
+         id="path14158"
+         style="fill:#e377c2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14160">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="TryStatement"
+         id="path14162"
+         style="fill:#f7b6d2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14164">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="DebuggerStatement"
+         id="path14166"
+         style="fill:#17becf;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14168">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="DoWhileStatement"
+         id="path14170"
+         style="fill:#ffbb78;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14172">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="CatchClause"
+         id="path14174"
+         style="fill:#98df8a;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14176">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="VariableDeclarator"
+         id="path14178"
+         style="fill:#dbdb8d;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14180">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="CallExpression"
+         id="path14182"
+         style="fill:#bcbd22;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14184">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="WithStatement"
+         id="path14186"
+         style="fill:#9edae5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14188">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="BreakStatement"
+         id="path14190"
+         style="fill:#1f77b4;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14192">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="BlockStatement"
+         id="path14194"
+         style="fill:#aec7e8;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14196">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ObjectDeleteExpression"
+         id="path14198"
+         style="fill:#ff7f0e;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14200">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="LabeledStatement"
+         id="path14202"
+         style="fill:#7f7f7f;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14204">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="EmptyStatement"
+         id="path14206"
+         style="fill:#c49c94;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14208">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="SequenceExpression"
+         id="path14210"
+         style="fill:#bcbd22;stroke:#ffffff;stroke-width:1" />
+    </g>
+  </g>
+  <g
+     transform="translate(621.19581,396.37675)"
+     class="pie"
+     id="g14212">
+    <text
+       transform="translate(0,-120)"
+       font-size="16"
+       id="text14214"
+       style="font-size:16px;text-anchor:middle;font-family:sans-serif">Splay</text>
+    <g
+       class="slice"
+       id="g14216">
+      <path
+         d="M 0,-100 A 100,100 0 0 1 95.195288,30.624452 L 0,0 z"
+         category="Literal"
+         id="path14218"
+         style="fill:#ff7f0e;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14220">
+      <path
+         d="M 95.195288,30.624452 A 100,100 0 0 1 35.115218,93.63184 L 0,0 z"
+         category="BinaryExpression"
+         id="path14222"
+         style="fill:#1f77b4;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14224">
+      <path
+         d="M 35.115218,93.63184 A 100,100 0 0 1 -47.22607,88.145892 L 0,0 z"
+         category="ObjectGetExpression"
+         id="path14226"
+         style="fill:#aec7e8;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14228">
+      <path
+         d="M -47.22607,88.145892 A 100,100 0 0 1 -90.327058,42.907139 L 0,0 z"
+         category="IfStatement"
+         id="path14230"
+         style="fill:#9467bd;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14232">
+      <path
+         d="M -90.327058,42.907139 A 100,100 0 0 1 -99.259254,12.149094 L 0,0 z"
+         category="ObjectSetExpression"
+         id="path14234"
+         style="fill:#ff9896;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14236">
+      <path
+         d="m -99.259254,12.149094 a 100,100 0 0 1 0.318162,-26.663236 L 0,0 z"
+         category="ReturnStatement"
+         id="path14238"
+         style="fill:#c5b0d5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14240">
+      <path
+         d="m -98.941092,-14.514142 a 100,100 0 0 1 6.944382,-24.685416 L 0,0 z"
+         category="AssignmentExpression"
+         id="path14242"
+         style="fill:#d62728;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14244">
+      <path
+         d="m -91.99671,-39.199558 a 100,100 0 0 1 11.150897,-19.655811 L 0,0 z"
+         category="FunctionCallExpression"
+         id="path14246"
+         style="fill:#c49c94;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14248">
+      <path
+         d="m -80.845813,-58.855369 a 100,100 0 0 1 14.48053,-15.948703 L 0,0 z"
+         category="ObjectExpression"
+         id="path14250"
+         style="fill:#aec7e8;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14252">
+      <path
+         d="m -66.365283,-74.804072 a 100,100 0 0 1 16.99377,-12.158297 L 0,0 z"
+         category="ThisExpression"
+         transform="translate(-5.8186831,-8.1328297)"
+         id="path14254"
+         style="fill:#ffbb78;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14256">
+      <path
+         d="m -49.371513,-86.962369 a 100,100 0 0 1 15.834219,-7.246176 L 0,0 z"
+         category="UnaryExpression"
+         id="path14258"
+         style="fill:#f7b6d2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14260">
+      <path
+         d="m -33.537294,-94.208545 a 100,100 0 0 1 10.703189,-3.149576 L 0,0 z"
+         category="VariableDeclaration"
+         id="path14262"
+         style="fill:#2ca02c;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14264">
+      <path
+         d="m -22.834105,-97.358121 a 100,100 0 0 1 10.789201,-1.91383 L 0,0 z"
+         category="ArrayExpression"
+         id="path14266"
+         style="fill:#ff7f0e;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14268">
+      <path
+         d="m -12.044904,-99.271951 a 100,100 0 0 1 6.7938275,-0.590085 L 0,0 z"
+         category="MethodCallExpression"
+         id="path14270"
+         style="fill:#8c564b;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14272">
+      <path
+         d="m -5.2510765,-99.862036 a 100,100 0 0 1 1.9469414,-0.08336 L 0,0 z"
+         category="NewExpression"
+         id="path14274"
+         style="fill:#7f7f7f;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14276">
+      <path
+         d="m -3.3041351,-99.945399 a 100,100 0 0 1 1.9302699,-0.04516 L 0,0 z"
+         category="WhileStatement"
+         id="path14278"
+         style="fill:#c7c7c7;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14280">
+      <path
+         d="m -1.3738652,-99.990562 a 100,100 0 0 1 0.37803147,-0.0045 L 0,0 z"
+         category="UpdateExpression"
+         id="path14282"
+         style="fill:#98df8a;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14284">
+      <path
+         d="m -0.99583373,-99.995041 a 100,100 0 0 1 0.3425986,-0.0028 L 0,0 z"
+         category="ConditionalExpression"
+         id="path14286"
+         style="fill:#e377c2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14288">
+      <path
+         d="m -0.65323513,-99.997866 a 100,100 0 0 1 0.34259297,-0.0017 L 0,0 z"
+         category="DoWhileStatement"
+         id="path14290"
+         style="fill:#ffbb78;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14292">
+      <path
+         d="M -0.31064216,-99.999518 A 100,100 0 0 1 -0.00392781,-100 L 0,0 z"
+         category="LogicalExpression"
+         id="path14294"
+         style="fill:#dbdb8d;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14296">
+      <path
+         d="m -0.00392781,-100 a 100,100 0 0 1 0.0038480125,0 L 0,0 z"
+         category="ForStatement"
+         id="path14298"
+         style="fill:#17becf;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14300">
+      <path
+         d="m -7.9797464e-5,-100 a 100,100 0 0 1 4.8765117e-5,0 L 0,0 z"
+         category="FunctionExpression"
+         id="path14302"
+         style="fill:#1f77b4;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14304">
+      <path
+         d="M -3.1032347e-5,-100 A 100,100 0 0 1 0,-100 L 0,0 z"
+         category="FunctionDeclaration"
+         id="path14306"
+         style="fill:#98df8a;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14308">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="EmptyStatement"
+         id="path14310"
+         style="fill:#c49c94;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14312">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="DebuggerStatement"
+         id="path14314"
+         style="fill:#17becf;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14316">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="Program"
+         id="path14318"
+         style="fill:#ffbb78;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14320">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="Property"
+         id="path14322"
+         style="fill:#2ca02c;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14324">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ForInStatement"
+         id="path14326"
+         style="fill:#d62728;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14328">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="SequenceExpression"
+         id="path14330"
+         style="fill:#bcbd22;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14332">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="SwitchStatement"
+         id="path14334"
+         style="fill:#2ca02c;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14336">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ExpressionStatement"
+         id="path14338"
+         style="fill:#9467bd;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14340">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ContinueStatement"
+         id="path14342"
+         style="fill:#ff9896;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14344">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ThrowStatement"
+         id="path14346"
+         style="fill:#e377c2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14348">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="TryStatement"
+         id="path14350"
+         style="fill:#f7b6d2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14352">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="LabeledStatement"
+         id="path14354"
+         style="fill:#7f7f7f;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14356">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="Identifier"
+         id="path14358"
+         style="fill:#c7c7c7;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14360">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="CatchClause"
+         id="path14362"
+         style="fill:#98df8a;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14364">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="VariableDeclarator"
+         id="path14366"
+         style="fill:#dbdb8d;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14368">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="MemberExpression"
+         id="path14370"
+         style="fill:#c5b0d5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14372">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="WithStatement"
+         id="path14374"
+         style="fill:#9edae5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14376">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="CallExpression"
+         id="path14378"
+         style="fill:#bcbd22;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14380">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="BreakStatement"
+         id="path14382"
+         style="fill:#1f77b4;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14384">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ObjectDeleteExpression"
+         id="path14386"
+         style="fill:#ff7f0e;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14388">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ObjectUpdateExpression"
+         id="path14390"
+         style="fill:#9edae5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14392">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="BlockStatement"
+         id="path14394"
+         style="fill:#aec7e8;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14396">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="SwitchCase"
+         id="path14398"
+         style="fill:#8c564b;stroke:#ffffff;stroke-width:1" />
+    </g>
+  </g>
+  <g
+     transform="translate(121.19581,646.37675)"
+     class="pie"
+     id="g14400">
+    <text
+       transform="translate(0,-120)"
+       font-size="16"
+       id="text14402"
+       style="font-size:16px;text-anchor:middle;font-family:sans-serif">NavierStokes</text>
+    <g
+       class="slice"
+       id="g14404">
+      <path
+         d="M 0,-100 A 100,100 0 0 1 50.762281,86.157941 L 0,0 z"
+         category="BinaryExpression"
+         id="path14406"
+         style="fill:#1f77b4;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14408">
+      <path
+         d="M 50.762281,86.157941 A 100,100 0 0 1 -67.399289,73.873784 L 0,0 z"
+         category="ObjectGetExpression"
+         id="path14410"
+         style="fill:#aec7e8;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14412">
+      <path
+         d="M -67.399289,73.873784 A 100,100 0 0 1 -91.066833,-41.313822 L 0,0 z"
+         category="UpdateExpression"
+         id="path14414"
+         style="fill:#98df8a;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14416">
+      <path
+         d="m -91.066833,-41.313822 a 100,100 0 0 1 22.585208,-31.557757 L 0,0 z"
+         category="ObjectSetExpression"
+         id="path14418"
+         style="fill:#ff9896;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14420">
+      <path
+         d="m -68.481625,-72.871579 a 100,100 0 0 1 20.321143,-14.76727 L 0,0 z"
+         category="AssignmentExpression"
+         id="path14422"
+         style="fill:#d62728;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14424">
+      <path
+         d="m -48.160482,-87.638849 a 100,100 0 0 1 22.060853,-8.895131 L 0,0 z"
+         category="VariableDeclaration"
+         id="path14426"
+         style="fill:#2ca02c;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14428">
+      <path
+         d="m -26.099629,-96.53398 a 100,100 0 0 1 18.2583705,-3.158119 L 0,0 z"
+         category="Literal"
+         id="path14430"
+         style="fill:#ff7f0e;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14432">
+      <path
+         d="m -7.8412585,-99.692099 a 100,100 0 0 1 7.54740788,-0.307469 L 0,0 z"
+         category="IfStatement"
+         id="path14434"
+         style="fill:#9467bd;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14436">
+      <path
+         d="m -0.29385062,-99.999568 a 100,100 0 0 1 0.24726195,-4.21e-4 L 0,0 z"
+         category="ForStatement"
+         id="path14438"
+         style="fill:#17becf;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14440">
+      <path
+         d="M -0.04658867,-99.999989 A 100,100 0 0 1 -0.00600878,-100 L 0,0 z"
+         category="UnaryExpression"
+         id="path14442"
+         style="fill:#f7b6d2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14444">
+      <path
+         d="m -0.00600878,-100 a 100,100 0 0 1 0.00281058,0 L 0,0 z"
+         category="FunctionCallExpression"
+         id="path14446"
+         style="fill:#c49c94;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14448">
+      <path
+         d="m -0.0031982,-100 a 100,100 0 0 1 0.0018545,0 L 0,0 z"
+         category="MethodCallExpression"
+         id="path14450"
+         style="fill:#8c564b;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14452">
+      <path
+         d="m -0.0013437,-100 a 100,100 0 0 1 5.4245398e-4,0 L 0,0 z"
+         category="FunctionExpression"
+         id="path14454"
+         style="fill:#1f77b4;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14456">
+      <path
+         d="m -8.0124602e-4,-100 a 100,100 0 0 1 5.4245147e-4,0 L 0,0 z"
+         category="ThisExpression"
+         transform="translate(-5.300203e-5,-10)"
+         id="path14458"
+         style="fill:#ffbb78;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14460">
+      <path
+         d="m -2.5879455e-4,-100 a 100,100 0 0 1 1.5764995e-4,0 L 0,0 z"
+         category="LogicalExpression"
+         id="path14462"
+         style="fill:#dbdb8d;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14464">
+      <path
+         d="m -1.011446e-4,-100 a 100,100 0 0 1 8.8713421e-5,0 L 0,0 z"
+         category="NewExpression"
+         id="path14466"
+         style="fill:#7f7f7f;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14468">
+      <path
+         d="m -1.2431179e-5,-100 a 100,100 0 0 1 1.07360181e-5,0 L 0,0 z"
+         category="FunctionDeclaration"
+         id="path14470"
+         style="fill:#98df8a;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14472">
+      <path
+         d="m -1.6951609e-6,-100 a 100,100 0 0 1 1.13010719e-6,0 L 0,0 z"
+         category="ReturnStatement"
+         id="path14474"
+         style="fill:#c5b0d5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14476">
+      <path
+         d="M -5.6505371e-7,-100 A 100,100 0 0 1 0,-100 L 0,0 z"
+         category="ArrayExpression"
+         id="path14478"
+         style="fill:#ff7f0e;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14480">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="DoWhileStatement"
+         id="path14482"
+         style="fill:#ffbb78;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14484">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="LabeledStatement"
+         id="path14486"
+         style="fill:#7f7f7f;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14488">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ExpressionStatement"
+         id="path14490"
+         style="fill:#9467bd;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14492">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="MemberExpression"
+         id="path14494"
+         style="fill:#c5b0d5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14496">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ForInStatement"
+         id="path14498"
+         style="fill:#d62728;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14500">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ObjectExpression"
+         id="path14502"
+         style="fill:#aec7e8;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14504">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="Program"
+         id="path14506"
+         style="fill:#ffbb78;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14508">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="Property"
+         id="path14510"
+         style="fill:#2ca02c;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14512">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="Identifier"
+         id="path14514"
+         style="fill:#c7c7c7;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14516">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="SequenceExpression"
+         id="path14518"
+         style="fill:#bcbd22;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14520">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="EmptyStatement"
+         id="path14522"
+         style="fill:#c49c94;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14524">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="SwitchCase"
+         id="path14526"
+         style="fill:#8c564b;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14528">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="DebuggerStatement"
+         id="path14530"
+         style="fill:#17becf;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14532">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ThrowStatement"
+         id="path14534"
+         style="fill:#e377c2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14536">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="TryStatement"
+         id="path14538"
+         style="fill:#f7b6d2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14540">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ContinueStatement"
+         id="path14542"
+         style="fill:#ff9896;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14544">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ConditionalExpression"
+         id="path14546"
+         style="fill:#e377c2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14548">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="CatchClause"
+         id="path14550"
+         style="fill:#98df8a;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14552">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="VariableDeclarator"
+         id="path14554"
+         style="fill:#dbdb8d;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14556">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="WhileStatement"
+         id="path14558"
+         style="fill:#c7c7c7;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14560">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="WithStatement"
+         id="path14562"
+         style="fill:#9edae5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14564">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="CallExpression"
+         id="path14566"
+         style="fill:#bcbd22;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14568">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="BreakStatement"
+         id="path14570"
+         style="fill:#1f77b4;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14572">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ObjectDeleteExpression"
+         id="path14574"
+         style="fill:#ff7f0e;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14576">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ObjectUpdateExpression"
+         id="path14578"
+         style="fill:#9edae5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14580">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="BlockStatement"
+         id="path14582"
+         style="fill:#aec7e8;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14584">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="SwitchStatement"
+         id="path14586"
+         style="fill:#2ca02c;stroke:#ffffff;stroke-width:1" />
+    </g>
+  </g>
+  <g
+     transform="translate(371.19581,646.37675)"
+     class="pie"
+     id="g14588">
+    <text
+       transform="translate(0,-120)"
+       font-size="16"
+       id="text14590"
+       style="font-size:16px;text-anchor:middle;font-family:sans-serif">RegExp</text>
+    <g
+       class="slice"
+       id="g14592">
+      <path
+         d="M 0,-100 A 100,100 0 0 1 96.256469,27.105207 L 0,0 z"
+         category="Literal"
+         id="path14594"
+         style="fill:#ff7f0e;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14596">
+      <path
+         d="M 96.256469,27.105207 A 100,100 0 0 1 -24.849015,96.863442 L 0,0 z"
+         category="MethodCallExpression"
+         id="path14598"
+         style="fill:#8c564b;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14600">
+      <path
+         d="M -24.849015,96.863442 A 100,100 0 0 1 -98.414552,17.736288 L 0,0 z"
+         category="ObjectGetExpression"
+         id="path14602"
+         style="fill:#aec7e8;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14604">
+      <path
+         d="m -98.414552,17.736288 a 100,100 0 0 1 21.88124,-82.099726 L 0,0 z"
+         category="BinaryExpression"
+         id="path14606"
+         style="fill:#1f77b4;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14608">
+      <path
+         d="M -76.533312,-64.363438 A 100,100 0 0 1 -1.6591116,-99.986236 L 0,0 z"
+         category="UpdateExpression"
+         id="path14610"
+         style="fill:#98df8a;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14612">
+      <path
+         d="m -1.6591116,-99.986236 a 100,100 0 0 1 0.92678364,-0.01108 L 0,0 z"
+         category="VariableDeclaration"
+         id="path14614"
+         style="fill:#2ca02c;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14616">
+      <path
+         d="m -0.73232796,-99.997318 a 100,100 0 0 1 0.38533085,-0.0021 L 0,0 z"
+         category="ForStatement"
+         id="path14618"
+         style="fill:#17becf;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14620">
+      <path
+         d="m -0.34699711,-99.999398 a 100,100 0 0 1 0.26749505,-5.7e-4 L 0,0 z"
+         category="ObjectSetExpression"
+         id="path14622"
+         style="fill:#ff9896;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14624">
+      <path
+         d="M -0.07950206,-99.999968 A 100,100 0 0 1 -0.00378195,-100 L 0,0 z"
+         category="FunctionCallExpression"
+         id="path14626"
+         style="fill:#c49c94;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14628">
+      <path
+         d="m -0.00378195,-100 a 100,100 0 0 1 0.00170431,0 L 0,0 z"
+         category="ArrayExpression"
+         id="path14630"
+         style="fill:#ff7f0e;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14632">
+      <path
+         d="m -0.00207764,-100 a 100,100 0 0 1 0.001688083,0 L 0,0 z"
+         category="ReturnStatement"
+         id="path14634"
+         style="fill:#c5b0d5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14636">
+      <path
+         d="m -3.895569e-4,-100 a 100,100 0 0 1 2.92167675e-4,0 L 0,0 z"
+         category="FunctionDeclaration"
+         id="path14638"
+         style="fill:#98df8a;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14640">
+      <path
+         d="m -9.7389225e-5,-100 a 100,100 0 0 1 4.8694612e-5,0 L 0,0 z"
+         category="NewExpression"
+         id="path14642"
+         style="fill:#7f7f7f;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14644">
+      <path
+         d="m -4.8694613e-5,-100 a 100,100 0 0 1 3.2463075e-5,0 L 0,0 z"
+         category="AssignmentExpression"
+         id="path14646"
+         style="fill:#d62728;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14648">
+      <path
+         d="M -1.6231538e-5,-100 A 100,100 0 0 1 0,-100 L 0,0 z"
+         category="ThisExpression"
+         transform="translate(-8.1157685e-7,-10)"
+         id="path14650"
+         style="fill:#ffbb78;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14652">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="EmptyStatement"
+         id="path14654"
+         style="fill:#c49c94;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14656">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="FunctionExpression"
+         id="path14658"
+         style="fill:#1f77b4;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14660">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="Identifier"
+         id="path14662"
+         style="fill:#c7c7c7;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14664">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="IfStatement"
+         id="path14666"
+         style="fill:#9467bd;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14668">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="DebuggerStatement"
+         id="path14670"
+         style="fill:#17becf;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14672">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="LabeledStatement"
+         id="path14674"
+         style="fill:#7f7f7f;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14676">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="LogicalExpression"
+         id="path14678"
+         style="fill:#dbdb8d;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14680">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="MemberExpression"
+         id="path14682"
+         style="fill:#c5b0d5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14684">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="DoWhileStatement"
+         id="path14686"
+         style="fill:#ffbb78;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14688">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ObjectExpression"
+         id="path14690"
+         style="fill:#aec7e8;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14692">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="Program"
+         id="path14694"
+         style="fill:#ffbb78;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14696">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="Property"
+         id="path14698"
+         style="fill:#2ca02c;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14700">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ContinueStatement"
+         id="path14702"
+         style="fill:#ff9896;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14704">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="SequenceExpression"
+         id="path14706"
+         style="fill:#bcbd22;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14708">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ForInStatement"
+         id="path14710"
+         style="fill:#d62728;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14712">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="SwitchCase"
+         id="path14714"
+         style="fill:#8c564b;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14716">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ExpressionStatement"
+         id="path14718"
+         style="fill:#9467bd;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14720">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ThrowStatement"
+         id="path14722"
+         style="fill:#e377c2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14724">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="TryStatement"
+         id="path14726"
+         style="fill:#f7b6d2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14728">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="UnaryExpression"
+         id="path14730"
+         style="fill:#f7b6d2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14732">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ConditionalExpression"
+         id="path14734"
+         style="fill:#e377c2;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14736">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="CatchClause"
+         id="path14738"
+         style="fill:#98df8a;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14740">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="VariableDeclarator"
+         id="path14742"
+         style="fill:#dbdb8d;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14744">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="WhileStatement"
+         id="path14746"
+         style="fill:#c7c7c7;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14748">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="WithStatement"
+         id="path14750"
+         style="fill:#9edae5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14752">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="CallExpression"
+         id="path14754"
+         style="fill:#bcbd22;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14756">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="BreakStatement"
+         id="path14758"
+         style="fill:#1f77b4;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14760">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ObjectDeleteExpression"
+         id="path14762"
+         style="fill:#ff7f0e;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14764">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="ObjectUpdateExpression"
+         id="path14766"
+         style="fill:#9edae5;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14768">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="BlockStatement"
+         id="path14770"
+         style="fill:#aec7e8;stroke:#ffffff;stroke-width:1" />
+    </g>
+    <g
+       class="slice"
+       id="g14772">
+      <path
+         d="m 0,-100 a 0,0 0 0 0 0,0 L 0,0 z"
+         category="SwitchStatement"
+         id="path14774"
+         style="fill:#2ca02c;stroke:#ffffff;stroke-width:1" />
+    </g>
+  </g>
+  <rect
+     id="rect14778"
+     style="fill:#1f77b4"
+     category="BinaryExpression"
+     height="15"
+     width="15"
+     y="46.376747"
+     x="781.1958" />
+  <rect
+     id="rect14780"
+     style="fill:#aec7e8"
+     category="ObjectGetExpression"
+     height="15"
+     width="15"
+     y="76.376747"
+     x="781.1958" />
+  <rect
+     id="rect14782"
+     style="fill:#ff7f0e"
+     category="Literal"
+     height="15"
+     width="15"
+     y="106.37675"
+     x="781.1958" />
+  <rect
+     id="rect14784"
+     clicked="true"
+     style="fill:#ffbb78;stroke:#000000;stroke-width:2"
+     category="ThisExpression"
+     height="15"
+     width="15"
+     y="136.37674"
+     x="781.1958" />
+  <rect
+     id="rect14786"
+     style="fill:#2ca02c"
+     category="VariableDeclaration"
+     height="15"
+     width="15"
+     y="166.37674"
+     x="781.1958" />
+  <rect
+     id="rect14788"
+     style="fill:#98df8a"
+     category="UpdateExpression"
+     height="15"
+     width="15"
+     y="196.37674"
+     x="781.1958" />
+  <rect
+     id="rect14790"
+     style="fill:#d62728"
+     category="AssignmentExpression"
+     height="15"
+     width="15"
+     y="226.37674"
+     x="781.1958" />
+  <rect
+     id="rect14792"
+     style="fill:#ff9896"
+     category="ObjectSetExpression"
+     height="15"
+     width="15"
+     y="256.37674"
+     x="781.1958" />
+  <rect
+     id="rect14794"
+     style="fill:#9467bd"
+     category="IfStatement"
+     height="15"
+     width="15"
+     y="286.37674"
+     x="781.1958" />
+  <rect
+     id="rect14796"
+     style="fill:#c5b0d5"
+     category="ReturnStatement"
+     height="15"
+     width="15"
+     y="316.37674"
+     x="781.1958" />
+  <rect
+     id="rect14798"
+     style="fill:#8c564b"
+     category="MethodCallExpression"
+     height="15"
+     width="15"
+     y="346.37674"
+     x="781.1958" />
+  <rect
+     id="rect14800"
+     style="fill:#c49c94"
+     category="FunctionCallExpression"
+     height="15"
+     width="15"
+     y="376.37674"
+     x="781.1958" />
+  <rect
+     id="rect14802"
+     style="fill:#e377c2"
+     category="ConditionalExpression"
+     height="15"
+     width="15"
+     y="406.37674"
+     x="781.1958" />
+  <rect
+     id="rect14804"
+     style="fill:#f7b6d2"
+     category="UnaryExpression"
+     height="15"
+     width="15"
+     y="436.37674"
+     x="781.1958" />
+  <rect
+     id="rect14806"
+     style="fill:#7f7f7f"
+     category="NewExpression"
+     height="15"
+     width="15"
+     y="466.37674"
+     x="781.1958" />
+  <rect
+     id="rect14808"
+     style="fill:#c7c7c7"
+     category="WhileStatement"
+     height="15"
+     width="15"
+     y="496.37674"
+     x="781.1958" />
+  <rect
+     id="rect14810"
+     style="fill:#bcbd22"
+     category="SequenceExpression"
+     height="15"
+     width="15"
+     y="526.37677"
+     x="781.1958" />
+  <rect
+     id="rect14812"
+     style="fill:#dbdb8d"
+     category="LogicalExpression"
+     height="15"
+     width="15"
+     y="556.37677"
+     x="781.1958" />
+  <rect
+     id="rect14814"
+     style="fill:#17becf"
+     category="ForStatement"
+     height="15"
+     width="15"
+     y="586.37677"
+     x="781.1958" />
+  <rect
+     id="rect14816"
+     style="fill:#9edae5"
+     category="ObjectUpdateExpression"
+     height="15"
+     width="15"
+     y="616.37677"
+     x="781.1958" />
+  <rect
+     id="rect14818"
+     style="fill:#1f77b4"
+     category="FunctionExpression"
+     height="15"
+     width="15"
+     y="646.37677"
+     x="781.1958" />
+  <rect
+     id="rect14820"
+     style="fill:#aec7e8"
+     category="ObjectExpression"
+     height="15"
+     width="15"
+     y="676.37677"
+     x="781.1958" />
+  <rect
+     id="rect14822"
+     style="fill:#ff7f0e"
+     category="ArrayExpression"
+     height="15"
+     width="15"
+     y="706.37677"
+     x="781.1958" />
+  <rect
+     id="rect14824"
+     style="fill:#ffbb78"
+     category="DoWhileStatement"
+     height="15"
+     width="15"
+     y="736.37677"
+     x="781.1958" />
+  <rect
+     id="rect14826"
+     style="fill:#2ca02c"
+     category="SwitchStatement"
+     height="15"
+     width="15"
+     y="766.37677"
+     x="781.1958" />
+  <rect
+     id="rect14828"
+     style="fill:#98df8a"
+     category="FunctionDeclaration"
+     height="15"
+     width="15"
+     y="796.37677"
+     x="781.1958" />
+  <rect
+     id="rect14830"
+     style="fill:#d62728"
+     category="ForInStatement"
+     height="15"
+     width="15"
+     y="826.37677"
+     x="781.1958" />
+  <text
+     style="font-size:16px;font-family:sans-serif"
+     id="text14832"
+     font-size="16"
+     category="BinaryExpression"
+     text-anchor="west"
+     y="58.376747"
+     x="801.1958">BinaryExpression</text>
+  <text
+     style="font-size:16px;font-family:sans-serif"
+     id="text14834"
+     font-size="16"
+     category="ObjectGetExpression"
+     text-anchor="west"
+     y="88.376747"
+     x="801.1958">ObjectGetExpression</text>
+  <text
+     style="font-size:16px;font-family:sans-serif"
+     id="text14836"
+     font-size="16"
+     category="Literal"
+     text-anchor="west"
+     y="118.37675"
+     x="801.1958">Literal</text>
+  <text
+     style="font-size:16px;font-weight:bold;font-family:sans-serif"
+     id="text14838"
+     font-weight="bold"
+     font-size="16"
+     category="ThisExpression"
+     text-anchor="west"
+     y="148.37674"
+     x="801.1958">ThisExpression</text>
+  <text
+     style="font-size:16px;font-family:sans-serif"
+     id="text14840"
+     font-size="16"
+     category="VariableDeclaration"
+     text-anchor="west"
+     y="178.37674"
+     x="801.1958">VariableDeclaration</text>
+  <text
+     style="font-size:16px;font-family:sans-serif"
+     id="text14842"
+     font-size="16"
+     category="UpdateExpression"
+     text-anchor="west"
+     y="208.37674"
+     x="801.1958">UpdateExpression</text>
+  <text
+     style="font-size:16px;font-family:sans-serif"
+     id="text14844"
+     font-size="16"
+     category="AssignmentExpression"
+     text-anchor="west"
+     y="238.37674"
+     x="801.1958">AssignmentExpression</text>
+  <text
+     style="font-size:16px;font-family:sans-serif"
+     id="text14846"
+     font-size="16"
+     category="ObjectSetExpression"
+     text-anchor="west"
+     y="268.37674"
+     x="801.1958">ObjectSetExpression</text>
+  <text
+     style="font-size:16px;font-family:sans-serif"
+     id="text14848"
+     font-size="16"
+     category="IfStatement"
+     text-anchor="west"
+     y="298.37674"
+     x="801.1958">IfStatement</text>
+  <text
+     style="font-size:16px;font-family:sans-serif"
+     id="text14850"
+     font-size="16"
+     category="ReturnStatement"
+     text-anchor="west"
+     y="328.37674"
+     x="801.1958">ReturnStatement</text>
+  <text
+     style="font-size:16px;font-family:sans-serif"
+     id="text14852"
+     font-size="16"
+     category="MethodCallExpression"
+     text-anchor="west"
+     y="358.37674"
+     x="801.1958">MethodCallExpression</text>
+  <text
+     style="font-size:16px;font-family:sans-serif"
+     id="text14854"
+     font-size="16"
+     category="FunctionCallExpression"
+     text-anchor="west"
+     y="388.37674"
+     x="801.1958">FunctionCallExpression</text>
+  <text
+     style="font-size:16px;font-family:sans-serif"
+     id="text14856"
+     font-size="16"
+     category="ConditionalExpression"
+     text-anchor="west"
+     y="418.37674"
+     x="801.1958">ConditionalExpression</text>
+  <text
+     style="font-size:16px;font-family:sans-serif"
+     id="text14858"
+     font-size="16"
+     category="UnaryExpression"
+     text-anchor="west"
+     y="448.37674"
+     x="801.1958">UnaryExpression</text>
+  <text
+     style="font-size:16px;font-family:sans-serif"
+     id="text14860"
+     font-size="16"
+     category="NewExpression"
+     text-anchor="west"
+     y="478.37674"
+     x="801.1958">NewExpression</text>
+  <text
+     style="font-size:16px;font-family:sans-serif"
+     id="text14862"
+     font-size="16"
+     category="WhileStatement"
+     text-anchor="west"
+     y="508.37674"
+     x="801.1958">WhileStatement</text>
+  <text
+     style="font-size:16px;font-family:sans-serif"
+     id="text14864"
+     font-size="16"
+     category="SequenceExpression"
+     text-anchor="west"
+     y="538.37677"
+     x="801.1958">SequenceExpression</text>
+  <text
+     style="font-size:16px;font-family:sans-serif"
+     id="text14866"
+     font-size="16"
+     category="LogicalExpression"
+     text-anchor="west"
+     y="568.37677"
+     x="801.1958">LogicalExpression</text>
+  <text
+     style="font-size:16px;font-family:sans-serif"
+     id="text14868"
+     font-size="16"
+     category="ForStatement"
+     text-anchor="west"
+     y="598.37677"
+     x="801.1958">ForStatement</text>
+  <text
+     style="font-size:16px;font-family:sans-serif"
+     id="text14870"
+     font-size="16"
+     category="ObjectUpdateExpression"
+     text-anchor="west"
+     y="628.37677"
+     x="801.1958">ObjectUpdateExpression</text>
+  <text
+     style="font-size:16px;font-family:sans-serif"
+     id="text14872"
+     font-size="16"
+     category="FunctionExpression"
+     text-anchor="west"
+     y="658.37677"
+     x="801.1958">FunctionExpression</text>
+  <text
+     style="font-size:16px;font-family:sans-serif"
+     id="text14874"
+     font-size="16"
+     category="ObjectExpression"
+     text-anchor="west"
+     y="688.37677"
+     x="801.1958">ObjectExpression</text>
+  <text
+     style="font-size:16px;font-family:sans-serif"
+     id="text14876"
+     font-size="16"
+     category="ArrayExpression"
+     text-anchor="west"
+     y="718.37677"
+     x="801.1958">ArrayExpression</text>
+  <text
+     style="font-size:16px;font-family:sans-serif"
+     id="text14878"
+     font-size="16"
+     category="DoWhileStatement"
+     text-anchor="west"
+     y="748.37677"
+     x="801.1958">DoWhileStatement</text>
+  <text
+     style="font-size:16px;font-family:sans-serif"
+     id="text14880"
+     font-size="16"
+     category="SwitchStatement"
+     text-anchor="west"
+     y="778.37677"
+     x="801.1958">SwitchStatement</text>
+  <text
+     style="font-size:16px;font-family:sans-serif"
+     id="text14882"
+     font-size="16"
+     category="FunctionDeclaration"
+     text-anchor="west"
+     y="808.37677"
+     x="801.1958">FunctionDeclaration</text>
+  <text
+     style="font-size:16px;font-family:sans-serif"
+     id="text14884"
+     font-size="16"
+     category="ForInStatement"
+     text-anchor="west"
+     y="838.37677"
+     x="801.1958">ForInStatement</text>
+</svg>
