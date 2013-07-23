@@ -135,25 +135,25 @@ RegExp       &\factor{  1.01} &\factor{   .99} &\factor{  1.02} &\factor{  1.03}
 \end{table}
 
 
-\begin{table}[t]
-\centering
-\begin{tabular}{|l|r|r|r|r|}
-\hline
-          & \multicolumn{1}{c|}{Safari} & \multicolumn{1}{c|}{Chrome} & \multicolumn{1}{c|}{Firefox} & \multicolumn{1}{c|}{Firefox} \\
-Benchmark & \multicolumn{1}{c|}{JIT}    & \multicolumn{1}{c|}{JIT}    & \multicolumn{1}{c|}{JIT}     & \multicolumn{1}{c|}{interp.}     \\
-\hline
-Richards     &\factor{ 43.44} &\factor{ 36.74} &\factor{ 83.33} &\factor{  9.85} \\
-RayTrace     &\factor{ 11.65} &\factor{ 16.46} &\factor{ 37.69} &\factor{  6.79} \\
-DeltaBlue    &\factor{ 30.16} &\factor{ 42.28} &\factor{121.09} &\factor{ 10.77} \\
-EarleyBoyer  &\factor{  5.67} &\factor{ 10.63} &\factor{ 23.74} &\factor{  4.82} \\
-Crypto       &\factor{ 12.27} &\factor{  7.89} &\factor{ 22.32} &\factor{  3.47} \\
-Splay        &\factor{  3.18} &\factor{  3.11} &\factor{  6.29} &\factor{  5.04} \\
-NavierStokes &\factor{  4.13} &\factor{  6.45} &\factor{ 15.35} &\factor{  5.17} \\
-RegExp       &\factor{  2.31} &\factor{  1.65} &\factor{  3.27} &\factor{  3.33} \\
-\hline
-{\it Geom.~mean} & \factor{\it 8.68} & \factor{\it 9.58} & \factor{\it 22.41} & \factor{\it 5.65} \\ \hline
-\end{tabular}
-\caption[Execution speed slowdown of esprof]{Execution speed slowdown of the V8 benchmark suite transformed by esprof
-on each JIT VM}
-\label{tb:esprof-slowdown}
-\end{table}
+%\begin{table}[t]
+%\centering
+%\begin{tabular}{|l|r|r|r|r|}
+%\hline
+%          & \multicolumn{1}{c|}{Safari} & \multicolumn{1}{c|}{Chrome} & \multicolumn{1}{c|}{Firefox} & \multicolumn{1}{c|}{Firefox} \\
+%Benchmark & \multicolumn{1}{c|}{JIT}    & \multicolumn{1}{c|}{JIT}    & \multicolumn{1}{c|}{JIT}     & \multicolumn{1}{c|}{interp.}     \\
+%\hline
+%Richards     &\factor{ 43.44} &\factor{ 36.74} &\factor{ 83.33} &\factor{  9.85} \\
+%RayTrace     &\factor{ 11.65} &\factor{ 16.46} &\factor{ 37.69} &\factor{  6.79} \\
+%DeltaBlue    &\factor{ 30.16} &\factor{ 42.28} &\factor{121.09} &\factor{ 10.77} \\
+%EarleyBoyer  &\factor{  5.67} &\factor{ 10.63} &\factor{ 23.74} &\factor{  4.82} \\
+%Crypto       &\factor{ 12.27} &\factor{  7.89} &\factor{ 22.32} &\factor{  3.47} \\
+%Splay        &\factor{  3.18} &\factor{  3.11} &\factor{  6.29} &\factor{  5.04} \\
+%NavierStokes &\factor{  4.13} &\factor{  6.45} &\factor{ 15.35} &\factor{  5.17} \\
+%RegExp       &\factor{  2.31} &\factor{  1.65} &\factor{  3.27} &\factor{  3.33} \\
+%\hline
+%{\it Geom.~mean} & \factor{\it 8.68} & \factor{\it 9.58} & \factor{\it 22.41} & \factor{\it 5.65} \\ \hline
+%\end{tabular}
+%\caption[Execution speed slowdown of esprof]{Execution speed slowdown of the V8 benchmark suite transformed by esprof
+%on each JIT VM}
+%\label{tb:esprof-slowdown}
+%\end{table}
