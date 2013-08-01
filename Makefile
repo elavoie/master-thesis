@@ -55,6 +55,7 @@ thesis.pdf: $(FILES) $(FIGURES) $(MAIN).tex ref.bib
 	$(LATEX) thesis.tex
 	$(DVIPS) -Ppdf -o thesis.ps thesis.dvi
 	$(PS2PDF) thesis.ps 
+	cp thesis.pdf dissertation.pdf 
     
 #	while grep -s 'Rerun' $*.log 2> /dev/null; do	\
 #		$(LATEX) $*.tex;			\

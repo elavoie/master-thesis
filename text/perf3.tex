@@ -40,8 +40,8 @@ event-driven with functions executing for a few milliseconds at a time,
 therefore they were not bound by the peak performance of JS VMs, optimized for
 CPU-bound and batch-oriented tasks. We therefore anticipate that Photon would
 introduce a small perceived overhead on real-world applications, since an
-overhead is only introduced on a subset of JavaScript operations and the
-rendering operations of the browser and the network communication are
+overhead is only introduced on a subset of JavaScript operations while the
+rendering operations of the browser and the network communications are
 unaffected.
 
 
@@ -56,12 +56,12 @@ as control-flow operations and regular expression matching.
 % What are the most interesting results?
 Photon aims to simplify the task of writing dynamic instrumentations, that
 previously were made by modifying the source code of a production interpreter.
-We therefore compare the inherent overhead of Photon, to the performance of a
+We therefore compare the inherent overhead of Photon to the performance of a
 production interpreter with its JIT-compiler disabled. The major finding of
 this performance evaluation is that the overall inherent overhead of Photon is
 sufficiently low that Photon executing over a VM with a JIT-compiler is faster
 than the Firefox interpreter.  It means that VM layering can be a competitive
-approach compared to instrumenting an interpreter.
+approach compared to the modification of a state-of-the-art interpreter.
 
 In the next sections, we first evaluate the overhead of the approach and relate
 it to the nature of the benchmarks. We show the necessity of optmizing the
@@ -195,7 +195,7 @@ receiver object.
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=.80\textwidth]{figures/slowdownVSThisRatio}
-\caption[Slowdown vs Ratio of this operations]{Comparison of the inherent overhead of Photon with the measured ratio of \kw{this} operations during execution.}
+\caption[Slowdown and ratio of \kw{this} operations]{Comparison of the inherent overhead of Photon with the measured ratio of \kw{this} operations during execution.}
 \label{fig:slowdown-vs-this-ratio}
 \end{center}
 \end{figure}

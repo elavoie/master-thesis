@@ -11,7 +11,7 @@ source-to-source transformations. This dissertation presents an alternative
 based on \emph{virtual machine layering}. Our approach performs a dynamic
 translation of the client program to expose low-level operations through a
 flexible \emph{object model}. These low-level operations can then be redefined
-at run-time to monitor the execution. In order to limit the incurred
+at run time to monitor the execution. In order to limit the incurred
 performance overhead, our approach leverages fast operations from the
 underlying host VM implementation whenever possible, and applies Just-In-Time
 compilation (JIT) techniques within the added virtual machine layer. Our
@@ -19,8 +19,8 @@ implementation, Photon, is on average 19\% faster than a state-of-the-art
 interpreter, and between \factor{19} and \factor{56} slower on average than the
 commercial JIT compilers found in popular web browsers.  This dissertation
 therefore shows that \emph{virtual machine layering} is a competitive
-alternative approach to VM instrumentation when applied to run-time monitoring
-of object operations and function calls.  
+alternative approach to the modification of a production JavaScript interpreter
+when applied to run-time monitoring of object operations and function calls.  
 			
 
 Keywords: Metacircularity, Instrumentation, Dynamism, Object Model,

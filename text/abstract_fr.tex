@@ -11,20 +11,21 @@ L'observation de l'ex\'ecution d'applications JavaScript est habituellement
 r\'ealis\'ee en instrumentant une machine virtuelle (MV) industrielle ou en
 effectuant une traduction source-\`a-source \textit{ad hoc} et complexe. Ce
 m\'emoire pr\'esente une alternative bas\'ee sur la superposition de machines
-virtuelles. Notre approche consiste \`a faire une traduction source-\`a-source d'un
-programme pendant son ex\'ecution pour exposer ses op\'erations de bas niveau au
-travers d'un \emph{mod\`ele objet} flexible. Ces op\'erations de bas niveau peuvent
-ensuite \^etre red\'efinies pendant l'ex\'ecution pour pouvoir en faire l'observation.
-Pour limiter la p\'enalit\'e en performance introduite, notre approche exploite les
-op\'erations rapides originales de la MV sous-jacente, lorsque cela est possible,
-et applique les techniques de compilation \`a-la-vol\'ee dans la MV superpos\'ee.
-Notre impl\'ementation, Photon, est en moyenne 19\% plus rapide qu'un interpr\`ete
-moderne, et entre \factor{19} et \factor{56} plus lente en moyenne que les
-compilateurs \`a-la-vol\'ee utilis\'es dans les navigateurs web populaires. Ce
-m\'emoire montre donc que la superposition de machines virtuelles est une
-technique alternative comp\'etitive \`a l'instrumentation d'une machine virtuelle
-lorsqu'appliqu\'e \`a l'observation \`a l'ex\'ecution des op\'erations sur les objets et
-des appels de fonction.
+virtuelles. Notre approche consiste \`a faire une traduction source-\`a-source
+d'un programme pendant son ex\'ecution pour exposer ses op\'erations de bas
+niveau au travers d'un \emph{mod\`ele objet} flexible. Ces op\'erations de bas
+niveau peuvent ensuite \^etre red\'efinies pendant l'ex\'ecution pour pouvoir
+en faire l'observation.  Pour limiter la p\'enalit\'e en performance
+introduite, notre approche exploite les op\'erations rapides originales de la
+MV sous-jacente, lorsque cela est possible, et applique les techniques de
+compilation \`a-la-vol\'ee dans la MV superpos\'ee.  Notre impl\'ementation,
+Photon, est en moyenne 19\% plus rapide qu'un interpr\`ete moderne, et entre
+\factor{19} et \factor{56} plus lente en moyenne que les compilateurs
+\`a-la-vol\'ee utilis\'es dans les navigateurs web populaires. Ce m\'emoire
+montre donc que la superposition de machines virtuelles est une technique
+alternative comp\'etitive \`a la modification d'un interpr\`ete moderne pour
+JavaScript lorsqu'appliqu\'e \`a l'observation \`a l'ex\'ecution des
+op\'erations sur les objets et des appels de fonction.
 
 Mots-cl\'es: M\'eta-circularit\'e, Instrumentation, Dynamisme, Mod\`ele Objet,
 Flexibilit\'e, Performance, Machine Virtuelle, JavaScript  
