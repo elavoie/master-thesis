@@ -47,15 +47,15 @@ unaffected.
 
 % What performance proxy has been used? Why?
 For evaluating the performance of Photon, we chose CPU-bound, JavaScript-only
-tasks, to evaluate the worst-case schenario. It allowed us to perform the
+tasks, to evaluate the worst-case scenario. It allowed us to perform the
 evaluation independently of a full integration with a web browser. We use the
 V8 benchmarks version 7 because they stress many features of the language, some that
 Photon reifies, such as object operations and some that Photon does not, such
 as control-flow operations and regular expression matching.
 
 % What are the most interesting results?
-Photon aims to simplify the task of writing dynamic instrumentations, that
-previously were made by modifying the source code of a production interpreter.
+Photon aims to simplify the task of writing dynamic instrumentations that were
+previously made by modifying the source code of a production interpreter.
 We therefore compare the inherent overhead of Photon to the performance of a
 production interpreter with its JIT-compiler disabled. The major finding of
 this performance evaluation is that the overall inherent overhead of Photon is
@@ -64,7 +64,7 @@ than the Firefox interpreter.  It means that VM layering can be a competitive
 approach compared to the modification of a state-of-the-art interpreter.
 
 In the next sections, we first evaluate the overhead of the approach and relate
-it to the nature of the V8 benchmarks. We show the necessity of optmizing the
+it to the nature of the V8 benchmarks. We show the necessity of optimizing the
 message sends. We then compare the inherent overhead when running over
 different JITs to the bare execution of benchmarks over the Firefox
 interpreter. Finally, we measure the instrumentation overhead of a simple
@@ -121,7 +121,7 @@ Photon in terms of its slowdown factor, a multiple of the execution time
 required to perform the same task. The slowdown factor is illustrated on a
 logarithmic scale. The results for each benchmarks are grouped for each of the
 VMs evaluated. Minimal and maximal values are shown near their corresponding
-benchmarks and the goemetric mean is provided to compare VMs.
+benchmarks and the geometric mean is provided to compare VMs.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -144,12 +144,12 @@ enclosed in a \kw{try finally} statement, knowing that current compilers do not
 optimize \kw{try} bodies. We then observed that the performance of the
 JIT-based VMs became similar to that of the Firefox interpreter.
 
-For JIT-based VMs, the important variablity of the results accross different
-benchmarks illustrate partially the effect of the differential implementation
+For JIT-based VMs, the important variability of the results across different
+benchmarks partially illustrates the effect of the differential implementation
 strategy for Photon (some operations of the language are reified while other
 are simply directly reused). The effect is clear on the RegExp benchmark where
-a significant part of the time is spent executing the matching algorithm of
-regular expressions, which Photon directly reuse from the underlying VM.
+a significant amount of time is spent executing the matching algorithm of
+regular expressions, which Photon directly reuses from the underlying VM.
 
 For other benchmarks, the effect is less evident and the higher slowdowns can
 be attributed to the ability of the JIT compiler to optimize the reified
@@ -161,7 +161,7 @@ operations instrumented. For example, almost a quarter of all operations
 counted for the Richards benchmark are accesses to the \kw{this} object, from
 within a method. Although, NavierStokes and RegExp have a similar proportion of
 object accesses (\kw{ObjectGetExpression}) compared to Richards, RayTrace and
-DeltaBlue, a fifth compared to a fourth or a thirth, their execution time is
+DeltaBlue, a fifth compared to a fourth or a third, their execution time is
 significantly faster, by at least an order of magnitude. It suggests some
 operations such as array accesses are much better optimized than other object
 accesses.
@@ -177,9 +177,9 @@ accesses.
 Comparing the frequency of each operations to the observed slowdown yielded a
 confirmation of the validity of the differential strategy and an interesting
 insight. For all control-flow operations, no clear correlation could be found,
-which is unsurprising since the operations are not reified. However, of all the
-operations observed, it is the frequency of the \kw{this} operation that seems
-to correlate the most to the slowdowns observed.
+which is not surprising given that the operations are not reified. However, of
+all the operations observed, it is the frequency of the \kw{this} operation
+that seems to correlate the most to the slowdowns observed.
 Figure~\ref{fig:slowdown-vs-this-ratio} shows again the measured slowdowns,
 grouped by benchmark and on a linear scale, and compares it to the ratio of
 \kw{this} operations as in Figure~\ref{fig:operation-ratios}.  We attribute
@@ -189,8 +189,8 @@ instead of implicitly, as would be the case in the original JavaScript code. It
 is likely that the compiler can optimize away type tests on operations using
 the \kw{this} identifier within a method because it cannot be assigned,
 therefore the object referred to remains constant throughout the method. This
-can in turn facilitates the inlining of method calls using \kw{this} as the
-receiver object.
+then facilitates the inlining of method calls using \kw{this} as the receiver
+object.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -251,13 +251,13 @@ interpreter. The Firefox JIT however is more than two times slower. Notice how
 the NavierStokes and Crypto benchmarks are more than seven times \textit{faster}
 than their interpreter counterpart, while performing object operations and
 binary operations on numbers and strings. This is where the layered VM strategy
-seems to really shines compared to the instrumentation of an interpreter, by
+seems to really shine compared to the instrumentation of an interpreter, by
 allowing the JIT to optimize through the additional abstraction layer.
 
-The small performance difference between the Safari and Chrome JIT, but
-significant in the worst case on the RayTrace benchmark, suggests preferring the
-former if the browser implementation does not matter for a particular
-instrumentation.
+There is a small performance difference between the Safari and Chrome JIT, but
+it is significant in the worst case on the RayTrace benchmark, which suggests
+that the former is to be preferred if the browser implementation does not
+matter for a particular instrumentation.
 
 
 
@@ -277,13 +277,14 @@ indicates the execution speed ratio (smaller than one is better for Photon).}
 \section{Performance with instrumentation}
 
 
-Finally, we have evaluated the performance of Photon with an instrumentation
-that counts the number of run-time occurrences of the following object
-representation operations: property read, write and deletion. We chose this
-particular instrumentation because it is simple, it covers frequently used
-object model operations and it was actually used to gather information about JS
-(it can be used to reproduce the object read, write and deletion proportion
-figure from a previous investigation of the dynamic behavior of JavaScript programs~\cite{behavior_js}).
+In conclusion, we have evaluated the performance of Photon with an
+instrumentation that counts the number of run-time occurrences of the following
+object representation operations: property read, write, and deletion. We chose
+this particular instrumentation because it is simple, it covers frequently used
+object model operations, and it was actually used to gather information about
+JS (it can be used to reproduce the object read, write and deletion proportion
+figure from a previous investigation of the dynamic behavior of JavaScript
+programs~\cite{behavior_js}).
 
 Two implementations of this instrumentation were used; a simple and a
 fast version.  The simple version does not exploit memoization and
@@ -293,15 +294,13 @@ operation. The fast version uses the memoization protocol to inline
 the counter incrementations inside the optimized version of the object
 operations.
 
-The simple version is intended to measure the performance that can be
-expected from a quickly developed instrumentation while the fast
-version is intended to measure the performance impact of the
-instrumentation operations alone. This is therefore a low-barrier
-high-ceiling example and illustrates the flexibility that can be
-gained when the choice of aiming for performance is left to users of
-the system.  Not counting the result formatting code, the simple
-version is 16 lines of JS code and the fast version is 100 lines of
-JS code.
+The simple version is intended to measure the performance that can be expected
+from a quickly developed instrumentation while the fast version is intended to
+measure the performance impact of the instrumentation operations alone. This is
+therefore a low-barrier high-ceiling example and illustrates the flexibility
+that can be gained when the choice of aiming for performance is left to users
+of the system.  Ignoring the formatting code for the results, the simple
+version is 16 lines of JS code and the fast version is 100 lines of JS code.
 
 The execution speed slowdown of Photon on Safari is given in
 Figure~\ref{fig:instr-slowdown}. The slowdowns for the simple version are
@@ -316,7 +315,7 @@ original benchmarks directly on the Firefox interpreter.
 \includegraphics[width=.85\textwidth]{figures/InstrumentationSlowdown}
 \caption[Execution speed slowdown of Photon with an instrumentation]{Execution
 speed slowdown of Photon with a simple and a fast instrumentation of property
-read, write and delete on the Safari VM.}
+read, write, and delete on the Safari VM.}
 \label{fig:instr-slowdown}
 \end{center}
 \end{figure}

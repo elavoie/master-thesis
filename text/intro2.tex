@@ -3,19 +3,16 @@
 Run-time instrumentation of JavaScript (JS) is currently used for widely different
 purposes.  Notable examples are automatic benchmark extraction from web
 applications~\cite{Richards:2011}, empirical data gathering about the dynamic
-behavior of Web applications~\cite{behavior_js} and access permission contracts
+behavior of web applications~\cite{behavior_js} and access permission contracts
 enforcement~\cite{Heidegger:2012}. All these examples require instrumentation
-of object operations, such as property accesses, updates and deletion. They
+of object operations, such as property accesses, updates and deletions. They
 also require instrumentation of all function calls made to global functions,
 object methods, or function references, either directly or indirectly through
-their \kw{call} or \kw{apply} method.
+their \kw{call} or \kw{apply} methods.
 
-The standard semantics of JavaScript has no reflexion feature that completely
-covers those use cases. Object-method and global-function calls can be wrapped
-in closures to provide pre- and post-call instrumentation, providing a partial
-solution.  However, direct calls to function references and object operations
-cannot be intercepted. To work around this limitation, two main approaches are
-usually employed.
+Standard JavaScript semantics do not have reflection features that globally
+reify all object operations and function calls. To work around this limitation,
+two main approaches are usually employed.
 
 In the first approach, a production virtual machine (VM), usually written in
 C++, is modified to provide hooks on selected operations. It is increasingly
@@ -25,17 +22,16 @@ evolving counterpart.
 
 In the second approach, an \textit{ad hoc} source-to-source translator and
 run-time library are written for the problem at hand and the system is expected
-to run on top of a production VM. Depending on implementation choices, it can
-be more or less complicated to guarantee that instrumented objects cooperate
-well with the rest of the system. 
+to run on top of a production VM. Guaranteeing that instrumented objects
+cooperate with the rest of the system is deceptively difficult in practice.
 
 In both cases, instrumentation is achieved at a significant performance cost.
-On one hand, modifications of production VMs usually are done on an interpreter
+On one hand, modifications of production VMs are usually done on an interpreter
 because the instrumentation hooks can break invariants assumed throughout the
 JIT-compiler implementation. The modified VM will therefore at best run at
-interpreter-level speed. On the other hand, source-to-source translations can
-break the performance advantage of having a JIT-compiler by producing code
-that is hard for the JIT-compiler to optimize.
+interpreter-level speed at best. On the other hand, source-to-source
+translations can break the performance advantage of having a JIT-compiler by
+producing code that is hard for the JIT-compiler to optimize.
 
 In this dissertation, we present Photon, a framework based on \textit{virtual
 machine layering}. It is inspired by previous work on metaobject
@@ -51,14 +47,14 @@ This dissertation therefore shows that \emph{virtual machine layering} is a
 competitive alternative approach to VM instrumentation for run-time monitoring
 of object operations and function calls. It makes the following contributions:
 \begin{itemize}
-    \item An object representation that efficiently specializes its behavior at
-        run time by relying on the method caching behavior of the underlying host
-        VM~(Section~\ref{sec:ObjectRepresentation});
-    \item A message-sending optimization that specializes a reified operation
-        to its call site by using the underlying host VM fast global function
-        calls~(Section~\ref{sec:EfficientImplementation});
+    \item An object representation designed to take advantage of the method
+        caching behavior of the underlying host VM to efficiently specializes
+        its behavior~(Section~\ref{sec:ObjectRepresentation});
+    \item A message-sending optimization exploiting the underlying host VM fast
+        global function calls to specialize a reified operation to its call
+        site~(Section~\ref{sec:EfficientImplementation});
     \item A prototype JavaScript implementation, Photon, comprising both a runtime
-        library (around 1700 lines of code) and JavaScript-to-JavaScript compiler.
+        library (around 1700 lines of code) and a JavaScript-to-JavaScript compiler.
 \end{itemize}
 
 \section{Overview}
@@ -104,7 +100,7 @@ Our design aims to achieve the following properties:
         introduced by the abstraction layers.
 \end{itemize}
 
-\subsection{Overview of the Components}
+\subsection{Overview of the components}
 
 \begin{figure*}[htb]
 \begin{center}
@@ -117,7 +113,7 @@ and the features they provide, implement and use}
 In a conventional JS setting, we can view an application as running over a host
 high-performance VM. The metacircular VM approach adds another layer between
 the two, allowing instrumentations to target the middle layer instead of the
-host VM.  Figure~\ref{fig:Architecture} explicits the vertical interaction
+host VM.  Figure~\ref{fig:Architecture} explains the vertical interaction
 between layers by naming components and detailing which features are
 implemented using features of components below it as well as the feature they
 provide to the layer above. Note that the diagram represents a structural view
@@ -159,7 +155,7 @@ message-sending layer are encapsulated in the object representation operations.
 the original JavaScript code to use the run-time environment of Photon.
 Non-reified elements, such as control-flow operations and primitive values and
 operations are preserved.  Object operations and function calls are translated
-to message sends and become dynamically redefinable. Litteral object creation
+to message sends and become dynamically redefinable. Literal object creation
 is translated to use the object representation. The source-to-source compiler
 is in JavaScript and is therefore available at run-time. By staging it in front
 of every call to \kw{eval}, it effectively provides a JIT compiler to Photon.
@@ -188,7 +184,7 @@ A JS object contains a set of properties (a.k.a. fields in other OO languages),
 and a link to a parent object, known as the object's prototype. Properties are
 accessed with the notation \kw{obj.prop}, or equivalently \kw{obj["prop"]}.
 This allows objects to be treated as dictionaries whose keys are strings, or as
-one dimensional arrays (a numeric index is automatically converted to a
+one-dimensional arrays (a numeric index is automatically converted to a
 string).  When fetching a property that is not contained in the object, the
 property is searched in the object's prototype recursively. When storing a
 property that is not found in the object, the property is added to the object,
@@ -232,9 +228,9 @@ arrays, numbers, associative arrays and classes.  Examples of operations are
 object creation, addition, removal or update of properties as well as
 modification of the inheritance chain. Examples of time for performing
 operations are \textit{run time}, when a program is executing, \textit{compile
-time}, when a program is being compiled or \textit{edit time}, when a program's
+time}, when a program is being compiled, or \textit{edit time}, when a program's
 source code is being modified. An object model structures programs to obtain
-properties on the resulting system such as security, extensibility or
+properties on the resulting system such as security, extensibility, or
 performance. Most object models for programming languages provide an
 inheritance mechanism to facilitate \textit{extensibility} by allowing an object
 to be incrementally defined in terms of an existing object.
@@ -261,7 +257,7 @@ implementation by adding a level of indirection between the invocation and the
 execution of a given behavior. This indirection allows the behavior to change
 during a program's execution. Therefore, it is a source of \textit{dynamism}.
 
-Some languages call the program associated with a message, a \textit{method
+Some languages label the program associated with a message, a \textit{method
 implementation}, the message, a \textit{method name} and the act of sending a
 message, \textit{method calling}. This terminology is closely tied to an
 implementation strategy where the implementation is a function, the method name
